@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Caffè Aurora — Torrefazione Artigianale, Bakery & Aperitivi</title>
+  <meta name="description" content="Caffè Aurora nel centro storico. Specialty coffee tostati con cura, cornetti a lievitazione lenta sfornati all'alba, pranzi veloci e autentico aperitivo italiano con stuzzichini caldi.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+  <!-- Typography: Cormorant Garamond (Bistrot Classico) & DM Sans (Moderna Leggibile) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tostato: {
+              DEFAULT: '#8C532E',
+              hover: '#733F1E',
+              dark: '#4A2610',
+              soft: '#F8F1EA',
+              light: '#B37346',
+            },
+            ardesia: {
+              DEFAULT: '#261F1A',
+              deep: '#181310',
+              light: '#3E342D',
+              muted: '#6B5E55',
+              border: '#3A2E26',
+            },
+            crema: {
+              bg: '#FAF7F2',
+              card: '#FFFFFF',
+              border: '#E8E1D5',
+              borderDark: '#D6CBBA',
+              muted: '#73685E',
+              subtle: '#F0E9DC',
+            },
+            ambra: {
+              DEFAULT: '#C98A3C',
+              soft: '#FDF7EB',
+              accent: '#E0A14E',
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Caffè Aurora",
+    "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
+    "telephone": "+39069500123",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Corso Vittorio Emanuele 42",
+      "addressLocality": "Roma",
+      "postalCode": "00186",
+      "addressCountry": "IT"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "06:30",
+        "closes": "21:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "07:30",
+        "closes": "13:30"
+      }
+    ],
+    "servesCuisine": ["Italian Coffee", "Bakery", "Aperitivo"],
+    "priceRange": "€"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background-color: #F9F4EE;
+      color: #261F1A;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF7F2; }
+    ::-webkit-scrollbar-thumb { background: #8C532E; border-radius: 3px; }
+
+    /* Divisore editoriale classico */
+    .editorial-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    .editorial-divider::before,
+    .editorial-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E8E1D5;
+    }
+
+    .editorial-divider-dark::before,
+    .editorial-divider-dark::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Menu Row con Leader Dotted Line Classico */
+    .menu-row {
+      position: relative;
+      transition: background-color 0.2s ease;
+      padding: 0.75rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+    .menu-row:hover {
+      background-color: rgba(140, 83, 46, 0.04);
+    }
+    .leader-line {
+      flex: 1;
+      border-bottom: 1px dotted #D6CBBA;
+      margin: 0 0.75rem;
+      position: relative;
+      top: -4px;
+    }
+
+    .tab-editorial.active {
+      background-color: #8C532E;
+      color: #FFFFFF;
+      border-color: #8C532E;
+      box-shadow: 0 2px 8px rgba(140, 83, 46, 0.2);
+    }
+
+    /* Hero Split Bistrot Parigino */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 480px;
+    }
+    @media (min-width: 768px) {
+      .hero-split { grid-template-columns: 1fr 1fr; min-height: 560px; }
+    }
+    .hero-split-text {
+      background: #2A1F17;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-split-text::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(201,138,60,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-split-text::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(140,83,46,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-split-img {
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+    }
+    .hero-split-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 7s ease;
+    }
+    .hero-split-img:hover img { transform: scale(1.05); }
+    .hero-split-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(42,31,23,0.25) 0%, transparent 50%);
+    }
+
+    /* Warm Card per Recensioni */
+    .warm-card {
+      background: #fff;
+      border: 1px solid #EAE0D4;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 20px -4px rgba(140,83,46,0.08);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .warm-card:hover {
+      box-shadow: 0 10px 32px -6px rgba(140,83,46,0.16);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body class="selection:bg-tostato selection:text-white pb-24 md:pb-0">
+
+  <!-- 1. BARRA SUPERIORE INFORMAZIONI & BILINGUE -->
+  <aside aria-label="Info e Orari" class="bg-ardesia-deep text-crema-bg text-xs py-2 px-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <!-- Orario Live Badge -->
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/15">
+          <span id="live-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="live-text">Verifica orari banco...</span>
+        </span>
+        <span class="hidden sm:inline text-white/30">•</span>
+        <span class="text-neutral-300 font-normal">Corso Vittorio Emanuele 42, Roma • Centro Storico</span>
+      </div>
+
+      <!-- Contatti & Switch Lingua -->
+      <div class="flex items-center gap-4">
+        <a href="tel:+39069500123" class="flex items-center gap-1.5 text-ambra-accent hover:text-white font-medium transition">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span class="font-semibold">+39 06 9500 123</span>
+        </a>
+
+        <div class="inline-flex rounded border border-white/20 overflow-hidden" role="group" aria-label="Cambia lingua">
+          <button id="btn-lang-it" onclick="changeLang('it')" class="px-2 py-0.5 text-xs font-bold bg-tostato text-white transition">IT</button>
+          <button id="btn-lang-en" onclick="changeLang('en')" class="px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white transition">EN</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. INTESTAZIONE / NAVIGAZIONE -->
+  <header class="sticky top-0 z-40 bg-crema-bg/95 backdrop-blur-md border-b border-crema-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo / Insegna -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-lg bg-ardesia-deep text-ambra-accent border border-ardesia-light flex items-center justify-center font-serif text-2xl font-bold shadow-sm group-hover:border-tostato transition">
+            A
+          </div>
+          <div>
+            <span class="block font-serif text-2xl font-bold tracking-tight text-ardesia group-hover:text-tostato transition">
+              Caffè Aurora
+            </span>
+            <span class="block text-[11px] uppercase tracking-widest text-crema-muted font-semibold" data-i18n="tagline_nav">
+              Torrefazione & Bistrot
+            </span>
+          </div>
+        </a>
+
+        <!-- Menu Desktop -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-ardesia">
+          <a href="#storia" class="hover:text-tostato transition py-1" data-i18n="nav_about">La Torrefazione</a>
+          <a href="#menu" class="hover:text-tostato transition py-1" data-i18n="nav_menu">Il Nostro Banco</a>
+          <a href="#aperitivo" class="hover:text-tostato transition py-1" data-i18n="nav_aperitivo">Aperitivo Time</a>
+          <a href="#recensioni" class="hover:text-tostato transition py-1" data-i18n="nav_reviews">Dicono di Noi</a>
+          <a href="#orari" class="hover:text-tostato transition py-1" data-i18n="nav_hours">Orari & Dove Siamo</a>
+        </nav>
+
+        <!-- CTA Header -->
+        <div class="flex items-center gap-3">
+          <a href="tel:+39069500123" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-crema-border text-xs font-bold text-ardesia hover:bg-white transition">
+            <span>Chiama: 06 9500 123</span>
+          </a>
+          <a href="#prenota" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-tostato hover:bg-tostato-hover text-white text-xs sm:text-sm font-bold shadow transition" data-i18n="btn_reserve_header">
+            <span>Prenota un Tavolo</span>
+          </a>
+          <!-- Mobile Hamburger -->
+          <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-lg text-ardesia hover:bg-crema-subtle" aria-label="Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="hidden md:hidden bg-white border-b border-crema-border px-4 py-5 space-y-3 shadow-lg">
+      <a href="#storia" onclick="toggleMobileNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia hover:bg-crema-bg" data-i18n="nav_about">La Torrefazione</a>
+      <a href="#menu" onclick="toggleMobileNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia hover:bg-crema-bg" data-i18n="nav_menu">Il Nostro Banco</a>
+      <a href="#aperitivo" onclick="toggleMobileNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia hover:bg-crema-bg" data-i18n="nav_aperitivo">Aperitivo Time</a>
+      <a href="#recensioni" onclick="toggleMobileNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia hover:bg-crema-bg" data-i18n="nav_reviews">Dicono di Noi</a>
+      <a href="#orari" onclick="toggleMobileNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia hover:bg-crema-bg" data-i18n="nav_hours">Orari & Dove Siamo</a>
+      <div class="pt-3 border-t border-crema-border flex flex-col gap-2">
+        <a href="#prenota" onclick="toggleMobileNav()" class="w-full text-center py-3 rounded-lg bg-tostato text-white font-bold text-sm" data-i18n="btn_reserve_header">
+          Prenota un Tavolo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. HERO — Split Bistrot Parigino -->
+  <section class="hero-split">
+
+    <!-- Pannello sinistro: testo editoriale su sfondo caldo scuro -->
+    <div class="hero-split-text">
+      <div class="space-y-5 relative z-10">
+
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ambra/30 bg-ambra/10 text-ambra-accent text-[11px] font-semibold uppercase tracking-widest">
+          <span class="w-1.5 h-1.5 rounded-full bg-ambra-accent inline-block"></span>
+          <span>Roma Centro • Corso Vittorio Emanuele 42</span>
+        </div>
+
+        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.2] text-white tracking-tight" data-i18n="hero_title">
+          Dalla prima tazza all'alba al rito serale dell'aperitivo.
+        </h1>
+
+        <p class="text-neutral-300 text-sm sm:text-base leading-relaxed" data-i18n="hero_desc">
+          Al <strong class="text-ambra-accent">Caffè Aurora</strong> celebriamo la vera cultura del banco italiano: specialty coffee monorigine macinati al momento, cornetti al burro francese sfornati caldi ogni alba e aperitivo con tagliere caldo incluso.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="#menu" class="px-6 py-3.5 rounded-lg bg-tostato hover:bg-tostato-hover text-white font-semibold text-sm text-center shadow-lg shadow-tostato/25 transition" data-i18n="hero_btn_menu">
+            Consulta il Listino del Banco
+          </a>
+          <a href="#prenota" class="px-6 py-3.5 rounded-lg border border-white/20 bg-white/5 hover:bg-white/12 text-white font-semibold text-sm text-center transition" data-i18n="hero_btn_book">
+            Prenota un Tavolo
+          </a>
+        </div>
+
+        <!-- Pillole rapide -->
+        <div class="pt-4 border-t border-white/10 grid grid-cols-2 gap-3">
+          <div>
+            <span class="block font-serif text-xl font-bold text-ambra-accent">100% Arabica</span>
+            <span class="text-xs text-neutral-400">Monorigini etiche tracciate</span>
+          </div>
+          <div>
+            <span class="block font-serif text-xl font-bold text-ambra-accent">36 Ore</span>
+            <span class="text-xs text-neutral-400">Lievitazione naturale sfoglia</span>
+          </div>
+          <div>
+            <span class="block font-serif text-xl font-bold text-ambra-accent">Dalle 06:30</span>
+            <span class="text-xs text-neutral-400">Apertura mattutina ogni giorno</span>
+          </div>
+          <div>
+            <span class="block font-serif text-xl font-bold text-ambra-accent">Dehor Estivo</span>
+            <span class="text-xs text-neutral-400">Tavoli all'aperto in centro</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Pannello destro: foto piena alta qualità -->
+    <div class="hero-split-img">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85"
+           alt="Specialty coffee e lievitati artigianali da Caffè Aurora"
+           loading="eager">
+      <div class="hero-split-overlay"></div>
+      <!-- Badge info galleggiante -->
+      <div class="absolute bottom-6 left-6 right-6 bg-black/60 backdrop-blur-sm border border-white/12 rounded-xl p-3.5">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <span class="font-serif text-white font-bold text-sm block">Cappuccino & Cruffin al Lampone</span>
+            <span class="text-neutral-400 text-xs">Produzione quotidiana • lievitazione 36h • burro normanno</span>
+          </div>
+          <span class="text-ambra-accent font-serif font-bold text-sm whitespace-nowrap">Ogni mattina</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 4. STATO ORARI IN TEMPO REALE -->
+  <section class="bg-white border-b border-crema-border py-3.5 px-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="w-2.5 h-2.5 rounded-full bg-tostato animate-pulse"></span>
+        <span id="live-status-message" class="text-xs sm:text-sm font-semibold text-ardesia">
+          Verifica orari in corso...
+        </span>
+        <span class="hidden md:inline text-crema-muted">•</span>
+        <span class="text-xs text-crema-muted">
+          Aperti dal Lunedì al Sabato 06:30 – 21:30 • Domenica 07:30 – 13:30
+        </span>
+      </div>
+      <a href="#orari" class="text-xs font-semibold text-tostato hover:text-tostato-dark transition">
+        Consulta tabella orari completa &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- 5. LA TORREFAZIONE & FILOSOFIA -->
+  <section id="storia" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      <div class="lg:col-span-7 space-y-5">
+        <div class="editorial-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-tostato">Materia Prima & Metodo</span>
+        </div>
+
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ardesia leading-tight">
+          Il caffè non è tutto uguale. Lo tostiamo come un prodotto vivo.
+        </h2>
+
+        <p class="text-crema-muted text-sm sm:text-base leading-relaxed">
+          Al <strong>Caffè Aurora</strong> non utilizziamo miscele commerciali scure e bruciate: selezioniamo chicchi 100% Arabica da cooperative agricole tracciabili in Etiopia, Colombia e Guatemala, tostati a profilo medio-chiaro per esaltare le note floreali, agrumate e di cacao naturale.
+        </p>
+
+        <p class="text-crema-muted text-sm sm:text-base leading-relaxed">
+          La nostra colazione affianca al caffè espresso una pasticceria curata: lievito madre vivo, burro normanno e farciture preparate al momento, senza semilavorati industriali.
+        </p>
+
+        <!-- 3 Pilastri -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-white border border-crema-border">
+            <span class="font-serif text-2xl font-bold text-tostato block mb-1">9 Bar</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Estrazione Perfetta</span>
+            <span class="text-[11px] text-crema-muted">Temperatura calibrata per non bruciare gli aromi.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-crema-border">
+            <span class="font-serif text-2xl font-bold text-ardesia block mb-1">36 Ore</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Lievitazione Lenta</span>
+            <span class="text-[11px] text-crema-muted">Sfoglia alveolata, leggera e altamente digeribile.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-crema-border">
+            <span class="font-serif text-2xl font-bold text-ambra block mb-1">Bio</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Latte Locale Intero</span>
+            <span class="text-[11px] text-crema-muted">Anche alternative d'avena, soia e senza lattosio.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" 
+             alt="Chicchi di caffè specialty" class="w-full h-52 object-cover rounded-xl border border-crema-border shadow-sm">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80" 
+             alt="Croissant caldo sfornato" class="w-full h-52 object-cover rounded-xl border border-crema-border shadow-sm mt-6">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. IL NOSTRO BANCO / MENU EDITORIALE A LISTINO -->
+  <section id="menu" class="py-16 md:py-24 bg-white border-y border-crema-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Intestazione Menu -->
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <div class="editorial-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-tostato">Listino Bar & Bistrot</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ardesia">
+          Le Proposte del Nostro Banco
+        </h2>
+        <p class="text-crema-muted text-sm sm:text-base">
+          Tutti i prezzi sono trasparenti al banco e al tavolo nel dehor.
+        </p>
+
+        <!-- Categorie di Selezione Tab -->
+        <div class="pt-6 flex flex-wrap items-center justify-center gap-2">
+          <button onclick="filterBarMenu('caffetteria')" id="tab-caffetteria" class="tab-editorial active px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-crema-border bg-tostato text-white transition">
+            ☕ Caffetteria & Specialty
+          </button>
+          <button onclick="filterBarMenu('bakery')" id="tab-bakery" class="tab-editorial px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-crema-border bg-crema-bg text-ardesia hover:bg-white transition">
+            🥐 Cornetti & Lievitati
+          </button>
+          <button onclick="filterBarMenu('salati')" id="tab-salati" class="tab-editorial px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-crema-border bg-crema-bg text-ardesia hover:bg-white transition">
+            🥪 Pranzi Veloci & Toast
+          </button>
+          <button onclick="filterBarMenu('aperitivi')" id="tab-aperitivi" class="tab-editorial px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-crema-border bg-crema-bg text-ardesia hover:bg-white transition">
+            🍸 Cocktail & Aperitivo
+          </button>
+        </div>
+      </div>
+
+      <!-- Layout Listino a 2 Colonne con Leader Lines (Stile Ristorante/Bar Classico) -->
+      <div id="bar-menu-container" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+        
+        <!-- CAFFETTERIA -->
+        <div class="menu-item menu-row" data-cat="caffetteria">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Espresso Specialty Etiopia</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 1,80</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">100% Arabica Yirgacheffe, tostatura chiara, note di gelsomino e agrumi.</p>
+        </div>
+
+        <div class="menu-item menu-row" data-cat="caffetteria">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Cappuccino Vellutato Aurora</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 1,70</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Latte fresco bio micro-schiumato a trama setosa. Disponibile anche latte d'avena.</p>
+        </div>
+
+        <div class="menu-item menu-row" data-cat="caffetteria">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Cold Brew Coffee Artigianale</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 3,50</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Infuso a freddo per 18 ore, corpo rotondo, servito con ghiaccio chiaro.</p>
+        </div>
+
+        <div class="menu-item menu-row" data-cat="caffetteria">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Flat White Doppio Shot</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 2,80</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Doppio espresso monorigine colombiano con strato sottile di micro-foam.</p>
+        </div>
+
+        <!-- BAKERY -->
+        <div class="menu-item menu-row hidden" data-cat="bakery">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Croissant Francese al Burro AOP</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 1,60</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">36 ore di lievitazione naturale, crosta friabile e cuore soffice burroso.</p>
+        </div>
+
+        <div class="menu-item menu-row hidden" data-cat="bakery">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Cruffin Crema Chantilly & Lampone</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 2,80</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Ibrido sfogliato farcito al momento con crema pasticciera alla vaniglia Bourbon.</p>
+        </div>
+
+        <div class="menu-item menu-row hidden" data-cat="bakery">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Tortino Soffice Cioccolato & Noci</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 3,00</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Cacao amaro 70% monorigine e noci tostate di Sorrento. Senza lattosio.</p>
+        </div>
+
+        <!-- SALATI -->
+        <div class="menu-item menu-row hidden" data-cat="salati">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Club Sandwich Artigianale</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 8,50</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Pane multicereali tostato, tacchino arrosto CBT, bacon croccante e maionese al lime.</p>
+        </div>
+
+        <div class="menu-item menu-row hidden" data-cat="salati">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Focaccia Mortadella IGP & Burrata</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 7,00</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Focaccia calda ad alta idratazione, stracciatella pugliese e granella di pistacchio.</p>
+        </div>
+
+        <!-- APERITIVI -->
+        <div class="menu-item menu-row hidden" data-cat="aperitivi">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Negroni Aurora al Fumo di Ciliegio</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 8,00</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Gin London Dry botanico, Vermouth rosso riserva, Campari affumicato. Tagliere incluso.</p>
+        </div>
+
+        <div class="menu-item menu-row hidden" data-cat="aperitivi">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Spritz Bergamotto & Salvia Fresca</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-tostato shrink-0">€ 6,50</span>
+          </div>
+          <p class="text-xs text-crema-muted mt-0.5 leading-relaxed">Rosolio di bergamotto calabrese, Prosecco DOCG Superiore e soda artigianale.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. L'APERITIVO TIME (Banner Esperienziale) -->
+  <section id="aperitivo" class="py-16 bg-ardesia text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-white/20 bg-white/5 text-ambra-accent text-xs font-semibold uppercase tracking-wider">
+            🍸 Dalle 18:00 alle 21:00 • Ogni Giorno
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold leading-tight" data-i18n="aperitivo_title">
+            L'Aperitivo con Tagliere Caldo Espresso.
+          </h2>
+          <p class="text-neutral-300 text-sm sm:text-base leading-relaxed" data-i18n="aperitivo_desc">
+            Da noi l'aperitivo è un momento conviviale completo: con ogni cocktail o calice di vino serviamo un tagliere di pizzette calde sfornate dal nostro forno, focaccia ad alta idratazione, formaggi laziali e salumi artigianali.
+          </p>
+          <div class="pt-2">
+            <a href="#prenota" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-tostato hover:bg-tostato-hover text-white font-bold text-sm shadow transition">
+              <span>Riserva un Tavolo per l'Aperitivo</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" 
+               alt="Tavolo apparecchiato per l'aperitivo" 
+               class="rounded-xl border border-white/15 shadow-2xl w-full h-80 object-cover">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. COSA DICONO GLI OSPITI -->
+  <section id="recensioni" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+      <div class="editorial-divider">
+        <span class="text-xs font-bold uppercase tracking-widest text-tostato">Parola di Cliente</span>
+      </div>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ardesia" data-i18n="reviews_title">
+        La Voce dei Nostri Clienti
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 rounded-xl bg-white border border-crema-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “Finalmente un vero specialty coffee a Roma. L'Etiopia ha una pulizia di aromi incredibile e i cornetti al burro profumano tutta la via fin dalle 7 del mattino.”
+        </p>
+        <div class="pt-4 border-t border-crema-border flex items-center justify-between text-xs text-crema-muted">
+          <strong class="text-ardesia">Matteo C.</strong>
+          <span>Recensione Google • 5/5</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-xl bg-white border border-crema-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “L'aperitivo migliore in centro storico. Non ti portano solo patatine ma un tagliere caldo abbondante con focacce e salumi buonissimi. Lo Spritz al bergamotto è top!”
+        </p>
+        <div class="pt-4 border-t border-crema-border flex items-center justify-between text-xs text-crema-muted">
+          <strong class="text-ardesia">Elena R.</strong>
+          <span>Cliente Abituale</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-xl bg-white border border-crema-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “Posto ideale anche per un pranzo veloce o per lavorare col computer portatile. Wi-Fi velocissimo, servizio cortese e club sandwich eccezionale.”
+        </p>
+        <div class="pt-4 border-t border-crema-border flex items-center justify-between text-xs text-crema-muted">
+          <strong class="text-ardesia">Federico B.</strong>
+          <span>Professionista</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. PRENOTAZIONE TAVOLO -->
+  <section id="prenota" class="py-16 bg-white border-t border-crema-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center space-y-2 mb-8">
+        <div class="editorial-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-tostato">Senza Attesa</span>
+        </div>
+        <h2 class="font-serif text-3xl font-bold text-ardesia" data-i18n="booking_title">Prenota il Tuo Posto</h2>
+        <p class="text-xs sm:text-sm text-crema-muted">Riserva per colazione di lavoro, pausa pranzo o l'aperitivo serale con gli amici.</p>
+      </div>
+
+      <div id="booking-success" class="hidden mb-6 p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-center">
+        <p class="font-bold text-sm">Richiesta Ricevuta!</p>
+        <p class="text-xs text-emerald-800 mt-0.5">Ti inviamo subito un messaggio di conferma su WhatsApp con i dettagli del tavolo.</p>
+      </div>
+
+      <form onsubmit="submitBooking(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Nome e Cognome *</label>
+            <input type="text" required placeholder="Es. Laura Nardi" class="w-full px-4 py-3 rounded-lg border border-crema-border bg-crema-bg text-ardesia focus:outline-none focus:border-tostato">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Telefono / WhatsApp *</label>
+            <input type="tel" required placeholder="Es. 340 1234567" class="w-full px-4 py-3 rounded-lg border border-crema-border bg-crema-bg text-ardesia focus:outline-none focus:border-tostato">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Giorno *</label>
+            <input type="date" id="book-date" required class="w-full px-4 py-3 rounded-lg border border-crema-border bg-crema-bg text-ardesia focus:outline-none focus:border-tostato">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Momento *</label>
+            <select required class="w-full px-4 py-3 rounded-lg border border-crema-border bg-crema-bg text-ardesia focus:outline-none focus:border-tostato">
+              <option value="colazione">Colazione (07:30 - 10:30)</option>
+              <option value="pranzo">Pranzo Veloce (12:30 - 14:30)</option>
+              <option value="aperitivo" selected>Aperitivo Time (18:00 - 20:30)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Ospiti *</label>
+            <select required class="w-full px-4 py-3 rounded-lg border border-crema-border bg-crema-bg text-ardesia focus:outline-none focus:border-tostato">
+              <option value="2" selected>2 Persone</option>
+              <option value="3-4">3 - 4 Persone</option>
+              <option value="5+">5+ Persone</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-booking" class="w-full py-4 rounded-lg bg-tostato hover:bg-tostato-hover text-white font-bold text-sm shadow transition">
+          <span id="btn-booking-text" data-i18n="btn_submit_booking">Conferma Prenotazione Istantanea</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 10. ORARI & CONTATTI -->
+  <section id="orari" class="py-16 bg-crema-bg border-t border-crema-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="space-y-4">
+          <div class="editorial-divider">
+            <span class="text-xs font-bold uppercase tracking-widest text-tostato">Dove Trovarci</span>
+          </div>
+          <h2 class="font-serif text-3xl font-bold text-ardesia" data-i18n="hours_title">Posizione & Contatti</h2>
+          <p class="text-xs sm:text-sm text-crema-muted leading-relaxed">
+            Nel cuore del centro storico, a pochi passi dalle principali attrazioni e con fermata bus a 50 metri.
+          </p>
+          <div class="p-4 rounded-xl bg-white border border-crema-border text-xs space-y-2">
+            <p><strong>Indirizzo:</strong> Corso Vittorio Emanuele 42, 00186 Roma</p>
+            <p><strong>Telefono Fisso:</strong> +39 06 9500 123</p>
+            <p><strong>WhatsApp Locale:</strong> +39 340 9876543</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="inline-block text-xs font-bold text-tostato hover:underline pt-1">
+              Apri la Mappa su Google Maps &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-crema-border">
+          <h3 class="font-serif text-lg font-bold text-ardesia mb-3">Orari Torrefazione & Banco</h3>
+          <table class="w-full text-xs divide-y divide-crema-border">
+            <tbody>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Lunedì — Giovedì</td>
+                <td class="font-mono text-crema-muted">06:30 — 21:30</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between bg-crema-subtle/50 px-2 rounded">
+                <td class="font-bold text-tostato">Venerdì & Sabato (Aperitivo Lungo)</td>
+                <td class="font-mono text-tostato font-bold">06:30 — 23:00</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Domenica</td>
+                <td class="font-mono text-crema-muted">07:30 — 13:30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ardesia-deep text-neutral-400 py-10 px-4 sm:px-6 border-t border-white/10 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <span class="font-serif text-base font-bold text-white">Caffè Aurora S.r.l.</span>
+        <p class="text-neutral-500 mt-0.5">P.IVA: 09876543210 • Corso Vittorio Emanuele 42, 00186 Roma</p>
+      </div>
+      <div class="flex items-center gap-4 text-neutral-300 font-semibold">
+        <a href="#storia" class="hover:text-tostato">Chi Siamo</a>
+        <a href="#menu" class="hover:text-tostato">Menu</a>
+        <a href="#prenota" class="hover:text-tostato">Prenota</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BARRA AZIONI MOBILE FISSA (< 768px) -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-crema-border p-2 shadow-2xl flex items-center gap-2">
+    <a href="tel:+39069500123" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-lg border border-crema-border text-ardesia font-bold text-xs active:bg-crema-bg min-h-[48px]">
+      <svg class="w-4 h-4 text-tostato" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Chiama</span>
+    </a>
+    <a href="https://wa.me/39069500123?text=Buongiorno%20Caffè%20Aurora" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-lg bg-emerald-600 text-white font-bold text-xs active:bg-emerald-700 min-h-[48px]">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#prenota" class="flex-1 flex items-center justify-center gap-1 py-3 rounded-lg bg-tostato text-white font-bold text-xs active:bg-tostato-hover min-h-[48px]">
+      <span>Prenota</span>
+    </a>
+  </div>
+
+  <script>
+    function toggleMobileNav() {
+      const d = document.getElementById('mobile-drawer');
+      d.classList.toggle('hidden');
+    }
+
+    function filterBarMenu(cat) {
+      document.querySelectorAll('.tab-editorial').forEach(b => {
+        b.classList.remove('active', 'bg-tostato', 'text-white');
+        b.classList.add('bg-crema-bg', 'text-ardesia');
+      });
+      const activeB = document.getElementById('tab-' + cat);
+      if (activeB) {
+        activeB.classList.add('active', 'bg-tostato', 'text-white');
+        activeB.classList.remove('bg-crema-bg', 'text-ardesia');
+      }
+
+      document.querySelectorAll('.menu-row').forEach(row => {
+        if (row.getAttribute('data-cat') === cat) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+    }
+
+    function updateLiveHours() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const min = now.getMinutes();
+      const timeNum = hour * 60 + min;
+
+      let isOpen = false;
+      let closeText = "";
+
+      if (day >= 1 && day <= 4) {
+        isOpen = (timeNum >= 390 && timeNum < 1290);
+        closeText = "21:30";
+      } else if (day === 5 || day === 6) {
+        isOpen = (timeNum >= 390 && timeNum < 1380);
+        closeText = "23:00";
+      } else {
+        isOpen = (timeNum >= 450 && timeNum < 810);
+        closeText = "13:30";
+      }
+
+      const txt = document.getElementById('live-text');
+      const dot = document.getElementById('live-dot');
+      const msg = document.getElementById('live-status-message');
+
+      if (isOpen) {
+        txt.textContent = `Aperto Ora • Fino alle ${closeText}`;
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        msg.textContent = `Locale Aperto Ora • Servizio al banco e dehor attivo fino alle ${closeText}`;
+      } else {
+        txt.textContent = "Chiuso Ora • Riapertura domani 06:30";
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        msg.textContent = "Locale Chiuso Ora • Ti aspettiamo domani mattina a partire dalle 06:30";
+      }
+    }
+
+    function submitBooking(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-booking');
+      const txt = document.getElementById('btn-booking-text');
+      const succ = document.getElementById('booking-success');
+
+      txt.textContent = "Verifica disponibilità...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        txt.textContent = "Prenotato!";
+        btn.classList.add('bg-emerald-700');
+        succ.classList.remove('hidden');
+        succ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 900);
+    }
+
+    const barI18n = {
+      it: {
+        tagline_nav: 'Torrefazione & Bistrot',
+        nav_about: 'La Torrefazione',
+        nav_menu: 'Il Nostro Banco',
+        nav_aperitivo: 'Aperitivo Time',
+        nav_reviews: 'Dicono di Noi',
+        nav_hours: 'Orari & Dove Siamo',
+        btn_reserve_header: 'Prenota un Tavolo',
+        hero_title: 'Dalla prima tazza all\'alba al rito serale dell\'aperitivo.',
+        hero_desc: 'Al Caffè Aurora celebriamo la vera cultura del banco italiano: specialty coffee monorigine macinati al momento, cornetti sfogliati a mano al burro francese sfornati caldi ogni mattina, pranzi veloci e l\'aperitivo con stuzzichini caldi espressi.',
+        hero_btn_menu: 'Consulta il Listino del Banco',
+        hero_btn_book: 'Prenota un Tavolo',
+        aperitivo_title: 'L\'Aperitivo con Tagliere Caldo Espresso.',
+        aperitivo_desc: 'Da noi l\'aperitivo è un momento conviviale completo: con ogni cocktail o calice di vino serviamo un tagliere di pizzette calde sfornate dal nostro forno, focaccia ad alta idratazione, formaggi laziali e salumi artigianali.',
+        reviews_title: 'La Voce dei Nostri Clienti',
+        booking_title: 'Prenota il Tuo Posto',
+        btn_submit_booking: 'Conferma Prenotazione Istantanea',
+        hours_title: 'Posizione & Contatti'
+      },
+      en: {
+        tagline_nav: 'Coffee Roastery & Bistro',
+        nav_about: 'The Roastery',
+        nav_menu: 'Our Counter',
+        nav_aperitivo: 'Aperitivo Time',
+        nav_reviews: 'Testimonials',
+        nav_hours: 'Hours & Location',
+        btn_reserve_header: 'Reserve a Table',
+        hero_title: 'From morning\'s first brew to evening\'s aperitivo ritual.',
+        hero_desc: 'At Caffè Aurora we celebrate authentic Italian counter culture: freshly ground specialty coffee single origins, French butter croissants baked fresh at dawn, quick lunches, and evening aperitivo with hot artisan finger bites.',
+        hero_btn_menu: 'Explore Menu Prices',
+        hero_btn_book: 'Book a Table',
+        aperitivo_title: 'Aperitivo with Fresh Warm Platter Included.',
+        aperitivo_desc: 'Here aperitivo is a complete gathering: every drink includes our fresh warm oven-baked pizzette, slow-fermented focaccia, local cheeses, and artisanal cured meats.',
+        reviews_title: 'What Our Guests Say',
+        booking_title: 'Reserve Your Spot',
+        btn_submit_booking: 'Confirm Instant Table Reservation',
+        hours_title: 'Hours & Location'
+      }
+    };
+
+    function changeLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (barI18n[lang] && barI18n[lang][k]) el.textContent = barI18n[lang][k];
+      });
+      const itB = document.getElementById('btn-lang-it');
+      const enB = document.getElementById('btn-lang-en');
+      if (lang === 'it') {
+        itB.className = "px-2 py-0.5 text-xs font-bold bg-tostato text-white transition";
+        enB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white transition";
+      } else {
+        enB.className = "px-2 py-0.5 text-xs font-bold bg-tostato text-white transition";
+        itB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white transition";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateLiveHours();
+      const dt = document.getElementById('book-date');
+      if (dt) {
+        const today = new Date().toISOString().split('T')[0];
+        dt.value = today;
+        dt.min = today;
+      }
+    });
+  </script>
+</body>
+</html>

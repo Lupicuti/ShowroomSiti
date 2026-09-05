@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Apex Sporting Club — Centro Fitness, Corsi & Personal Training a Roma</title>
+  <meta name="description" content="Centro polisportivo d'eccellenza. 700mq di sala pesi isotonica, calisthenics, cross conditioning, pilates, yoga posturale, personal training e sauna finlandese inclusa.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Typography: Oswald (Atletico, Moderno) & Nunito Sans (Leggibile, Energico) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            black: '#08090C',
+            white: '#F0F4F8',
+            grey: {
+              100: '#E8EEF2',
+              300: '#BDCBD3',
+              500: '#738894',
+              700: '#2D3A42',
+              900: '#111820',
+            },
+            accent: {
+              DEFAULT: '#00E87A',
+              hover: '#00CC6A',
+              light: '#4DFFA0',
+              subtle: 'rgba(0,232,122,0.1)',
+              border: 'rgba(0,232,122,0.25)',
+            }
+          },
+          fontFamily: {
+            display: ['"Oswald"', 'sans-serif'],
+            body: ['"Nunito Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsClub",
+    "name": "Apex Sporting Club",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
+    "telephone": "+39069544199",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Viale dello Sport 14",
+      "addressLocality": "Roma",
+      "postalCode": "00173",
+      "addressCountry": "IT"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "06:30",
+        "closes": "22:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "08:30",
+        "closes": "19:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "09:00",
+        "closes": "13:30"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Nunito Sans', system-ui, sans-serif;
+      background: #08090C;
+      color: #F0F4F8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    input, select, textarea { font-size: 16px !important; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #08090C; }
+    ::-webkit-scrollbar-thumb { background: #00E87A; border-radius: 3px; }
+
+    /* Griglia strutture */
+    .facility-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      background: #0D1117;
+    }
+    @media (min-width: 768px) {
+      .facility-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .facility-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .facility-card {
+      background: #0D1117;
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+    }
+    .facility-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: transform 0.6s ease, filter 0.4s;
+    }
+    .facility-card:hover img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
+    .facility-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,9,12,0.92) 0%, rgba(8,9,12,0.25) 55%, transparent 100%);
+    }
+    /* Bordo neon verde su hover */
+    .facility-card:hover {
+      box-shadow: 0 0 0 2px #00E87A;
+    }
+
+    .stat-box {
+      background: #08090C;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-right: 1px solid rgba(0,232,122,0.08);
+    }
+
+    .timetable-row {
+      display: grid;
+      grid-template-columns: 80px 1.5fr 1fr 100px;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(0,232,122,0.08);
+      transition: background-color 0.15s ease;
+    }
+    .timetable-row:hover {
+      background-color: rgba(0,232,122,0.05);
+      box-shadow: inset 3px 0 0 #00E87A;
+    }
+
+    /* Hero Performance Neon */
+    .gym-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      background: #08090C;
+    }
+    .gym-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.45;
+      filter: saturate(0.6) contrast(1.1);
+      transition: transform 8s ease;
+    }
+    .gym-hero:hover .gym-hero-img { transform: scale(1.03); }
+    .gym-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(0,232,122,0.04) 0%,
+        rgba(8,9,12,0.0) 40%,
+        rgba(8,9,12,0.0) 60%,
+        rgba(0,232,122,0.02) 100%
+      );
+    }
+    .gym-hero-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8,9,12,0.97) 0%,
+        rgba(8,9,12,0.7) 35%,
+        rgba(8,9,12,0.2) 65%,
+        rgba(8,9,12,0.05) 100%
+      );
+    }
+    /* Linea neon verticale a sinistra */
+    .gym-hero::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent 10%, #00E87A 50%, transparent 90%);
+      z-index: 5;
+    }
+    .gym-hero-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      padding: 3rem 2rem 3.5rem;
+      max-width: 960px;
+    }
+    @media (min-width: 640px) {
+      .gym-hero-content { padding: 4rem 3rem 4rem; }
+    }
+    /* Counter neon animato */
+    @keyframes neon-pulse {
+      0%, 100% { text-shadow: 0 0 10px rgba(0,232,122,0.6), 0 0 30px rgba(0,232,122,0.3); }
+      50% { text-shadow: 0 0 20px rgba(0,232,122,0.9), 0 0 50px rgba(0,232,122,0.5); }
+    }
+    .neon-text {
+      animation: neon-pulse 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="selection:bg-accent-light selection:text-white pb-24 md:pb-0">
+
+  <!-- 1. TOP BAR -->
+  <aside aria-label="Info e Orari" class="bg-black text-xs py-2 px-4 border-b border-grey-900">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase bg-grey-900 border border-grey-700 text-white">
+          <span id="live-gym-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="live-gym-text">Verifica apertura desk...</span>
+        </span>
+        <span class="hidden sm:inline text-grey-700">•</span>
+        <span class="hidden sm:inline text-grey-500">Viale dello Sport 14, Roma • Parcheggio Privato 80 Posti</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="tel:+39069544199" class="flex items-center gap-1.5 text-accent-light hover:text-white font-semibold transition">
+          <svg class="w-3.5 h-3.5 text-accent-light" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span>06 9544 199</span>
+        </a>
+
+        <div class="inline-flex rounded border border-grey-700 bg-grey-900 overflow-hidden" role="group" aria-label="Cambia lingua">
+          <button id="lang-gym-it" onclick="setGymLang('it')" class="px-2 py-0.5 text-xs font-bold bg-accent text-white">IT</button>
+          <button id="lang-gym-en" onclick="setGymLang('en')" class="px-2 py-0.5 text-xs font-medium text-grey-500 hover:text-white">EN</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. HEADER -->
+  <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-grey-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded bg-grey-900 border border-grey-700 flex items-center justify-center text-accent-light font-display font-black text-2xl group-hover:border-accent transition shadow-inner">
+            ▲
+          </div>
+          <div>
+            <span class="block font-display text-2xl font-black tracking-wider uppercase text-white group-hover:text-accent-light transition">
+              Apex Sporting Club
+            </span>
+            <span class="block text-[10px] uppercase tracking-widest text-grey-500 font-semibold" data-i18n="gym_tagline">
+              Centro Fitness & Wellness
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-widest text-grey-300">
+          <a href="#struttura" class="hover:text-accent-light transition" data-i18n="gym_nav_facility">La Struttura</a>
+          <a href="#corsi" class="hover:text-accent-light transition" data-i18n="gym_nav_schedule">Orario Corsi</a>
+          <a href="#abbonamenti" class="hover:text-accent-light transition" data-i18n="gym_nav_plans">Abbonamenti</a>
+          <a href="#recensioni" class="hover:text-accent-light transition" data-i18n="gym_nav_reviews">Testimonianze</a>
+          <a href="#orari" class="hover:text-accent-light transition" data-i18n="gym_nav_hours">Orari & Mappa</a>
+        </nav>
+
+        <!-- CTA Header -->
+        <div class="flex items-center gap-3">
+          <a href="#prova" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded bg-accent hover:bg-accent-hover text-white font-display font-black text-sm uppercase tracking-wider transition shadow" data-i18n="gym_btn_trial">
+            <span>Pass Prova Gratuito</span>
+          </a>
+          <button onclick="toggleGymNav()" class="md:hidden p-2 rounded text-grey-300 hover:text-white" aria-label="Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="gym-drawer" class="hidden md:hidden bg-grey-900 border-b border-grey-700 px-4 py-5 space-y-3">
+      <a href="#struttura" onclick="toggleGymNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="gym_nav_facility">La Struttura</a>
+      <a href="#corsi" onclick="toggleGymNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="gym_nav_schedule">Orario Corsi</a>
+      <a href="#abbonamenti" onclick="toggleGymNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="gym_nav_plans">Abbonamenti</a>
+      <a href="#recensioni" onclick="toggleGymNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="gym_nav_reviews">Testimonianze</a>
+      <a href="#orari" onclick="toggleGymNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="gym_nav_hours">Orari & Mappa</a>
+      <div class="pt-3 border-t border-grey-700">
+        <a href="#prova" onclick="toggleGymNav()" class="block w-full py-3 rounded bg-accent text-white text-center font-display font-black text-base uppercase tracking-wider" data-i18n="gym_btn_trial">
+          Scarica il Tuo Pass Prova Gratuito
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. HERO — Performance Neon -->
+  <section class="gym-hero">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=85"
+         alt="Apex Sporting Club — sala pesi e corsi fitness"
+         class="gym-hero-img"
+         loading="eager">
+    <div class="gym-hero-grad"></div>
+    <div class="gym-hero-overlay"></div>
+
+    <div class="gym-hero-content">
+
+      <div class="inline-flex items-center gap-3 mb-5">
+        <span class="w-6 h-0.5 bg-accent inline-block neon-text"></span>
+        <span class="text-accent-light text-xs font-bold uppercase tracking-widest" style="font-family: 'Oswald', sans-serif;">Centro Polisportivo · 700mq Sala Isotonica · Roma</span>
+      </div>
+
+      <h1 class="font-display leading-[0.92] text-white mb-4"
+          style="font-size: clamp(2.8rem, 8vw, 6rem);"
+          data-i18n="gym_hero_h1">
+        NESSUNA SCUSA.<br>
+        <span class="neon-text" style="color: #00E87A;">SOLO RISULTATI REALI.</span>
+      </h1>
+
+      <p class="text-grey-300 text-sm sm:text-base leading-relaxed max-w-xl mb-7" data-i18n="gym_hero_p">
+        Sala isotonica completa, area calisthenics con sbarre olimpiche, 35+ corsi di gruppo settimanali e personal trainer laureati in scienze motorie. Tutto a Roma, parcheggio privato.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 mb-8">
+        <a href="#prova" class="px-7 py-3.5 rounded bg-accent hover:bg-accent-hover text-black font-display text-xl uppercase tracking-wider text-center shadow-lg transition"
+           style="box-shadow: 0 0 20px rgba(0,232,122,0.3);"
+           data-i18n="gym_hero_btn_trial">
+          Richiedi Prova Gratuita
+        </a>
+        <a href="#corsi" class="px-7 py-3.5 rounded border border-grey-700 bg-grey-900/80 hover:bg-grey-700 text-white font-display text-xl uppercase tracking-wider text-center transition" data-i18n="gym_hero_btn_schedule">
+          Orario Corsi
+        </a>
+      </div>
+
+      <!-- Counter numerici neon -->
+      <div class="grid grid-cols-4 gap-5 border-t border-accent/20 pt-6 max-w-lg">
+        <div>
+          <span class="block font-display text-3xl neon-text" style="color: #00E87A;">700</span>
+          <span class="text-[10px] text-grey-500 uppercase tracking-wider">mq Sala</span>
+        </div>
+        <div>
+          <span class="block font-display text-3xl text-white">35+</span>
+          <span class="text-[10px] text-grey-500 uppercase tracking-wider">Corsi/sett.</span>
+        </div>
+        <div>
+          <span class="block font-display text-3xl text-white">06:30</span>
+          <span class="text-[10px] text-grey-500 uppercase tracking-wider">Apertura</span>
+        </div>
+        <div>
+          <span class="block font-display text-3xl text-white">♨</span>
+          <span class="text-[10px] text-grey-500 uppercase tracking-wider">Sauna Inclusa</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. STATS STRIP CON BORDI 1PX (Da PalestraHercules) -->
+  <section class="bg-black border-y border-grey-900" aria-label="I numeri della struttura">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-grey-900 border border-grey-900">
+        <div class="stat-box">
+          <span class="font-display text-4xl sm:text-5xl font-black text-white block">700 mq</span>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-grey-500 mt-1 block">Sala Pesi & Cardio</span>
+        </div>
+        <div class="stat-box">
+          <span class="font-display text-4xl sm:text-5xl font-black text-accent-light block">35+</span>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-grey-500 mt-1 block">Corsi Settimanali</span>
+        </div>
+        <div class="stat-box">
+          <span class="font-display text-4xl sm:text-5xl font-black text-white block">06:30</span>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-grey-500 mt-1 block">Apertura Mattutina</span>
+        </div>
+        <div class="stat-box">
+          <span class="font-display text-4xl sm:text-5xl font-black text-white block">Sauna</span>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-grey-500 mt-1 block">Finlandese Inclusa</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. LA STRUTTURA (Griglia Fotografica a Pieno Schermo da PalestraHercules) -->
+  <section id="struttura" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-2 text-accent-light text-xs font-bold uppercase tracking-widest mb-3">
+        <span class="w-6 h-0.5 bg-accent-light inline-block"></span>
+        <span>Aree di Allenamento</span>
+      </div>
+      <h2 class="font-display text-4xl sm:text-6xl font-black uppercase text-white leading-none" data-i18n="facility_title">
+        Spazi Pensati per Ogni Disciplina
+      </h2>
+      <p class="text-grey-300 text-sm sm:text-base mt-2" data-i18n="facility_sub">
+        Macchinari isotonici selezionati, pavimentazione tecnica anti-trauma e spogliatoi spaziosi.
+      </p>
+    </div>
+
+    <div class="facility-grid border border-grey-900 rounded-lg overflow-hidden">
+      
+      <!-- Box 1 -->
+      <div class="facility-card">
+        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80" alt="Sala Pesi e Manubri">
+        <div class="facility-card-overlay"></div>
+        <div class="absolute bottom-0 inset-x-0 p-6 z-10">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-accent/80 text-white mb-2">Sala Isotonica</span>
+          <h3 class="font-display text-2xl font-black uppercase text-white leading-tight">Sala Pesi & Rack</h3>
+          <p class="text-xs text-grey-300 mt-1">Manubri fino a 50kg, 6 power rack e pedane da stacco olimpiche.</p>
+        </div>
+      </div>
+
+      <!-- Box 2 -->
+      <div class="facility-card">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80" alt="Area Calisthenics e Corsi">
+        <div class="facility-card-overlay"></div>
+        <div class="absolute bottom-0 inset-x-0 p-6 z-10">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-accent/80 text-white mb-2">Funzionale</span>
+          <h3 class="font-display text-2xl font-black uppercase text-white leading-tight">Calisthenics & Box</h3>
+          <p class="text-xs text-grey-300 mt-1">Sbarre, anelli, kettlebell, slitte zavorrate e box pliometrici.</p>
+        </div>
+      </div>
+
+      <!-- Box 3 -->
+      <div class="facility-card">
+        <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80" alt="Sala Olistica Pilates e Yoga">
+        <div class="facility-card-overlay"></div>
+        <div class="absolute bottom-0 inset-x-0 p-6 z-10">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-accent/80 text-white mb-2">Posturale</span>
+          <h3 class="font-display text-2xl font-black uppercase text-white leading-tight">Sala Pilates & Yoga</h3>
+          <p class="text-xs text-grey-300 mt-1">Luce naturale, parquet caldo e focus su mobilità e decompressione.</p>
+        </div>
+      </div>
+
+      <!-- Box 4 -->
+      <div class="facility-card">
+        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80" alt="Sauna e Spogliatoi">
+        <div class="facility-card-overlay"></div>
+        <div class="absolute bottom-0 inset-x-0 p-6 z-10">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded bg-accent/80 text-white mb-2">Recupero</span>
+          <h3 class="font-display text-2xl font-black uppercase text-white leading-tight">Sauna Finlandese</h3>
+          <p class="text-xs text-grey-300 mt-1">Rigenerazione muscolare post-workout e docce calde comprese.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. TABELLA ORARIO CORSI SETTIMANALE -->
+  <section id="corsi" class="py-16 md:py-24 bg-grey-900/60 border-y border-grey-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-10">
+        <div class="inline-flex items-center gap-2 text-accent-light text-xs font-bold uppercase tracking-widest mb-3">
+          <span class="w-6 h-0.5 bg-accent-light inline-block"></span>
+          <span>Attività di Gruppo</span>
+        </div>
+        <h2 class="font-display text-4xl sm:text-6xl font-black uppercase text-white leading-none" data-i18n="schedule_title">
+          Orario Corsi Settimanale
+        </h2>
+        <p class="text-grey-300 text-sm mt-2" data-i18n="schedule_sub">
+          Guidati da coach federali con accesso su prenotazione via app inclusa nel piano.
+        </p>
+      </div>
+
+      <!-- Tabella Orari a Righi Tipo PalestraHercules -->
+      <div class="bg-black border border-grey-700 rounded-lg overflow-hidden">
+        
+        <div class="hidden md:grid grid-cols-[80px_1.5fr_1fr_100px] gap-4 px-5 py-3 bg-grey-900 text-[11px] font-bold uppercase tracking-wider text-grey-500 border-b border-grey-700">
+          <span>Orario</span>
+          <span>Corso & Disciplina</span>
+          <span>Istruttore & Sala</span>
+          <span class="text-right">Intensità</span>
+        </div>
+
+        <div class="timetable-row">
+          <span class="font-display font-black text-xl text-accent-light">08:00</span>
+          <div>
+            <span class="font-display font-bold text-xl uppercase text-white block">Wake-Up Functional Training</span>
+            <span class="text-xs text-grey-500">Circuito metabolico total-body per attivarsi prima del lavoro.</span>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-grey-300 block">Coach Davide R.</span>
+            <span class="text-[11px] text-grey-500">Sala Funzionale</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Media</span>
+          </div>
+        </div>
+
+        <div class="timetable-row">
+          <span class="font-display font-black text-xl text-white">13:15</span>
+          <div>
+            <span class="font-display font-bold text-xl uppercase text-white block">Pausa Pranzo HIIT & Abs</span>
+            <span class="text-xs text-grey-500">45 minuti ad alto dispendio calorico ideali per la pausa lavorativa.</span>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-grey-300 block">Coach Alex M.</span>
+            <span class="text-[11px] text-grey-500">Sala 1</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-500/20 text-red-300">Alta</span>
+          </div>
+        </div>
+
+        <div class="timetable-row">
+          <span class="font-display font-black text-xl text-white">18:30</span>
+          <div>
+            <span class="font-display font-bold text-xl uppercase text-white block">Calisthenics Skills & Bar Conditioning</span>
+            <span class="text-xs text-grey-500">Trazioni zavorrate, muscle-up, handstand e lavoro a corpo libero.</span>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-grey-300 block">Coach Federico B.</span>
+            <span class="text-[11px] text-grey-500">Area Sbarre</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-500/20 text-red-300">Alta</span>
+          </div>
+        </div>
+
+        <div class="timetable-row">
+          <span class="font-display font-black text-xl text-accent-light">19:45</span>
+          <div>
+            <span class="font-display font-bold text-xl uppercase text-white block">Postural Pilates & Decompressione</span>
+            <span class="text-xs text-grey-500">Rinforzo del core profondo, allungamento muscolare e respirazione.</span>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-grey-300 block">Coach Sara V.</span>
+            <span class="text-[11px] text-grey-500">Sala Olistica</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Posturale</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. PIANI DI ABBONAMENTO (Confronto Pulito) -->
+  <section id="abbonamenti" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-12">
+      <div class="inline-flex items-center gap-2 text-accent-light text-xs font-bold uppercase tracking-widest mb-3">
+        <span class="w-6 h-0.5 bg-accent-light inline-block"></span>
+        <span>Formule Chiare</span>
+      </div>
+      <h2 class="font-display text-4xl sm:text-6xl font-black uppercase text-white leading-none" data-i18n="plans_title">
+        Scegli la Formula Più Adatta a Te
+      </h2>
+      <p class="text-grey-300 text-sm mt-2" data-i18n="plans_sub">
+        Nessun costo nascosto: docce senza gettone, scheda tecnica e sauna sempre incluse.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 bg-black border border-grey-700 rounded-lg flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-grey-500 block">Base</span>
+          <h3 class="font-display text-3xl font-black uppercase text-white mt-1">Open Sala Pesi</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="font-display text-4xl font-black text-white">€ 45</span>
+            <span class="text-xs text-grey-500">/ al mese</span>
+          </div>
+          <ul class="mt-6 space-y-2.5 text-xs text-grey-300">
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Accesso illimitato sala pesi & cardio</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Scheda iniziale con personal trainer</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Docce calde e spogliatoi senza costi extra</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Accesso sauna nel weekend</li>
+          </ul>
+        </div>
+        <div class="mt-8">
+          <a href="#prova" class="block w-full py-3 rounded border border-grey-700 hover:border-accent text-center font-display font-bold text-sm uppercase tracking-wider text-white transition">
+            Richiedi Info Desk
+          </a>
+        </div>
+      </div>
+
+      <div class="p-6 bg-grey-900 border-2 border-accent-light rounded-lg flex flex-col justify-between relative shadow-2xl">
+        <div class="absolute -top-3 left-6 px-3 py-0.5 rounded bg-accent-light text-white text-[10px] font-black uppercase tracking-wider">
+          Più Scelto
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-accent-light block">Completo</span>
+          <h3 class="font-display text-3xl font-black uppercase text-white mt-1">Open Full + Corsi</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="font-display text-4xl font-black text-accent-light">€ 65</span>
+            <span class="text-xs text-grey-500">/ al mese</span>
+          </div>
+          <ul class="mt-6 space-y-2.5 text-xs text-grey-200">
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Accesso illimitato a tutti i 35+ corsi</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Sala Pesi, Calisthenics & Cardio</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> App prenotazione corsi su smartphone</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Accesso giornaliero all'area Sauna</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Sospensione estiva inclusa</li>
+          </ul>
+        </div>
+        <div class="mt-8">
+          <a href="#prova" class="block w-full py-3.5 rounded bg-accent hover:bg-accent-hover text-center font-display font-black text-base uppercase tracking-wider text-white transition shadow">
+            Inizia con la Prova Gratuita
+          </a>
+        </div>
+      </div>
+
+      <div class="p-6 bg-black border border-grey-700 rounded-lg flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-grey-500 block">Flessibile</span>
+          <h3 class="font-display text-3xl font-black uppercase text-white mt-1">Carnet 10 Ingressi</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="font-display text-4xl font-black text-white">€ 80</span>
+            <span class="text-xs text-grey-500">/ validità 6 mesi</span>
+          </div>
+          <ul class="mt-6 space-y-2.5 text-xs text-grey-300">
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Nessun rinnovo automatico</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Valido per sala pesi o qualsiasi corso</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Ideale per chi fa turni o viaggia spesso</li>
+            <li class="flex items-center gap-2"><span class="text-accent-light font-bold">✓</span> Utilizzabile in qualsiasi orario</li>
+          </ul>
+        </div>
+        <div class="mt-8">
+          <a href="#prova" class="block w-full py-3 rounded border border-grey-700 hover:border-accent text-center font-display font-bold text-sm uppercase tracking-wider text-white transition">
+            Richiedi Carnet
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PROVA GRATUITA 1 GIORNO (Lead Capture per Titolare) -->
+  <section id="prova" class="py-16 max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="bg-black border border-grey-700 p-6 sm:p-8 rounded-lg shadow-2xl">
+      <div class="text-center space-y-2 mb-6">
+        <span class="text-xs font-bold uppercase tracking-widest text-accent-light">Senza Impegno</span>
+        <h2 class="font-display text-4xl font-black uppercase text-white" data-i18n="gym_lead_title">Scarica il Tuo Pass Prova Gratuito</h2>
+        <p class="text-xs text-grey-500">Ricevi subito il QR-Pass di ingresso su WhatsApp da mostrare alla reception.</p>
+      </div>
+
+      <div id="gym-success" class="hidden mb-6 p-4 rounded bg-emerald-900/30 border border-emerald-500/40 text-emerald-200 text-center text-xs font-bold">
+        Pass Prova Generato con Successo! Ti abbiamo inviato il QR d'ingresso su WhatsApp.
+      </div>
+
+      <form onsubmit="submitGymLead(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-grey-500 mb-1">Nome e Cognome *</label>
+            <input type="text" required placeholder="Es. Luca Ferretti" class="w-full px-4 py-3 rounded bg-grey-900 border border-grey-700 text-white text-sm focus:outline-none focus:border-accent">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-grey-500 mb-1">Cellulare / WhatsApp *</label>
+            <input type="tel" required placeholder="Es. 345 6789012" class="w-full px-4 py-3 rounded bg-grey-900 border border-grey-700 text-white text-sm focus:outline-none focus:border-accent">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-grey-500 mb-1">Cosa desideri provare durante la giornata?</label>
+          <select class="w-full px-4 py-3 rounded bg-grey-900 border border-grey-700 text-white text-sm focus:outline-none focus:border-accent">
+            <option value="sala">Sala Pesi Isotonica & Cardio</option>
+            <option value="calisthenics">Area Calisthenics & Sbarre</option>
+            <option value="corso">Corso di Gruppo (Pilates / Functional)</option>
+          </select>
+        </div>
+
+        <button type="submit" id="btn-gym-lead" class="w-full py-4 rounded bg-accent hover:bg-accent-hover text-white font-display font-black text-lg uppercase tracking-wider transition">
+          <span id="btn-gym-text" data-i18n="gym_lead_btn">Ricevi il Pass Prova Gratuito su WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 9. RECENSIONI ISCRITTI -->
+  <section id="recensioni" class="py-16 bg-grey-900 border-t border-grey-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-accent-light">La Community</span>
+        <h2 class="font-display text-4xl font-black uppercase text-white" data-i18n="gym_reviews_title">Cosa Dicono i Nostri Iscritti</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded bg-black border border-grey-700 flex flex-col justify-between">
+          <p class="font-serif italic text-sm sm:text-base text-grey-300 leading-relaxed mb-6">
+            “La miglior sala pesi di Roma. Manubri fino a 50kg, rack sempre disponibili e attrezzi curati maniacalmente. La sauna a fine allenamento è impagabile.”
+          </p>
+          <div class="pt-4 border-t border-grey-700 flex items-center justify-between text-xs text-grey-500">
+            <strong class="text-white">Fabrizio L.</strong>
+            <span>Iscritto Sala Pesi</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded bg-black border border-grey-700 flex flex-col justify-between">
+          <p class="font-serif italic text-sm sm:text-base text-grey-300 leading-relaxed mb-6">
+            “Istruttori preparati che ti seguono davvero in sala correggendo le posture. L'apertura alle 06:30 del mattino mi ha permesso di allenarmi con costanza prima del lavoro.”
+          </p>
+          <div class="pt-4 border-t border-grey-700 flex items-center justify-between text-xs text-grey-500">
+            <strong class="text-white">Martina S.</strong>
+            <span>Corso Calisthenics</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded bg-black border border-grey-700 flex flex-col justify-between">
+          <p class="font-serif italic text-sm sm:text-base text-grey-300 leading-relaxed mb-6">
+            “Ambiente serio, zero confusione da discoteca e tanta motivazione. I corsi di functional ti fanno superare ogni limite con la carica del gruppo.”
+          </p>
+          <div class="pt-4 border-t border-grey-700 flex items-center justify-between text-xs text-grey-500">
+            <strong class="text-white">Andrea C.</strong>
+            <span>Abbonato Open Full</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. ORARI & MAPPA -->
+  <section id="orari" class="py-16 bg-black border-t border-grey-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-4">
+          <span class="text-xs font-bold uppercase tracking-widest text-accent-light">Dove Siamo</span>
+          <h2 class="font-display text-4xl font-black uppercase text-white" data-i18n="gym_hours_title">Orari & Posizione</h2>
+          <p class="text-grey-300 text-sm">
+            Facilmente raggiungibile dal GRA e dalla via Tuscolana, con parcheggio privato gratuito da 80 posti.
+          </p>
+          <div class="p-4 rounded bg-grey-900 border border-grey-700 text-xs space-y-2">
+            <p><strong class="text-white">Indirizzo:</strong> Viale dello Sport 14, 00173 Roma</p>
+            <p><strong class="text-white">Telefono Desk:</strong> +39 06 9544 199</p>
+            <p><strong class="text-white">WhatsApp Info:</strong> +39 345 1122334</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="inline-block text-xs font-bold text-accent-light hover:underline pt-1">
+              Indicazioni Stradali su Google Maps &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-grey-900 p-6 rounded border border-grey-700">
+          <h3 class="font-display text-xl font-bold uppercase text-white mb-3">Orari Apertura Struttura</h3>
+          <table class="w-full text-xs divide-y divide-grey-700">
+            <tbody>
+              <tr class="py-2.5 flex justify-between bg-accent/20 px-2 rounded">
+                <td class="font-bold text-accent-light">Lunedì — Venerdì</td>
+                <td class="font-mono text-accent-light font-bold">06:30 — 22:30</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-white">Sabato</td>
+                <td class="font-mono text-grey-300">08:30 — 19:00</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-white">Domenica</td>
+                <td class="font-mono text-grey-300">09:00 — 13:30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black py-8 px-4 border-t border-grey-900 text-center text-xs text-grey-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <span>Apex Sporting Club S.S.D. • P.IVA: 05432109876 • Viale dello Sport 14, Roma</span>
+      <div class="flex gap-4 font-bold text-grey-400">
+        <a href="#struttura" class="hover:text-accent-light">Struttura</a>
+        <a href="#corsi" class="hover:text-accent-light">Corsi</a>
+        <a href="#abbonamenti" class="hover:text-accent-light">Piani</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BARRA MOBILE FISSA (< 768px) -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-black/95 backdrop-blur-md border-t border-grey-700 p-2 shadow-2xl flex items-center gap-2">
+    <a href="tel:+39069544199" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded border border-grey-700 text-white font-bold text-xs active:bg-grey-900 min-h-[48px]">
+      <svg class="w-4 h-4 text-accent-light" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Chiama</span>
+    </a>
+    <a href="https://wa.me/39069544199?text=Ciao%20Apex%20Sporting%20Club" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded bg-emerald-600 text-white font-bold text-xs active:bg-emerald-700 min-h-[48px]">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#prova" class="flex-1 flex items-center justify-center gap-1 py-3 rounded bg-accent text-white font-display font-black text-sm uppercase tracking-wider min-h-[48px]">
+      <span>Prova Gratis</span>
+    </a>
+  </div>
+
+  <script>
+    function toggleGymNav() {
+      const d = document.getElementById('gym-drawer');
+      d.classList.toggle('hidden');
+    }
+
+    function updateGymLiveHours() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const min = now.getMinutes();
+      const timeNum = hour * 60 + min;
+
+      let isOpen = false;
+      let closeText = "";
+
+      if (day >= 1 && day <= 5) {
+        isOpen = (timeNum >= 390 && timeNum < 1350);
+        closeText = "22:30";
+      } else if (day === 6) {
+        isOpen = (timeNum >= 510 && timeNum < 1140);
+        closeText = "19:00";
+      } else {
+        isOpen = (timeNum >= 540 && timeNum < 810);
+        closeText = "13:30";
+      }
+
+      const txt = document.getElementById('live-gym-text');
+      const dot = document.getElementById('live-gym-dot');
+
+      if (isOpen) {
+        txt.textContent = `Aperta Ora • Fino alle ${closeText}`;
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+      } else {
+        txt.textContent = "Chiusa Ora • Riapertura domani 06:30";
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+      }
+    }
+
+    function submitGymLead(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-gym-lead');
+      const txt = document.getElementById('btn-gym-text');
+      const succ = document.getElementById('gym-success');
+
+      txt.textContent = "Generazione Pass...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        txt.textContent = "Pass Generato!";
+        btn.classList.add('bg-emerald-700');
+        succ.classList.remove('hidden');
+        succ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 900);
+    }
+
+    const gymI18n = {
+      it: {
+        gym_tagline: 'Centro Fitness & Wellness',
+        gym_nav_facility: 'La Struttura',
+        gym_nav_schedule: 'Orario Corsi',
+        gym_nav_plans: 'Abbonamenti',
+        gym_nav_reviews: 'Testimonianze',
+        gym_nav_hours: 'Orari & Mappa',
+        gym_btn_trial: 'Pass Prova Gratuito',
+        gym_hero_h1: 'Nessuna Scusa. Solo Prestazioni, Salute e Risultati Reali.',
+        gym_hero_p: 'Sala isotonica completa, area calisthenics con sbarre olimpiche, oltre 35 corsi di gruppo settimanali modulati per intensità, e personal trainer laureati in scienze motorie al tuo fianco.',
+        gym_hero_btn_trial: 'Richiedi Prova Gratuita',
+        gym_hero_btn_schedule: 'Orario Corsi',
+        facility_title: 'Spazi Pensati per Ogni Disciplina',
+        facility_sub: 'Macchinari isotonici selezionati, pavimentazione tecnica anti-trauma e spogliatoi spaziosi.',
+        schedule_title: 'Orario Corsi Settimanale',
+        schedule_sub: 'Guidati da coach federali con accesso su prenotazione via app inclusa nel piano.',
+        plans_title: 'Scegli la Formula Più Adatta a Te',
+        plans_sub: 'Nessun costo nascosto: docce senza gettone, scheda tecnica e sauna sempre incluse.',
+        gym_lead_title: 'Scarica il Tuo Pass Prova Gratuito',
+        gym_lead_btn: 'Ricevi il Pass Prova Gratuito su WhatsApp',
+        gym_reviews_title: 'Cosa Dicono i Nostri Iscritti',
+        gym_hours_title: 'Orari & Posizione'
+      },
+      en: {
+        gym_tagline: 'Fitness & Wellness Club',
+        gym_nav_facility: 'The Club',
+        gym_nav_schedule: 'Class Schedule',
+        gym_nav_plans: 'Memberships',
+        gym_nav_reviews: 'Testimonials',
+        gym_nav_hours: 'Hours & Location',
+        gym_btn_trial: 'Free 1-Day Pass',
+        gym_hero_h1: 'No Excuses. Only Performance, Health & Real Results.',
+        gym_hero_p: 'Comprehensive plate-loaded strength equipment, Olympic calisthenics rigs, over 35 group fitness classes calibrated by intensity, and degreed exercise specialists by your side.',
+        gym_hero_btn_trial: 'Claim Free Day Pass',
+        gym_hero_btn_schedule: 'Class Schedule',
+        facility_title: 'Spaces Built for True Discipline',
+        facility_sub: 'Selected strength machinery, high-density anti-shock flooring, and spacious locker rooms.',
+        schedule_title: 'Weekly Class Timetable',
+        schedule_sub: 'Led by certified coaches with seamless booking via our member mobile app.',
+        plans_title: 'Choose Your Ideal Membership Plan',
+        plans_sub: 'Zero hidden fees: unlimited hot showers, customized workout plan, and Finnish sauna included.',
+        gym_lead_title: 'Claim Your Free 1-Day Trial Pass',
+        gym_lead_btn: 'Get Free Trial Pass on WhatsApp',
+        gym_reviews_title: 'Member Testimonials',
+        gym_hours_title: 'Hours & Location'
+      }
+    };
+
+    function setGymLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (gymI18n[lang] && gymI18n[lang][k]) el.textContent = gymI18n[lang][k];
+      });
+      const itB = document.getElementById('lang-gym-it');
+      const enB = document.getElementById('lang-gym-en');
+      if (lang === 'it') {
+        itB.className = "px-2 py-0.5 text-xs font-bold bg-accent text-white";
+        enB.className = "px-2 py-0.5 text-xs font-medium text-grey-500 hover:text-white";
+      } else {
+        enB.className = "px-2 py-0.5 text-xs font-bold bg-accent text-white";
+        itB.className = "px-2 py-0.5 text-xs font-medium text-grey-500 hover:text-white";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateGymLiveHours();
+    });
+  </script>
+</body>
+</html>

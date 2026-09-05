@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Pizzeria Donna Sofia — Forno a Legna & Impasti a 72h a Palestrina</title>
+  <meta name="description" content="Pizzeria Donna Sofia nel centro storico di Palestrina. Pizza della tradizione cotta nel forno a legna, impasto ad alta idratazione a 72 ore di maturazione, opzioni senza glutine e posti all'aperto.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
+
+  <!-- Typography: Libre Baskerville (Tradizione Napoletana) & Source Sans 3 (Leggibile, Autentica) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            terra: {
+              DEFAULT: '#B84524',
+              hover: '#9E3719',
+              dark: '#7A270F',
+              subtle: '#FAF0EB',
+              light: '#D35B3A',
+            },
+            ardesia: {
+              DEFAULT: '#2B211B',
+              deep: '#1A1410',
+              muted: '#7A6B62',
+              border: '#3A2E26',
+            },
+            calce: {
+              bg: '#FAF7F2',
+              card: '#FFFFFF',
+              border: '#E8E1D5',
+              muted: '#73685E',
+              subtle: '#F2ECE1',
+            },
+            grano: '#D99B43',
+            basilico: '#3B6B48',
+          },
+          fontFamily: {
+            serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            sans: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FastFoodRestaurant",
+    "name": "Pizzeria Donna Sofia",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80",
+    "telephone": "+39069512345",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Piazza del Plebiscito 12",
+      "addressLocality": "Palestrina",
+      "postalCode": "00036",
+      "addressCountry": "IT"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "19:00",
+        "closes": "23:45"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "12:30",
+        "closes": "15:00"
+      }
+    ],
+    "servesCuisine": ["Pizza", "Italian"],
+    "priceRange": "€€"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background-color: #FBF7F0;
+      color: #1E1510;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    input, select, textarea { font-size: 16px !important; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FBF7F0; }
+    ::-webkit-scrollbar-thumb { background: #B84524; border-radius: 3px; }
+
+    /* Divisore rustico napolitano */
+    .rustic-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    .rustic-divider::before,
+    .rustic-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C8A06B, transparent);
+    }
+
+    /* Tab menu pizzeria */
+    .piz-tab.active {
+      background-color: #B84524;
+      color: #FFFFFF;
+      border-color: #B84524;
+    }
+
+    .dish-card {
+      background: #FFFFFF;
+      border: 1px solid #EDE3D5;
+      border-radius: 0.75rem;
+      transition: all 0.2s ease-in-out;
+    }
+    .dish-card:hover {
+      border-color: #B84524;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -4px rgba(184,69,36,0.12);
+    }
+
+    /* Hero Trattoria Napoletana con banda rossa laterale */
+    .piz-hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 520px;
+    }
+    @media (min-width: 768px) {
+      .piz-hero { grid-template-columns: 72px 1fr; min-height: 580px; }
+    }
+    /* Banda rossa laterale */
+    .piz-hero-band {
+      background: #B84524;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 0;
+      gap: 2rem;
+      position: relative;
+    }
+    .piz-hero-band-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+    @media (max-width: 767px) {
+      .piz-hero-band {
+        flex-direction: row;
+        height: 48px;
+        justify-content: center;
+        padding: 0 1.5rem;
+        gap: 1.5rem;
+      }
+      .piz-hero-band-text {
+        writing-mode: initial;
+        transform: none;
+        font-size: 0.7rem;
+      }
+    }
+    .piz-hero-main {
+      position: relative;
+      overflow: hidden;
+    }
+    .piz-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 7s ease;
+    }
+    .piz-hero-main:hover .piz-hero-img { transform: scale(1.04); }
+    .piz-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(30,21,16,0.1) 0%,
+        rgba(30,21,16,0.65) 60%,
+        rgba(30,21,16,0.9) 100%
+      );
+    }
+    .piz-hero-content {
+      position: relative;
+      z-index: 10;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      min-height: 480px;
+    }
+  </style>
+</head>
+<body class="selection:bg-terra selection:text-white pb-24 md:pb-0">
+
+  <!-- 1. BARRA SUPERIORE INFORMAZIONI & ORARI LIVE -->
+  <aside aria-label="Info e Orari" class="bg-ardesia-deep text-calce-bg text-xs py-2 px-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/15">
+          <span id="live-piz-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="live-piz-text">Verifica orario forno...</span>
+        </span>
+        <span class="hidden sm:inline text-white/30">•</span>
+        <span class="text-neutral-300">Piazza del Plebiscito 12, Palestrina (RM)</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="tel:+39069512345" class="flex items-center gap-1.5 text-grano hover:text-white font-medium transition">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span class="font-semibold">+39 06 9512 345</span>
+        </a>
+
+        <div class="inline-flex rounded border border-white/20 overflow-hidden" role="group" aria-label="Cambia lingua">
+          <button id="piz-lang-it" onclick="setPizLang('it')" class="px-2 py-0.5 text-xs font-bold bg-terra text-white">IT</button>
+          <button id="piz-lang-en" onclick="setPizLang('en')" class="px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white">EN</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. NAVBAR -->
+  <header class="sticky top-0 z-40 bg-calce-bg/95 backdrop-blur-md border-b border-calce-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-lg bg-terra text-white flex items-center justify-center font-serif text-2xl font-bold shadow-sm group-hover:bg-terra-hover transition">
+            S
+          </div>
+          <div>
+            <span class="block font-serif text-3xl font-bold tracking-tight text-ardesia group-hover:text-terra transition">
+              Donna Sofia
+            </span>
+            <span class="block text-[11px] uppercase tracking-widest text-calce-muted font-semibold" data-i18n="piz_tagline">
+              Pizzeria & Forno a Legna
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-ardesia">
+          <a href="#impasto" class="hover:text-terra transition py-1" data-i18n="piz_nav_dough">L'Impasto 72h</a>
+          <a href="#menu" class="hover:text-terra transition py-1" data-i18n="piz_nav_menu">Il Menu Pizze</a>
+          <a href="#asporto" class="hover:text-terra transition py-1" data-i18n="piz_nav_takeaway">Asporto su WhatsApp</a>
+          <a href="#recensioni" class="hover:text-terra transition py-1" data-i18n="piz_nav_reviews">Recensioni</a>
+          <a href="#orari" class="hover:text-terra transition py-1" data-i18n="piz_nav_hours">Orari & Dove Siamo</a>
+        </nav>
+
+        <!-- CTA Header -->
+        <div class="flex items-center gap-3">
+          <a href="tel:+39069512345" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-calce-border text-xs font-bold text-ardesia hover:bg-white transition">
+            <span>Chiama: 06 9512 345</span>
+          </a>
+          <a href="#prenota" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-terra hover:bg-terra-hover text-white text-xs sm:text-sm font-bold shadow transition" data-i18n="piz_btn_book">
+            <span>Prenota un Tavolo</span>
+          </a>
+          <button onclick="togglePizNav()" class="md:hidden p-2 rounded-lg text-ardesia hover:bg-calce-subtle" aria-label="Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="piz-drawer" class="hidden md:hidden bg-white border-b border-calce-border px-4 py-5 space-y-3 shadow-lg">
+      <a href="#impasto" onclick="togglePizNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="piz_nav_dough">L'Impasto 72h</a>
+      <a href="#menu" onclick="togglePizNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="piz_nav_menu">Il Menu Pizze</a>
+      <a href="#asporto" onclick="togglePizNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="piz_nav_takeaway">Asporto su WhatsApp</a>
+      <a href="#recensioni" onclick="togglePizNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="piz_nav_reviews">Recensioni</a>
+      <a href="#orari" onclick="togglePizNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="piz_nav_hours">Orari & Dove Siamo</a>
+      <div class="pt-3 border-t border-calce-border flex flex-col gap-2">
+        <a href="#prenota" onclick="togglePizNav()" class="w-full text-center py-3 rounded-lg bg-terra text-white font-bold text-sm" data-i18n="piz_btn_book">
+          Prenota un Tavolo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. HERO — Trattoria Napoletana con Banda Rossa Laterale -->
+  <section class="piz-hero">
+
+    <!-- Banda rossa laterale verticale (solo desktop) -->
+    <div class="piz-hero-band">
+      <span class="text-white/60 text-2xl">🍕</span>
+      <span class="piz-hero-band-text">Forno a Legna · Impasto 72h · Dal 1987</span>
+      <span class="text-white/60 text-2xl">🔥</span>
+    </div>
+
+    <!-- Area principale: foto + contenuto testo -->
+    <div class="piz-hero-main">
+      <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1400&q=85"
+           alt="Margherita Verace nel forno a legna di Donna Sofia"
+           class="piz-hero-img"
+           loading="eager">
+      <div class="piz-hero-overlay"></div>
+
+      <div class="piz-hero-content">
+        <div class="space-y-4 max-w-2xl">
+
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-grano/30 bg-terra/20 text-grano text-[11px] font-semibold uppercase tracking-widest backdrop-blur-sm">
+            <span>🏛 Palestrina · Piazza del Plebiscito 12</span>
+          </div>
+
+          <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.18] text-white tracking-tight" data-i18n="piz_hero_title">
+            La pizza della tradizione:<br>forno a legna e impasto a 72 ore.
+          </h1>
+
+          <p class="text-neutral-200 text-sm sm:text-base leading-relaxed" data-i18n="piz_hero_desc">
+            Nel centro storico di Palestrina riscopri il sapore vero: farina tipo 1 a pietra, lievitazione lenta per digeribilità assoluta, pomodoro San Marzano DOP e opzione <strong class="text-grano">Gluten Free con forno dedicato</strong>.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <a href="#menu" class="px-6 py-3.5 rounded-lg bg-terra hover:bg-terra-hover text-white font-bold text-sm text-center shadow-lg shadow-terra/25 transition" data-i18n="piz_hero_btn_menu">
+              Consulta il Menu Pizze
+            </a>
+            <a href="#asporto" class="px-6 py-3.5 rounded-lg border border-white/25 bg-white/10 hover:bg-white/20 text-white font-semibold text-sm text-center backdrop-blur-sm transition" data-i18n="piz_hero_btn_asporto">
+              Ordina su WhatsApp
+            </a>
+          </div>
+
+          <!-- Pillole rapide inline -->
+          <div class="pt-4 border-t border-white/10 flex flex-wrap gap-x-6 gap-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-grano font-serif font-bold">72 Ore</span>
+              <span class="text-xs text-neutral-400">Maturazione naturale</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-grano font-serif font-bold">450°C</span>
+              <span class="text-xs text-neutral-400">Faggio secco</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-grano font-serif font-bold">GF</span>
+              <span class="text-xs text-neutral-400">Forno dedicato</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-grano font-serif font-bold">Dehor</span>
+              <span class="text-xs text-neutral-400">Posti in piazza</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 4. STATO ORARI IN TEMPO REALE -->
+  <section class="bg-white border-b border-calce-border py-3.5 px-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="w-2.5 h-2.5 rounded-full bg-terra animate-pulse"></span>
+        <span id="live-piz-status-msg" class="text-xs sm:text-sm font-semibold text-ardesia">
+          Verifica accensione forno...
+        </span>
+        <span class="hidden md:inline text-calce-muted">•</span>
+        <span class="text-xs text-calce-muted">
+          Aperti dal Martedì alla Domenica: 19:00 – 23:30 (Lunedì Chiuso)
+        </span>
+      </div>
+      <a href="#orari" class="text-xs font-semibold text-terra hover:underline">
+        Orari settimanali &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- 5. FILOSOFIA DELL'IMPASTO -->
+  <section id="impasto" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-7 space-y-5">
+        <div class="rustic-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-terra">L'Arte della Lievitazione</span>
+        </div>
+
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ardesia leading-tight">
+          Perché la nostra pizza non ti farà mai avere sete la notte.
+        </h2>
+
+        <p class="text-calce-muted text-sm sm:text-base leading-relaxed">
+          Alla <strong>Pizzeria Donna Sofia</strong> l'impasto è preparato con lievito madre vivo e farine selezionate non raffinate. Lasciamo maturare l'impasto per un minimo di 72 ore a temperatura controllata: gli zuccheri complessi e la maglia glutinica vengono scomposti naturalmente durante questo lungo riposo, rendendo la pizza straordinariamente soffice e leggera.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-white border border-calce-border">
+            <span class="font-serif text-3xl font-bold text-terra block mb-1">72h</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Maturazione Lenta</span>
+            <span class="text-[11px] text-calce-muted">Zero fermentazione residua nello stomaco.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-calce-border">
+            <span class="font-serif text-3xl font-bold text-ardesia block mb-1">80%</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Alta Idratazione</span>
+            <span class="text-[11px] text-calce-muted">Cornicione ad alveolatura aperta e fragrante.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-calce-border">
+            <span class="font-serif text-3xl font-bold text-basilico block mb-1">Separato</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Forno Senza Glutine</span>
+            <span class="text-[11px] text-calce-muted">Nessun rischio di contaminazione per celiaci.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+        <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80" 
+             alt="Stesura manuale pizza" class="w-full h-52 object-cover rounded-xl border border-calce-border shadow-sm">
+        <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=600&q=80" 
+             alt="Pomodoro San Marzano fresco" class="w-full h-52 object-cover rounded-xl border border-calce-border shadow-sm mt-6">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. IL MENU DELLE PIZZE (Stile PizzeriaOracolo & LaLanterna) -->
+  <section id="menu" class="py-16 md:py-24 bg-white border-y border-calce-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-10">
+        <div class="rustic-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-terra">Listino Forno a Legna</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ardesia">
+          Le Pizze & i Fritti Artigianali
+        </h2>
+        <p class="text-calce-muted text-sm sm:text-base">
+          Tutti gli ingredienti sono selezionati da produttori locali laziali e campani.
+        </p>
+
+        <!-- Category Tabs -->
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-2">
+          <button onclick="filterPiz('tutte')" id="tab-piz-tutte" class="piz-tab active px-4 py-2 rounded-lg text-xs sm:text-sm font-bold border border-calce-border bg-terra text-white transition">
+            Tutte le Pizze
+          </button>
+          <button onclick="filterPiz('rosse')" id="tab-piz-rosse" class="piz-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-bold border border-calce-border bg-calce-bg text-ardesia hover:bg-white transition">
+            Pizze Rosse
+          </button>
+          <button onclick="filterPiz('bianche')" id="tab-piz-bianche" class="piz-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-bold border border-calce-border bg-calce-bg text-ardesia hover:bg-white transition">
+            Pizze Bianche & Speciali
+          </button>
+          <button onclick="filterPiz('fritti')" id="tab-piz-fritti" class="piz-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-bold border border-calce-border bg-calce-bg text-ardesia hover:bg-white transition">
+            Fritti & Supplì
+          </button>
+        </div>
+
+        <!-- Filtro Esigenza Alimentare -->
+        <div class="pt-2 flex items-center justify-center gap-2 text-xs">
+          <span class="text-calce-muted font-medium">Esigenze:</span>
+          <button onclick="filterPizDiet('all')" id="diet-all" class="px-3 py-1 rounded text-xs font-bold bg-ardesia text-white">Tutti</button>
+          <button onclick="filterPizDiet('veg')" id="diet-veg" class="px-3 py-1 rounded text-xs font-medium bg-calce-bg text-stone-700 border border-calce-border hover:bg-white">🌱 Solo Vegetariani</button>
+        </div>
+      </div>
+
+      <!-- Griglia Piatti -->
+      <div id="pizzas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Piatto 1 -->
+        <div class="dish-card p-5 rounded-xl flex flex-col justify-between" data-cat="bianche" data-diet="all">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-1.5">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-terra text-white mb-1">Specialità Donna Sofia</span>
+                <h3 class="font-serif text-2xl font-bold text-ardesia">Donna Sofia Signature</h3>
+              </div>
+              <span class="font-serif text-2xl font-bold text-terra shrink-0">€ 13,00</span>
+            </div>
+            <p class="text-xs sm:text-sm text-calce-muted leading-relaxed mb-4">
+              Fior di latte campano, pomodorini del Piennolo confit al forno, stracciatella fresca a crudo, prosciutto crudo di Parma 24 mesi e pesto di pistacchio di Bronte.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+            <span class="font-medium text-ardesia">Pizza Bianca Speciale</span>
+            <span class="text-terra font-semibold">Consigliatissima</span>
+          </div>
+        </div>
+
+        <!-- Piatto 2 -->
+        <div class="dish-card p-5 rounded-xl flex flex-col justify-between" data-cat="rosse" data-diet="veg">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-1.5">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-700 text-white mb-1">Vegetariana</span>
+                <h3 class="font-serif text-2xl font-bold text-ardesia">Margherita Verace DOP</h3>
+              </div>
+              <span class="font-serif text-2xl font-bold text-terra shrink-0">€ 8,00</span>
+            </div>
+            <p class="text-xs sm:text-sm text-calce-muted leading-relaxed mb-4">
+              Pomodoro San Marzano DOP schiacciato a mano, Mozzarella di Bufala Campana DOP, basilico fresco di serra e olio extravergine d'oliva delle colline romane.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+            <span class="text-emerald-700 font-semibold">Disponibile Senza Glutine</span>
+            <span class="font-medium text-ardesia">Classica</span>
+          </div>
+        </div>
+
+        <!-- Piatto 3 -->
+        <div class="dish-card p-5 rounded-xl flex flex-col justify-between" data-cat="rosse" data-diet="all">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-1.5">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-700 text-white mb-1">Piccante</span>
+                <h3 class="font-serif text-2xl font-bold text-ardesia">Diavola Calabra Rustica</h3>
+              </div>
+              <span class="font-serif text-2xl font-bold text-terra shrink-0">€ 9,50</span>
+            </div>
+            <p class="text-xs sm:text-sm text-calce-muted leading-relaxed mb-4">
+              Pomodoro San Marzano, fior di latte di Agerola, spianata calabra artigianale piccante e olive nere taggiasche denocciolate.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+            <span class="font-medium text-ardesia">Pizza Rossa</span>
+            <span>Gusto Deciso</span>
+          </div>
+        </div>
+
+        <!-- Piatto 4 -->
+        <div class="dish-card p-5 rounded-xl flex flex-col justify-between" data-cat="bianche" data-diet="veg">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-1.5">
+              <div>
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-700 text-white mb-1">Vegetariana</span>
+                <h3 class="font-serif text-2xl font-bold text-ardesia">La Nerano al Forno</h3>
+              </div>
+              <span class="font-serif text-2xl font-bold text-terra shrink-0">€ 11,50</span>
+            </div>
+            <p class="text-xs sm:text-sm text-calce-muted leading-relaxed mb-4">
+              Crema vellutata di zucchine romanesche, provola affumicata di Sorrento, chips di zucchine fritte croccanti e scaglie di Provolone del Monaco DOP.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+            <span class="font-medium text-ardesia">Pizza Bianca</span>
+            <span class="text-emerald-700 font-semibold">Ispirazione Costiera</span>
+          </div>
+        </div>
+
+        <!-- Piatto 5 -->
+        <div class="dish-card p-5 rounded-xl flex flex-col justify-between" data-cat="bianche" data-diet="all">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-1.5">
+              <h3 class="font-serif text-2xl font-bold text-ardesia">Fiori di Zucca & Alici</h3>
+              <span class="font-serif text-2xl font-bold text-terra shrink-0">€ 10,50</span>
+            </div>
+            <p class="text-xs sm:text-sm text-calce-muted leading-relaxed mb-4">
+              Fior di latte, fiori di zucca freschissimi aperti a mano, alici di Cetara a canna, provola campana affumicata e pepe nero macinato.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+            <span class="font-medium text-ardesia">Tradizione Romana</span>
+            <span>Sapori Tipici</span>
+          </div>
+        </div>
+
+        <!-- Piatto 6 (Fritti) -->
+        <div class="dish-card p-5 rounded-xl flex flex-col justify-between" data-cat="fritti" data-diet="all">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-1.5">
+              <h3 class="font-serif text-2xl font-bold text-ardesia">Supplì al Telefono Tradizionale</h3>
+              <span class="font-serif text-2xl font-bold text-terra shrink-0">€ 2,50 cad.</span>
+            </div>
+            <p class="text-xs sm:text-sm text-calce-muted leading-relaxed mb-4">
+              Riso Carnaroli cotto nel ragù di carne a lenta cottura, impanatura rustica fatta in casa e cuore filante di fior di latte campano.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+            <span class="font-medium text-ardesia">Fritto Espresso</span>
+            <span>Dorato & Croccante</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. SEZIONE ASPORTO SU WHATSAPP -->
+  <section id="asporto" class="py-16 bg-ardesia text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-white/20 bg-white/5 text-grano text-xs font-semibold uppercase tracking-wider">
+            🛵 Asporto Caldo & Puntuale
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold leading-tight" data-i18n="asporto_title">
+            Preferisci gustarla a casa? Ordina su WhatsApp.
+          </h2>
+          <p class="text-neutral-300 text-sm sm:text-base leading-relaxed" data-i18n="asporto_desc">
+            Invia la tua lista pizze direttamente su WhatsApp con l'orario in cui desideri passare a ritirarle: inforniamo pochi minuti prima del tuo arrivo per farti trovare i cartoni caldi e fragranti senza code al banco.
+          </p>
+          <div class="pt-2">
+            <a href="https://wa.me/39069512345?text=Buonasera%20Donna%20Sofia,%20vorrei%20ordinare%20delle%20pizze%20da%20asporto" 
+               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow transition">
+              <span>Ordina Asporto su WhatsApp</span>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" 
+               alt="Tavolo pizzeria all'aperto nella piazza" 
+               class="rounded-xl border border-white/15 shadow-2xl w-full h-80 object-cover">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. RECENSIONI -->
+  <section id="recensioni" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+      <div class="rustic-divider">
+        <span class="text-xs font-bold uppercase tracking-widest text-terra">Esperienze</span>
+      </div>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ardesia" data-i18n="piz_reviews_title">
+        Cosa Dicono i Nostri Ospiti
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 rounded-xl bg-white border border-calce-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “La vera pizza napoletana con il cornicione soffice e profumato. Si digerisce che è una meraviglia, puoi mangiarne una intera e svegliarti la mattina dopo leggero senza sete!”
+        </p>
+        <div class="pt-4 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+          <strong class="text-ardesia">Chiara Moretti</strong>
+          <span>Recensione Google • 5/5</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-xl bg-white border border-calce-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “Mia figlia è celiaca e trovare una pizzeria con forno dedicato e una qualità così alta è stata una salvezza. Pizza senza glutine eccezionale, la migliore mangiata finora.”
+        </p>
+        <div class="pt-4 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+          <strong class="text-ardesia">Roberto De Angelis</strong>
+          <span>Cliente Verificato</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-xl bg-white border border-calce-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “I fritti sono una goduria, asciutti e croccantissimi. Il personale è gentilissimo e il locale caldo e accogliente. Consigliata la pizza Donna Sofia con pistacchio!”
+        </p>
+        <div class="pt-4 border-t border-calce-border flex items-center justify-between text-xs text-calce-muted">
+          <strong class="text-ardesia">Valerio Marini</strong>
+          <span>Local Guide</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. PRENOTAZIONE TAVOLO -->
+  <section id="prenota" class="py-16 bg-white border-t border-calce-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center space-y-2 mb-8">
+        <div class="rustic-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-terra">Riserva il Tavolo</span>
+        </div>
+        <h2 class="font-serif text-3xl font-bold text-ardesia" data-i18n="piz_book_title">Prenota il Tuo Tavolo</h2>
+        <p class="text-xs sm:text-sm text-calce-muted">Prenotazione rapida senza intermediari. Ricevi conferma diretta via WhatsApp.</p>
+      </div>
+
+      <div id="piz-success" class="hidden mb-6 p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-center">
+        <p class="font-bold text-sm">Richiesta Ricevuta!</p>
+        <p class="text-xs text-emerald-800 mt-0.5">Ti inviamo subito un messaggio di conferma su WhatsApp con il riepilogo del tuo tavolo. A stasera!</p>
+      </div>
+
+      <form onsubmit="submitPizBook(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Nome e Cognome *</label>
+            <input type="text" required placeholder="Es. Marco Rossi" class="w-full px-4 py-3 rounded-lg border border-calce-border bg-calce-bg text-ardesia focus:outline-none focus:border-terra">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Telefono / WhatsApp *</label>
+            <input type="tel" required placeholder="Es. 347 1122334" class="w-full px-4 py-3 rounded-lg border border-calce-border bg-calce-bg text-ardesia focus:outline-none focus:border-terra">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Giorno *</label>
+            <input type="date" id="piz-date" required class="w-full px-4 py-3 rounded-lg border border-calce-border bg-calce-bg text-ardesia focus:outline-none focus:border-terra">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Turno *</label>
+            <select required class="w-full px-4 py-3 rounded-lg border border-calce-border bg-calce-bg text-ardesia focus:outline-none focus:border-terra">
+              <option value="19:30">Primo Turno (19:30 - 21:15)</option>
+              <option value="21:30" selected>Secondo Turno (21:30+)</option>
+              <option value="domenica_pranzo">Domenica Pranzo (13:00)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Ospiti *</label>
+            <select required class="w-full px-4 py-3 rounded-lg border border-calce-border bg-calce-bg text-ardesia focus:outline-none focus:border-terra">
+              <option value="2" selected>2 Persone</option>
+              <option value="3-4">3 - 4 Persone</option>
+              <option value="5-8">5 - 8 Persone</option>
+              <option value="9+">Tavolata 9+ Persone</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-piz-book" class="w-full py-4 rounded-lg bg-terra hover:bg-terra-hover text-white font-bold text-sm shadow transition">
+          <span id="btn-piz-text" data-i18n="piz_btn_submit_text">Invia Richiesta Prenotazione</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 10. ORARI & DOVE SIAMO -->
+  <section id="orari" class="py-16 bg-calce-bg border-t border-calce-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="space-y-4">
+          <div class="rustic-divider">
+            <span class="text-xs font-bold uppercase tracking-widest text-terra">Vieni a Trovarci</span>
+          </div>
+          <h2 class="font-serif text-3xl font-bold text-ardesia" data-i18n="piz_hours_title">Orari & Posizione</h2>
+          <p class="text-xs sm:text-sm text-calce-muted leading-relaxed">
+            Situati nella piazza storica di Palestrina, con parcheggio comodo nelle vicinanze e sala climatizzata.
+          </p>
+          <div class="p-4 rounded-xl bg-white border border-calce-border text-xs space-y-2">
+            <p><strong>Indirizzo:</strong> Piazza del Plebiscito 12, 00036 Palestrina (RM)</p>
+            <p><strong>Telefono Prenotazioni:</strong> +39 06 9512 345</p>
+            <p><strong>WhatsApp Asporto:</strong> +39 347 8899001</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="inline-block text-xs font-bold text-terra hover:underline pt-1">
+              Indicazioni su Google Maps &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-calce-border">
+          <h3 class="font-serif text-xl font-bold text-ardesia mb-3">Orari Forno a Legna</h3>
+          <table class="w-full text-xs divide-y divide-calce-border">
+            <tbody>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-calce-muted">Lunedì</td>
+                <td class="text-red-500 font-semibold">Chiuso per Riposo</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Martedì — Giovedì</td>
+                <td class="font-mono text-calce-muted">19:00 — 23:30</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between bg-terra-subtle/50 px-2 rounded">
+                <td class="font-bold text-terra">Venerdì & Sabato</td>
+                <td class="font-mono text-terra font-bold">19:00 — 00:30</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Domenica Pranzo</td>
+                <td class="font-mono text-calce-muted">12:30 — 15:00</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Domenica Cena</td>
+                <td class="font-mono text-calce-muted">19:00 — 23:30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ardesia-deep text-neutral-400 py-10 px-4 sm:px-6 border-t border-white/10 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <span class="font-serif text-lg font-bold text-white">Pizzeria Donna Sofia S.r.l.</span>
+        <p class="text-neutral-500 mt-0.5">P.IVA: 07654321098 • Piazza del Plebiscito 12, Palestrina</p>
+      </div>
+      <div class="flex items-center gap-4 text-neutral-300 font-semibold">
+        <a href="#impasto" class="hover:text-terra">L'Impasto</a>
+        <a href="#menu" class="hover:text-terra">Pizze</a>
+        <a href="#prenota" class="hover:text-terra">Prenota</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BARRA MOBILE FISSA (< 768px) -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-calce-border p-2 shadow-2xl flex items-center gap-2">
+    <a href="tel:+39069512345" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-lg border border-calce-border text-ardesia font-bold text-xs active:bg-calce-bg min-h-[48px]">
+      <svg class="w-4 h-4 text-terra" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Chiama</span>
+    </a>
+    <a href="https://wa.me/39069512345?text=Buonasera%20Donna%20Sofia%20vorrei%20ordinare%20pizze" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-lg bg-emerald-600 text-white font-bold text-xs active:bg-emerald-700 min-h-[48px]">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#prenota" class="flex-1 flex items-center justify-center gap-1 py-3 rounded-lg bg-terra text-white font-bold text-xs active:bg-terra-hover min-h-[48px]">
+      <span>Prenota</span>
+    </a>
+  </div>
+
+  <script>
+    function togglePizNav() {
+      const d = document.getElementById('piz-drawer');
+      d.classList.toggle('hidden');
+    }
+
+    let currentCat = 'tutte';
+    let currentDiet = 'all';
+
+    function filterPiz(cat) {
+      currentCat = cat;
+      document.querySelectorAll('.piz-tab').forEach(b => {
+        b.classList.remove('active', 'bg-terra', 'text-white');
+        b.classList.add('bg-calce-bg', 'text-ardesia');
+      });
+      const activeB = document.getElementById('tab-piz-' + cat);
+      if (activeB) {
+        activeB.classList.add('active', 'bg-terra', 'text-white');
+        activeB.classList.remove('bg-calce-bg', 'text-ardesia');
+      }
+      applyPizFilters();
+    }
+
+    function filterPizDiet(diet) {
+      currentDiet = diet;
+      const bAll = document.getElementById('diet-all');
+      const bVeg = document.getElementById('diet-veg');
+      if (diet === 'all') {
+        bAll.className = "px-3 py-1 rounded text-xs font-bold bg-ardesia text-white";
+        bVeg.className = "px-3 py-1 rounded text-xs font-medium bg-calce-bg text-stone-700 border border-calce-border hover:bg-white";
+      } else {
+        bVeg.className = "px-3 py-1 rounded text-xs font-bold bg-emerald-700 text-white";
+        bAll.className = "px-3 py-1 rounded text-xs font-medium bg-calce-bg text-stone-700 border border-calce-border hover:bg-white";
+      }
+      applyPizFilters();
+    }
+
+    function applyPizFilters() {
+      document.querySelectorAll('#pizzas-container .dish-card').forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        const diet = card.getAttribute('data-diet');
+        const matchCat = (currentCat === 'tutte' || cat === currentCat);
+        const matchDiet = (currentDiet === 'all' || diet === currentDiet);
+        if (matchCat && matchDiet) card.classList.remove('hidden');
+        else card.classList.add('hidden');
+      });
+    }
+
+    function updatePizLiveHours() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const min = now.getMinutes();
+      const timeNum = hour * 60 + min;
+
+      let isOpen = false;
+      let closeText = "";
+
+      if (day === 1) {
+        isOpen = false;
+      } else if (day >= 2 && day <= 4) {
+        isOpen = (timeNum >= 1140 && timeNum < 1410);
+        closeText = "23:30";
+      } else if (day === 5 || day === 6) {
+        isOpen = (timeNum >= 1140 || timeNum < 30);
+        closeText = "00:30";
+      } else {
+        isOpen = (timeNum >= 750 && timeNum < 900) || (timeNum >= 1140 && timeNum < 1410);
+        closeText = (timeNum >= 750 && timeNum < 900) ? "15:00" : "23:30";
+      }
+
+      const txt = document.getElementById('live-piz-text');
+      const dot = document.getElementById('live-piz-dot');
+      const msg = document.getElementById('live-piz-status-msg');
+
+      if (isOpen) {
+        txt.textContent = `Forno a Legna Acceso • Fino alle ${closeText}`;
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        msg.textContent = `Forno a Legna Acceso Ora • Pizze sfornate fino alle ${closeText}`;
+      } else {
+        txt.textContent = "Chiuso Ora • Forno attivo stasera dalle 19:00";
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        msg.textContent = "Locale Chiuso Ora • Il forno a legna riaccende stasera alle 19:00";
+      }
+    }
+
+    function submitPizBook(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-piz-book');
+      const txt = document.getElementById('btn-piz-text');
+      const succ = document.getElementById('piz-success');
+
+      txt.textContent = "Verifica disponibilità...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        txt.textContent = "Tavolo Riservato!";
+        btn.classList.add('bg-emerald-700');
+        succ.classList.remove('hidden');
+        succ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 900);
+    }
+
+    const pizI18n = {
+      it: {
+        piz_tagline: 'Pizzeria & Forno a Legna',
+        piz_nav_dough: 'L\'Impasto 72h',
+        piz_nav_menu: 'Il Menu Pizze',
+        piz_nav_takeaway: 'Asporto su WhatsApp',
+        piz_nav_reviews: 'Recensioni',
+        piz_nav_hours: 'Orari & Dove Siamo',
+        piz_btn_book: 'Prenota un Tavolo',
+        piz_hero_title: 'La pizza della tradizione: forno a legna e impasti a 72 ore.',
+        piz_hero_desc: 'Nel centro storico di Palestrina riscopri il sapore vero della pizza cotta su pietra refrattaria: farina tipo 1 macinata a pietra, lievitazione lentissima a 72 ore per una digeribilità assoluta, pomodoro San Marzano DOP, e opzioni certificate per celiaci con forno separato.',
+        piz_hero_btn_menu: 'Consulta il Menu Completo',
+        piz_hero_btn_asporto: 'Ordina da Asporto (WhatsApp)',
+        asporto_title: 'Preferisci gustarla a casa? Ordina su WhatsApp.',
+        asporto_desc: 'Invia la tua lista pizze direttamente su WhatsApp con l\'orario in cui desideri passare a ritirarle.',
+        piz_reviews_title: 'Cosa Dicono i Nostri Ospiti',
+        piz_book_title: 'Prenota il Tuo Tavolo',
+        piz_btn_submit_text: 'Invia Richiesta Prenotazione',
+        piz_hours_title: 'Orari & Posizione'
+      },
+      en: {
+        piz_tagline: 'Wood-Fired Pizzeria',
+        piz_nav_dough: '72h Fermentation',
+        piz_nav_menu: 'Pizza Menu',
+        piz_nav_takeaway: 'Takeaway on WhatsApp',
+        piz_nav_reviews: 'Reviews',
+        piz_nav_hours: 'Hours & Location',
+        piz_btn_book: 'Book a Table',
+        piz_hero_title: 'Authentic tradition: wood-fired oven & 72-hour dough.',
+        piz_hero_desc: 'In Palestrina\'s historic center, rediscover the authentic taste of pizza baked on refractory stone: stone-ground flour, 72-hour slow maturation for effortless digestion, San Marzano DOP tomatoes, and certified gluten-free options baked in a dedicated oven.',
+        piz_hero_btn_menu: 'View Full Menu',
+        piz_hero_btn_asporto: 'Takeaway (WhatsApp)',
+        asporto_title: 'Prefer enjoying it at home? Order via WhatsApp.',
+        asporto_desc: 'Send your pizza list directly on WhatsApp with your desired pickup time.',
+        piz_reviews_title: 'Guest Reviews',
+        piz_book_title: 'Reserve Your Table',
+        piz_btn_submit_text: 'Send Reservation Request',
+        piz_hours_title: 'Hours & Location'
+      }
+    };
+
+    function setPizLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (pizI18n[lang] && pizI18n[lang][k]) el.textContent = pizI18n[lang][k];
+      });
+      const itB = document.getElementById('piz-lang-it');
+      const enB = document.getElementById('piz-lang-en');
+      if (lang === 'it') {
+        itB.className = "px-2 py-0.5 text-xs font-bold bg-terra text-white";
+        enB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white";
+      } else {
+        enB.className = "px-2 py-0.5 text-xs font-bold bg-terra text-white";
+        itB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updatePizLiveHours();
+      const dt = document.getElementById('piz-date');
+      if (dt) {
+        const t = new Date().toISOString().split('T')[0];
+        dt.value = t;
+        dt.min = t;
+      }
+    });
+  </script>
+</body>
+</html>
