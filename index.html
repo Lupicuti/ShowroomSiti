@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Ristorante La Pergola — Cucina Tradizionale & Brace a Palestrina</title>
+  <meta name="description" content="Ristorante La Pergola a Palestrina. Pasta fresca all'uovo tirata al matterello, tagli di carne selezionati cotti sulla brace di rovere a vista, carta dei vini del Lazio e dehor estivo.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍷</text></svg>">
+
+  <!-- Typography: EB Garamond (Alta Ristorazione, Nobile) & Lato (Corpo Testo Leggibile) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rubino: {
+              DEFAULT: '#7A1F2D',
+              hover: '#641824',
+              dark: '#480E17',
+              subtle: '#F9ECEE',
+              light: '#A33344',
+            },
+            ardesia: {
+              DEFAULT: '#221E1C',
+              deep: '#171412',
+              muted: '#6E645D',
+              border: '#38312D',
+            },
+            pietra: {
+              bg: '#FAF6F0',
+              card: '#FFFFFF',
+              border: '#E8E1D5',
+              muted: '#73685E',
+              subtle: '#EFE8DC',
+            },
+            oro: '#C5A059',
+            olivo: '#465640'
+          },
+          fontFamily: {
+            serif: ['"EB Garamond"', 'Georgia', 'serif'],
+            sans: ['"Lato"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Ristorante La Pergola",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80",
+    "telephone": "+39069533210",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via Colle San Pietro 8",
+      "addressLocality": "Palestrina",
+      "postalCode": "00036",
+      "addressCountry": "IT"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "12:30",
+        "closes": "15:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "19:30",
+        "closes": "23:30"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "12:30",
+        "closes": "16:00"
+      }
+    ],
+    "servesCuisine": ["Italian", "Meat", "Traditional"],
+    "priceRange": "€€€"
+  }
+  </script>
+
+  <style>
+  *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Lato', system-ui, sans-serif;
+      background-color: #F8F3EB;
+      color: #1A1614;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F8F3EB; }
+    ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 3px; }
+
+    /* Divisore nobile in oro */
+    .noble-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    .noble-divider::before,
+    .noble-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C5A059, transparent);
+    }
+
+    /* Rigo listino carta menu */
+    .menu-carte-row {
+      position: relative;
+      transition: background-color 0.2s ease;
+      padding: 0.75rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+    .menu-carte-row:hover {
+      background-color: rgba(197,160,89,0.06);
+    }
+    .leader-line {
+      flex: 1;
+      border-bottom: 1px dotted #C5A059;
+      margin: 0 0.75rem;
+      position: relative;
+      top: -4px;
+      opacity: 0.5;
+    }
+
+    .rest-tab.active {
+      background-color: #0D1B2A;
+      color: #C5A059;
+      border-color: #C5A059;
+    }
+
+    /* Hero nobile midnight blue */
+    .hero-noble {
+      position: relative;
+      overflow: hidden;
+      background: #0D1B2A;
+      min-height: 580px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-noble-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.22;
+      filter: grayscale(40%);
+      mix-blend-mode: luminosity;
+    }
+    /* Striscia oro decorativa sinistra */
+    .hero-noble::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, transparent, #C5A059, transparent);
+    }
+    .hero-noble-content {
+      position: relative;
+      z-index: 10;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="selection:bg-rubino selection:text-white pb-24 md:pb-0">
+
+  <!-- 1. TOP BAR -->
+  <aside aria-label="Info e Orari" class="bg-ardesia-deep text-pietra-bg text-xs py-2 px-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/10 text-white border border-white/15">
+          <span id="live-rest-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="live-rest-text">Verifica servizio cucina...</span>
+        </span>
+        <span class="hidden sm:inline text-white/30">•</span>
+        <span class="text-neutral-300">Via Colle San Pietro 8, Palestrina (RM) • Parcheggio Riservato</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="tel:+39069533210" class="flex items-center gap-1.5 text-oro hover:text-white font-medium transition">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span class="font-semibold">+39 06 9533 210</span>
+        </a>
+
+        <div class="inline-flex rounded border border-white/20 overflow-hidden" role="group" aria-label="Cambia lingua">
+          <button id="rest-lang-it" onclick="setRestLang('it')" class="px-2 py-0.5 text-xs font-bold bg-rubino text-white">IT</button>
+          <button id="rest-lang-en" onclick="setRestLang('en')" class="px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white">EN</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 2. NAVBAR -->
+  <header class="sticky top-0 z-40 bg-pietra-bg/95 backdrop-blur-md border-b border-pietra-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-lg bg-rubino text-white flex items-center justify-center font-serif text-2xl font-bold shadow-sm group-hover:bg-rubino-hover transition">
+            P
+          </div>
+          <div>
+            <span class="block font-serif text-3xl font-bold tracking-tight text-ardesia group-hover:text-rubino transition">
+              La Pergola
+            </span>
+            <span class="block text-[11px] uppercase tracking-widest text-pietra-muted font-semibold" data-i18n="rest_tagline">
+              Cucina del Territorio & Brace
+            </span>
+          </div>
+        </a>
+
+        <!-- Menu Desktop -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-ardesia">
+          <a href="#filosofia" class="hover:text-rubino transition py-1" data-i18n="rest_nav_about">La Nostra Cucina</a>
+          <a href="#menu" class="hover:text-rubino transition py-1" data-i18n="rest_nav_menu">La Carta</a>
+          <a href="#brace" class="hover:text-rubino transition py-1" data-i18n="rest_nav_grill">La Brace a Vista</a>
+          <a href="#recensioni" class="hover:text-rubino transition py-1" data-i18n="rest_nav_reviews">Ospiti</a>
+          <a href="#orari" class="hover:text-rubino transition py-1" data-i18n="rest_nav_hours">Orari & Dove Siamo</a>
+        </nav>
+
+        <!-- CTA Header -->
+        <div class="flex items-center gap-3">
+          <a href="tel:+39069533210" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-pietra-border text-xs font-bold text-ardesia hover:bg-white transition">
+            <span>Chiama: 06 9533 210</span>
+          </a>
+          <a href="#prenota" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-rubino hover:bg-rubino-hover text-white text-xs sm:text-sm font-bold shadow transition" data-i18n="rest_btn_book">
+            <span>Prenota un Tavolo</span>
+          </a>
+          <button onclick="toggleRestNav()" class="md:hidden p-2 rounded-lg text-ardesia hover:bg-pietra-subtle" aria-label="Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="rest-drawer" class="hidden md:hidden bg-white border-b border-pietra-border px-4 py-5 space-y-3 shadow-lg">
+      <a href="#filosofia" onclick="toggleRestNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="rest_nav_about">La Nostra Cucina</a>
+      <a href="#menu" onclick="toggleRestNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="rest_nav_menu">La Carta</a>
+      <a href="#brace" onclick="toggleRestNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="rest_nav_grill">La Brace a Vista</a>
+      <a href="#recensioni" onclick="toggleRestNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="rest_nav_reviews">Ospiti</a>
+      <a href="#orari" onclick="toggleRestNav()" class="block px-3 py-2 rounded text-base font-semibold text-ardesia" data-i18n="rest_nav_hours">Orari & Dove Siamo</a>
+      <div class="pt-3 border-t border-pietra-border flex flex-col gap-2">
+        <a href="#prenota" onclick="toggleRestNav()" class="w-full text-center py-3 rounded-lg bg-rubino text-white font-bold text-sm" data-i18n="rest_btn_book">
+          Prenota un Tavolo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. HERO — Nobile Elegante Midnight Blue + Oro -->
+  <section class="hero-noble">
+    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80"
+         alt="" class="hero-noble-img" aria-hidden="true">
+
+    <div class="hero-noble-content">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+        <div class="lg:col-span-7 space-y-6">
+
+          <!-- Firma editoriale in oro -->
+          <div class="flex items-center gap-4">
+            <span class="w-10 h-px bg-oro opacity-60"></span>
+            <span class="text-oro text-[11px] font-bold uppercase tracking-[0.2em]">Palestrina · Via Colle San Pietro 8 · dal 1994</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.12] text-white tracking-tight" data-i18n="rest_hero_title">
+            Il calore della brace accesa,<br>
+            <em class="text-oro not-italic">la pasta tirata al matterello.</em>
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-light" data-i18n="rest_hero_desc">
+            Al <strong class="text-white font-normal">Ristorante La Pergola</strong> celebriamo l'autentica cucina della domenica: fettuccine all'uovo tirate a mano ogni mattina, tagli di carne selezionati sulla brace viva di rovere, cantina curata dei vini laziali.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <a href="#menu" class="px-7 py-3.5 rounded-none border border-oro text-oro hover:bg-oro hover:text-ardesia font-serif font-bold text-sm text-center tracking-wider transition" data-i18n="rest_hero_btn_menu">
+              Consulta la Carta
+            </a>
+            <a href="#prenota" class="px-7 py-3.5 rounded-none border border-white/20 bg-white/5 hover:bg-white/12 text-white font-serif font-bold text-sm text-center tracking-wider transition" data-i18n="rest_hero_btn_book">
+              Prenota un Tavolo
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Colonna destra: pillole oro -->
+        <div class="lg:col-span-5">
+          <div class="border border-oro/20 p-6 space-y-5" style="background: rgba(13,27,42,0.6);">
+            <div class="text-xs font-bold uppercase tracking-widest text-oro/60 mb-4">I Nostri Punti di Eccellenza</div>
+            <div class="flex items-start gap-4 border-t border-oro/10 pt-4">
+              <span class="text-oro font-serif text-2xl font-bold leading-none">100%</span>
+              <div>
+                <span class="block text-white text-sm font-bold">Pasta Fresca al Matterello</span>
+                <span class="text-slate-400 text-xs">Tirata ogni mattina dalle nostre cuoche</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 border-t border-oro/10 pt-4">
+              <span class="text-oro font-serif text-2xl font-bold leading-none">40+</span>
+              <div>
+                <span class="block text-white text-sm font-bold">Giorni di Frollatura</span>
+                <span class="text-slate-400 text-xs">Carni selezionate a maturazione controllata</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 border-t border-oro/10 pt-4">
+              <span class="text-oro font-serif text-2xl font-bold leading-none">Rovere</span>
+              <div>
+                <span class="block text-white text-sm font-bold">Brace Viva a Vista</span>
+                <span class="text-slate-400 text-xs">Legno di rovere selezionato, cottura lenta</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+            <div>
+              <span class="block text-oro font-serif text-base font-bold">Brace a Vista</span>
+              <span class="text-neutral-400">Legna di rovere</span>
+            </div>
+            <div>
+              <span class="block text-oro font-serif text-base font-bold">Dehor Pergola</span>
+              <span class="text-neutral-400">Giardino estivo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-4">
+          <div class="relative bg-ardesia-deep p-2.5 rounded-xl border border-ardesia-border shadow-xl">
+            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80" 
+                 alt="Fettuccine all'uovo fresche fatte a mano" 
+                 class="w-full h-64 sm:h-72 object-cover rounded-lg">
+            <div class="p-3">
+              <div class="flex items-baseline justify-between">
+                <span class="font-serif text-xl font-bold text-white">Fettuccine al Cinghiale</span>
+                <span class="text-oro font-serif font-bold text-base">Tirate a Mano</span>
+              </div>
+              <p class="text-xs text-neutral-400 mt-1">Sfoglia ruvida tirata al matterello ogni mattina e ragù bianco marinato nel Cesanese DOC.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. STATO ORARI IN TEMPO REALE -->
+  <section class="bg-white border-b border-pietra-border py-3.5 px-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="w-2.5 h-2.5 rounded-full bg-rubino animate-pulse"></span>
+        <span id="live-rest-msg" class="text-xs sm:text-sm font-semibold text-ardesia">
+          Verifica servizio cucina...
+        </span>
+        <span class="hidden md:inline text-pietra-muted">•</span>
+        <span class="text-xs text-pietra-muted">
+          Pranzo (Mer-Dom: 12:30-15:00) • Cena (Mer-Sab: 19:30-23:30) • Lun e Mar Chiuso
+        </span>
+      </div>
+      <a href="#orari" class="text-xs font-semibold text-rubino hover:underline">
+        Orari servizio &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- 5. FILOSOFIA DI CUCINA -->
+  <section id="filosofia" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-7 space-y-5">
+        <div class="noble-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-rubino">Materia Prima & Territorio</span>
+        </div>
+
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ardesia leading-tight">
+          Nessuna scorciatoia: dalla semola al braciere ardente.
+        </h2>
+
+        <p class="text-pietra-muted text-sm sm:text-base leading-relaxed">
+          Al <strong>Ristorante La Pergola</strong> non utilizziamo sughi pronti o preparati industriali. Ogni mattina le nostre cuoche impastano uova fresche di galline allevate a terra e semola di grano duro, mentre lo chef prepara i carboni ardenti di legna di rovere e faggio per garantire a ogni bistecca quella crosticina fragrante e un cuore morbido e succulento.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-white border border-pietra-border">
+            <span class="font-serif text-3xl font-bold text-rubino block mb-1">A Mano</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Pasta Fresca Espressa</span>
+            <span class="text-[11px] text-pietra-muted">Fettuccine, gnocchi e ravioli preparati all'alba.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-pietra-border">
+            <span class="font-serif text-3xl font-bold text-ardesia block mb-1">Rovere</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Brace a Vista</span>
+            <span class="text-[11px] text-pietra-muted">Cottura lenta su brace viva nella sala centrale.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-pietra-border">
+            <span class="font-serif text-3xl font-bold text-oro block mb-1">DOC</span>
+            <span class="text-xs font-bold text-ardesia block mb-1">Cantina Regionale</span>
+            <span class="text-[11px] text-pietra-muted">Cesanese del Piglio, Frascati Superiore e oltre 50 etichette.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" 
+             alt="Cottura carni alla brace" class="w-full h-52 object-cover rounded-xl border border-pietra-border shadow-sm">
+        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80" 
+             alt="Calice di vino rosso locale" class="w-full h-52 object-cover rounded-xl border border-pietra-border shadow-sm mt-6">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. LA CARTA DEL RISTORANTE (Listino Classico Tradizionale) -->
+  <section id="menu" class="py-16 md:py-24 bg-white border-y border-pietra-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <div class="noble-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-rubino">Menu alla Carta</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ardesia">
+          Le Proposte della Nostra Cucina
+        </h2>
+        <p class="text-pietra-muted text-sm sm:text-base">
+          Piatti stagionali con materie prime del territorio laziale.
+        </p>
+
+        <!-- Tabs di Portata -->
+        <div class="pt-6 flex flex-wrap items-center justify-center gap-2">
+          <button onclick="filterRest('antipasti')" id="tab-antipasti" class="rest-tab active px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-pietra-border bg-rubino text-white transition">
+            🥗 Antipasti del Borgo
+          </button>
+          <button onclick="filterRest('primi')" id="tab-primi" class="rest-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-pietra-border bg-pietra-bg text-ardesia hover:bg-white transition">
+            🍝 Primi al Matterello
+          </button>
+          <button onclick="filterRest('brace')" id="tab-brace" class="rest-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-pietra-border bg-pietra-bg text-ardesia hover:bg-white transition">
+            🥩 Dalla Brace di Rovere
+          </button>
+          <button onclick="filterRest('dolci')" id="tab-dolci" class="rest-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold border border-pietra-border bg-pietra-bg text-ardesia hover:bg-white transition">
+            🍰 Dolci Fatti in Casa
+          </button>
+        </div>
+      </div>
+
+      <!-- Listino Carta a 2 Colonne con Dot Leaders -->
+      <div id="rest-menu-container" class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+        
+        <!-- ANTIPASTI -->
+        <div class="menu-item menu-carte-row" data-restcat="antipasti">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Gran Tagliere dei Monti Prenestini</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 14,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Prosciutto crudo 24 mesi, lonzino alle erbe, corallina romana, pecorino di grotta e bruschette all'olio novello.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row" data-restcat="antipasti">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Flan di Zucca e Porcini con Cacio</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 9,50</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Soffice sformatino di zucca mantovana e porcini freschi servito caldo su fonduta di pecorino romano DOP.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row" data-restcat="antipasti">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Crostini di Polenta Rustica alla Brace</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 8,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Polenta macinata a pietra grigliata su brace ardente con lardo di colonnata e rosmarino selvatico.</p>
+        </div>
+
+        <!-- PRIMI -->
+        <div class="menu-item menu-carte-row hidden" data-restcat="primi">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Fettuccine al Ragù di Cinghiale</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 13,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Sfoglia all'uovo tirata al matterello, ragù bianco di cinghiale marinato nel Cesanese con bacche di ginepro.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row hidden" data-restcat="primi">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Ravioli di Bufala & Scorza d'Arancia</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 12,50</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Fatti in casa con ripieno di ricotta di bufala di fattoria, burro di malga nocciola, salvia e mandorle tostate.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row hidden" data-restcat="primi">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Gnocchi di Patate al Sugo di Spuntature</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 12,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Gnocchi preparati a mano con patate di montagna, sugo della domenica di costine di maiale e pecorino.</p>
+        </div>
+
+        <!-- BRACE -->
+        <div class="menu-item menu-carte-row hidden" data-restcat="brace">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Fiorentina di Scottona alla Brace</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 5,50/etto</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Taglio con osso frollato 45 giorni, cotto a vista su legna di rovere, servito con sale grosso di Cervia.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row hidden" data-restcat="brace">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Abbacchio Romano IGP Scottadito</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 16,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Costolette locali marinate alle erbe aromatiche e scottate su griglia rovente. Con patate novelle al forno.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row hidden" data-restcat="brace">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Tagliata di Manzo al Rosmarino & Lardo</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 17,50</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Controfiletto tenerissimo servito al sangue con velo di lardo stagionato alle erbe che si scioglie al tavolo.</p>
+        </div>
+
+        <!-- DOLCI -->
+        <div class="menu-item menu-carte-row hidden" data-restcat="dolci">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Tiramisù al Mascarpone & Caffè Moka</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 6,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Savoiardi bagnati al caffè moka espresso, mascarpone cremoso fresco di fattoria e cacao amaro.</p>
+        </div>
+
+        <div class="menu-item menu-carte-row hidden" data-restcat="dolci">
+          <div class="flex items-baseline justify-between w-full">
+            <span class="font-serif text-lg font-bold text-ardesia">Crostata Artigianale con Visciole Locali</span>
+            <span class="leader-line"></span>
+            <span class="font-serif text-lg font-bold text-rubino shrink-0">€ 6,00</span>
+          </div>
+          <p class="text-xs text-pietra-muted mt-0.5 leading-relaxed">Frolla friabile al burro, confettura di visciole selvatiche dei Monti Prenestini e crema cotta.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. LA BRACE A VISTA & DEHOR -->
+  <section id="brace" class="py-16 bg-ardesia text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-white/20 bg-white/5 text-oro text-xs font-semibold uppercase tracking-wider">
+            🔥 Il Focolare nella Sala Principale
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold leading-tight" data-i18n="grill_title">
+            Carni Frollate e Cotte su Brace Viva di Rovere.
+          </h2>
+          <p class="text-neutral-300 text-sm sm:text-base leading-relaxed" data-i18n="grill_desc">
+            Dalla sala puoi osservare direttamente il nostro grigliatore mentre gestisce le braci ardenti e prepara con precisione ogni taglio. D'estate accogliamo i nostri ospiti sotto la pergola verde rinfrescata dalla brezza collinare.
+          </p>
+          <div class="pt-2">
+            <a href="#prenota" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-rubino hover:bg-rubino-hover text-white font-bold text-sm shadow transition">
+              <span>Prenota un Tavolo Vicino al Braciere</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" 
+               alt="Tagliata di carne su piatto caldo" 
+               class="rounded-xl border border-white/15 shadow-2xl w-full h-80 object-cover">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. RECENSIONI OSPITI -->
+  <section id="recensioni" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+      <div class="noble-divider">
+        <span class="text-xs font-bold uppercase tracking-widest text-rubino">Esperienze al Tavolo</span>
+      </div>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ardesia" data-i18n="rest_reviews_title">
+        La Parola dei Nostri Ospiti
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-6 rounded-xl bg-white border border-pietra-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “Pranzo della domenica indimenticabile. Le fettuccine al cinghiale avevano quel sapore autentico di una volta e la tagliata si scioglieva in bocca. Carta dei vini eccellente con cantine locali.”
+        </p>
+        <div class="pt-4 border-t border-pietra-border flex items-center justify-between text-xs text-pietra-muted">
+          <strong class="text-ardesia">Fabio D'Amico</strong>
+          <span>Pranzo con Famiglia</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-xl bg-white border border-pietra-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “Abbiamo festeggiato qui un anniversario. Atmosfera calda sotto la pergola illuminata, servizio impeccabile e attento senza essere invadente. Rapporto qualità prezzo eccezionale.”
+        </p>
+        <div class="pt-4 border-t border-pietra-border flex items-center justify-between text-xs text-pietra-muted">
+          <strong class="text-ardesia">Silvia & Daniele</strong>
+          <span>Anniversario</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-xl bg-white border border-pietra-border flex flex-col justify-between">
+        <p class="font-serif text-sm sm:text-base italic text-ardesia leading-relaxed mb-6">
+          “Se amate la carne cotta su brace vera, questo è il posto giusto. La fiorentina è stata frollata alla perfezione. Porzioni abbondanti e antipasto generosissimo.”
+        </p>
+        <div class="pt-4 border-t border-pietra-border flex items-center justify-between text-xs text-pietra-muted">
+          <strong class="text-ardesia">Marco Trombetti</strong>
+          <span>Guida Gastronomica</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. PRENOTAZIONE TAVOLO -->
+  <section id="prenota" class="py-16 bg-white border-t border-pietra-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center space-y-2 mb-8">
+        <div class="noble-divider">
+          <span class="text-xs font-bold uppercase tracking-widest text-rubino">Riserva il Tavolo</span>
+        </div>
+        <h2 class="font-serif text-3xl font-bold text-ardesia" data-i18n="rest_book_title">Prenota il Tuo Tavolo al Ristorante</h2>
+        <p class="text-xs sm:text-sm text-pietra-muted">Per garantire le migliori cotture alla brace e un servizio curato, è gradita la prenotazione.</p>
+      </div>
+
+      <div id="rest-success" class="hidden mb-6 p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-center">
+        <p class="font-bold text-sm">Richiesta di Prenotazione Ricevuta!</p>
+        <p class="text-xs text-emerald-800 mt-0.5">Ti inviamo subito un messaggio di conferma su WhatsApp o SMS per il tuo tavolo.</p>
+      </div>
+
+      <form onsubmit="submitRestBook(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Nome e Cognome *</label>
+            <input type="text" required placeholder="Es. Giorgio Monti" class="w-full px-4 py-3 rounded-lg border border-pietra-border bg-pietra-bg text-ardesia focus:outline-none focus:border-rubino">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Telefono / WhatsApp *</label>
+            <input type="tel" required placeholder="Es. 338 9988776" class="w-full px-4 py-3 rounded-lg border border-pietra-border bg-pietra-bg text-ardesia focus:outline-none focus:border-rubino">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Giorno *</label>
+            <input type="date" id="rest-date" required class="w-full px-4 py-3 rounded-lg border border-pietra-border bg-pietra-bg text-ardesia focus:outline-none focus:border-rubino">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Servizio *</label>
+            <select required class="w-full px-4 py-3 rounded-lg border border-pietra-border bg-pietra-bg text-ardesia focus:outline-none focus:border-rubino">
+              <option value="pranzo">Pranzo (12:30 - 13:30)</option>
+              <option value="cena" selected>Cena (19:45 - 21:00)</option>
+              <option value="cena_tardi">Cena Secondo Turno (21:30+)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-ardesia mb-1">Ospiti *</label>
+            <select required class="w-full px-4 py-3 rounded-lg border border-pietra-border bg-pietra-bg text-ardesia focus:outline-none focus:border-rubino">
+              <option value="2" selected>2 Persone</option>
+              <option value="3-4">3 - 4 Persone</option>
+              <option value="5-8">5 - 8 Persone</option>
+              <option value="9+">Tavolata 9+ Persone</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-rest-book" class="w-full py-4 rounded-lg bg-rubino hover:bg-rubino-hover text-white font-bold text-sm shadow transition">
+          <span id="btn-rest-text" data-i18n="rest_btn_submit_text">Conferma Richiesta Tavolo</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 10. ORARI & POSIZIONE -->
+  <section id="orari" class="py-16 bg-pietra-bg border-t border-pietra-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        <div class="space-y-4">
+          <div class="noble-divider">
+            <span class="text-xs font-bold uppercase tracking-widest text-rubino">Come Raggiungerci</span>
+          </div>
+          <h2 class="font-serif text-3xl font-bold text-ardesia" data-i18n="rest_hours_title">Posizione & Contatti</h2>
+          <p class="text-xs sm:text-sm text-pietra-muted leading-relaxed">
+            Immerso nella quiete collinare di Palestrina, con ampio parcheggio privato all'ingresso riservato ai clienti.
+          </p>
+          <div class="p-4 rounded-xl bg-white border border-pietra-border text-xs space-y-2">
+            <p><strong>Indirizzo:</strong> Via Colle San Pietro 8, 00036 Palestrina (RM)</p>
+            <p><strong>Telefono Prenotazioni:</strong> +39 06 9533 210</p>
+            <p><strong>WhatsApp:</strong> +39 349 7766554</p>
+            <a href="https://maps.google.com" target="_blank" rel="noopener" class="inline-block text-xs font-bold text-rubino hover:underline pt-1">
+              Indicazioni su Google Maps &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-pietra-border">
+          <h3 class="font-serif text-xl font-bold text-ardesia mb-3">Orari di Servizio</h3>
+          <table class="w-full text-xs divide-y divide-pietra-border">
+            <tbody>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-pietra-muted">Lunedì & Martedì</td>
+                <td class="text-red-500 font-semibold">Chiuso per Riposo</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Mercoledì — Venerdì (Pranzo)</td>
+                <td class="font-mono text-pietra-muted">12:30 — 15:00</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between">
+                <td class="font-semibold text-ardesia">Mercoledì — Venerdì (Cena)</td>
+                <td class="font-mono text-pietra-muted">19:30 — 23:30</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between bg-rubino/5 px-2 rounded">
+                <td class="font-bold text-rubino">Sabato (Pranzo & Cena)</td>
+                <td class="font-mono text-rubino font-bold">12:30-15:00 • 19:30-00:00</td>
+              </tr>
+              <tr class="py-2.5 flex justify-between bg-rubino/5 px-2 rounded">
+                <td class="font-bold text-rubino">Domenica (Pranzo Tradizionale)</td>
+                <td class="font-mono text-rubino font-bold">12:30 — 16:30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ardesia-deep text-neutral-400 py-10 px-4 sm:px-6 border-t border-white/10 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <span class="font-serif text-lg font-bold text-white">Ristorante La Pergola S.r.l.</span>
+        <p class="text-neutral-500 mt-0.5">P.IVA: 06543210987 • Via Colle San Pietro 8, Palestrina</p>
+      </div>
+      <div class="flex items-center gap-4 text-neutral-300 font-semibold">
+        <a href="#filosofia" class="hover:text-rubino">Cucina</a>
+        <a href="#menu" class="hover:text-rubino">Carta</a>
+        <a href="#prenota" class="hover:text-rubino">Prenota</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BARRA MOBILE FISSA (< 768px) -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-pietra-border p-2 shadow-2xl flex items-center gap-2">
+    <a href="tel:+39069533210" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-lg border border-pietra-border text-ardesia font-bold text-xs active:bg-pietra-bg min-h-[48px]">
+      <svg class="w-4 h-4 text-rubino" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Chiama</span>
+    </a>
+    <a href="https://wa.me/39069533210?text=Buonasera%20Ristorante%20La%20Pergola" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-lg bg-emerald-600 text-white font-bold text-xs active:bg-emerald-700 min-h-[48px]">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#prenota" class="flex-1 flex items-center justify-center gap-1 py-3 rounded-lg bg-rubino text-white font-bold text-xs active:bg-rubino-hover min-h-[48px]">
+      <span>Prenota</span>
+    </a>
+  </div>
+
+  <script>
+    function toggleRestNav() {
+      const d = document.getElementById('rest-drawer');
+      d.classList.toggle('hidden');
+    }
+
+    function filterRest(cat) {
+      document.querySelectorAll('.rest-tab').forEach(b => {
+        b.classList.remove('active', 'bg-rubino', 'text-white');
+        b.classList.add('bg-pietra-bg', 'text-ardesia');
+      });
+      const activeB = document.getElementById('tab-' + cat);
+      if (activeB) {
+        activeB.classList.add('active', 'bg-rubino', 'text-white');
+        activeB.classList.remove('bg-pietra-bg', 'text-ardesia');
+      }
+
+      document.querySelectorAll('.menu-carte-row').forEach(row => {
+        if (row.getAttribute('data-restcat') === cat) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+    }
+
+    function updateRestLiveHours() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const min = now.getMinutes();
+      const timeNum = hour * 60 + min;
+
+      let isOpen = false;
+      let closeText = "";
+
+      if (day === 1 || day === 2) {
+        isOpen = false;
+      } else if (day >= 3 && day <= 6) {
+        const isLunch = (timeNum >= 750 && timeNum < 900);
+        const isDinner = (timeNum >= 1170 && timeNum < 1430);
+        isOpen = isLunch || isDinner;
+        closeText = isLunch ? "15:00" : "23:30";
+      } else {
+        isOpen = (timeNum >= 750 && timeNum < 990);
+        closeText = "16:30";
+      }
+
+      const txt = document.getElementById('live-rest-text');
+      const dot = document.getElementById('live-rest-dot');
+      const msg = document.getElementById('live-rest-msg');
+
+      if (isOpen) {
+        txt.textContent = `Cucina Aperta • Servizio fino alle ${closeText}`;
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        msg.textContent = `Cucina Aperta Ora • Servizio al tavolo attivo fino alle ${closeText}`;
+      } else {
+        txt.textContent = "Cucina Chiusa Ora • Ti aspettiamo al prossimo servizio";
+        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        msg.textContent = "Cucina Chiusa Ora • Ti aspettiamo per pranzo (12:30) o cena (19:30)";
+      }
+    }
+
+    function submitRestBook(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-rest-book');
+      const txt = document.getElementById('btn-rest-text');
+      const succ = document.getElementById('rest-success');
+
+      txt.textContent = "Verifica tavolo...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        txt.textContent = "Richiesta Registrata!";
+        btn.classList.add('bg-emerald-700');
+        succ.classList.remove('hidden');
+        succ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 900);
+    }
+
+    const restI18n = {
+      it: {
+        rest_tagline: 'Cucina del Territorio & Brace',
+        rest_nav_about: 'La Nostra Cucina',
+        rest_nav_menu: 'La Carta',
+        rest_nav_grill: 'La Brace a Vista',
+        rest_nav_reviews: 'Ospiti',
+        rest_nav_hours: 'Orari & Dove Siamo',
+        rest_btn_book: 'Prenota un Tavolo',
+        rest_hero_title: 'Il calore della brace accesa, la pasta tirata al matterello.',
+        rest_hero_desc: 'Al Ristorante La Pergola celebriamo l\'autentica cucina della domenica italiana: fettuccine fatte in casa ogni mattina dalle nostre cuoche, tagli di carne selezionati cotti su brace viva di rovere nella sala principale, e una cantina curata di vini laziali.',
+        rest_hero_btn_menu: 'Consulta la Carta Completa',
+        rest_hero_btn_book: 'Prenota un Tavolo',
+        grill_title: 'Carni Frollate e Cotte su Brace Viva di Rovere.',
+        grill_desc: 'Dalla sala puoi osservare direttamente il nostro grigliatore mentre gestisce le braci ardenti e prepara con precisione ogni taglio. D\'estate accogliamo i nostri ospiti sotto la pergola verde rinfrescata dalla brezza collinare.',
+        rest_reviews_title: 'La Parola dei Nostri Ospiti',
+        rest_book_title: 'Prenota il Tuo Tavolo al Ristorante',
+        rest_btn_submit_text: 'Conferma Richiesta Tavolo',
+        hours_rest_title: 'Posizione & Contatti'
+      },
+      en: {
+        rest_tagline: 'Regional Cuisine & Oak Grill',
+        rest_nav_about: 'Our Cooking',
+        rest_nav_menu: 'À La Carte',
+        rest_nav_grill: 'Live Oak Grill',
+        rest_nav_reviews: 'Guests',
+        rest_nav_hours: 'Hours & Location',
+        rest_btn_book: 'Book a Table',
+        rest_hero_title: 'The warmth of glowing embers, handmade rolling-pin pasta.',
+        rest_hero_desc: 'At Ristorante La Pergola we celebrate authentic Italian Sunday dining: fresh egg pasta hand-stretched each morning, dry-aged prime beef seared over fragrant oak coals, and a curated cellar of regional wines.',
+        rest_hero_btn_menu: 'Explore Full Menu',
+        rest_hero_btn_book: 'Book a Table',
+        grill_title: 'Dry-Aged Meats Grilled Over Open Oak Embers.',
+        grill_desc: 'Watch our master grill chef manage the open hearth from the dining room. In summer, we welcome guests beneath our breezy garden pergola.',
+        rest_reviews_title: 'Words from Our Guests',
+        rest_book_title: 'Reserve Your Dining Table',
+        rest_btn_submit_text: 'Confirm Table Request',
+        hours_rest_title: 'Hours & Location'
+      }
+    };
+
+    function setRestLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (restI18n[lang] && restI18n[lang][k]) el.textContent = restI18n[lang][k];
+      });
+      const itB = document.getElementById('rest-lang-it');
+      const enB = document.getElementById('rest-lang-en');
+      if (lang === 'it') {
+        itB.className = "px-2 py-0.5 text-xs font-bold bg-rubino text-white";
+        enB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white";
+      } else {
+        enB.className = "px-2 py-0.5 text-xs font-bold bg-rubino text-white";
+        itB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateRestLiveHours();
+      const dt = document.getElementById('rest-date');
+      if (dt) {
+        const t = new Date().toISOString().split('T')[0];
+        dt.value = t;
+        dt.min = t;
+      }
+    });
+  </script>
+</body>
+</html>
