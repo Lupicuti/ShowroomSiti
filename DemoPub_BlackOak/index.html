@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>The Black Oak Pub — 12 Spine Artigianali, Smokehouse & Live Sports</title>
-  <meta name="description" content="The Black Oak Pub: birreria indipendente nel centro storico. 12 vie alla spina a rotazione, burger di fassona, pulled pork cotto 14 ore e partite di calcio in diretta su maxischermi.">
+  <title>The Black Oak Pub — 12 Spine Artigianali, Smokehouse & Live Sports | Roma</title>
+  <meta name="description" content="The Black Oak Pub: birreria indipendente nel Rione Monti a Roma. 12 spine artigianali a rotazione, burger di fassona, pulled pork cotto 14 ore e partite di calcio in diretta.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
 
-  <!-- Typography: Bebas Neue (Industriale, Aggressivo) & Inter (Leggibile e Netta) -->
+  <!-- Typography: Plus Jakarta Sans & Inter per massima leggibilità e stile moderno -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,25 +22,22 @@
         extend: {
           colors: {
             oak: {
-              950: '#0B0E12',
-              900: '#12171E',
-              850: '#181F28',
-              800: '#202A37',
-              700: '#2E3D4F',
-              border: '#242F3E',
+              950: '#0E1116',
+              900: '#141820',
+              850: '#1B212B',
+              800: '#232B38',
+              700: '#2F3A4B',
+              border: '#2C3645',
             },
-            rame: {
-              DEFAULT: '#D97724',
-              hover: '#BF6419',
-              dark: '#94470A',
-              light: '#F59E42',
-              subtle: 'rgba(217, 119, 36, 0.12)'
-            },
-            luppolo: '#4E6B45',
-            ottone: '#C7A259'
+            amber: {
+              brand: '#E68A2E',
+              hover: '#F09A43',
+              subtle: 'rgba(230, 138, 46, 0.12)',
+              glow: 'rgba(230, 138, 46, 0.25)'
+            }
           },
           fontFamily: {
-            display: ['"Bebas Neue"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
             sans: ['"Inter"', 'system-ui', 'sans-serif'],
           }
         }
@@ -83,10 +80,10 @@
   </script>
 
   <style>
-  *, *::before, *::after { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background-color: #090C10;
+      background-color: #0E1116;
       color: #E2E8F0;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
@@ -94,158 +91,84 @@
     input, select, textarea {
       font-size: 16px !important;
     }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #090C10; }
-    ::-webkit-scrollbar-thumb { background: #D97724; border-radius: 3px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0E1116; }
+    ::-webkit-scrollbar-thumb { background: #2C3645; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #E68A2E; }
 
-    /* Divisori architetturali chalk-board */
-    .pub-divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      width: 100%;
-    }
-    .pub-divider::before,
-    .pub-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(217,119,36,0.3), transparent);
-    }
-
-    /* Taplist lavagna — neon glow su hover */
-    .tap-row {
-      display: grid;
-      grid-template-columns: 48px 1fr auto;
-      gap: 1rem;
-      align-items: center;
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid #1A2230;
-      transition: background-color 0.15s ease;
-    }
-    @media (min-width: 768px) {
-      .tap-row {
-        grid-template-columns: 56px 2.5fr 1.5fr 1fr auto;
-      }
-    }
-    .tap-row:hover {
-      background-color: rgba(217,119,36,0.07);
-      box-shadow: inset 3px 0 0 #D97724;
-    }
-
-    /* Hero full-bleed */
-    .pub-hero {
-      position: relative;
-      overflow: hidden;
-      min-height: 600px;
-      display: flex;
-      align-items: flex-end;
-    }
-    .pub-hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(1.2) contrast(1.05);
-      transition: transform 8s ease;
-    }
-    .pub-hero:hover .pub-hero-img { transform: scale(1.03); }
-    .pub-hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(9,12,16,0.95) 0%,
-        rgba(9,12,16,0.7) 30%,
-        rgba(9,12,16,0.3) 60%,
-        rgba(9,12,16,0.1) 100%
-      );
-    }
-    /* Neon glow sfumato arancio sul lato sinistro */
-    .pub-hero::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 50%; height: 60%;
-      background: radial-gradient(ellipse at bottom left, rgba(217,119,36,0.15) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 2;
-    }
-    .pub-hero-content {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      padding: 3rem 2rem;
-      max-width: 900px;
-    }
-    @media (min-width: 640px) {
-      .pub-hero-content { padding: 4rem 3rem; }
+    .tap-filter-btn.active {
+      background-color: #E68A2E;
+      color: #0E1116;
+      font-weight: 700;
+      border-color: #E68A2E;
     }
   </style>
 </head>
-<body class="selection:bg-rame selection:text-white pb-24 md:pb-0">
+<body class="selection:bg-amber-brand selection:text-black pb-20 md:pb-0">
 
-  <!-- 1. TOP BAR -->
-  <aside aria-label="Info e Orari" class="bg-black text-xs py-2 px-4 border-b border-oak-border">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase bg-oak-850 border border-oak-border text-white">
-          <span id="live-pub-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="live-pub-text">Verifica orari spine...</span>
+  <!-- 1. TOP UTILITY BAR -->
+  <aside aria-label="Info e Orari" class="bg-oak-950 text-xs py-2.5 px-4 border-b border-oak-border">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5">
+      <div class="flex items-center gap-3 text-sm">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-oak-850 border border-oak-border text-slate-200">
+          <span id="live-pub-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="live-pub-text">Controllo orari apertura...</span>
         </span>
-        <span class="hidden sm:inline text-neutral-600">•</span>
-        <span class="hidden sm:inline text-neutral-400">Via del Luppolo 18 • Rione Monti, Roma</span>
+        <span class="hidden sm:inline text-slate-500">•</span>
+        <span class="hidden sm:inline text-slate-300 text-xs">📍 Via del Luppolo 18 • Rione Monti, Roma</span>
       </div>
 
       <div class="flex items-center gap-4">
-        <a href="tel:+39069488421" class="flex items-center gap-1.5 text-rame-light hover:text-white font-semibold transition">
-          <svg class="w-3.5 h-3.5 text-rame" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
-          <span>06 9488 421</span>
+        <a href="tel:+39069488421" class="flex items-center gap-2 text-slate-200 hover:text-amber-brand font-medium text-xs transition">
+          <svg class="w-3.5 h-3.5 text-amber-brand" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span class="font-semibold">06 9488 421</span>
         </a>
 
-        <div class="inline-flex rounded border border-oak-border bg-oak-900 overflow-hidden" role="group" aria-label="Cambia lingua">
-          <button id="lang-it" onclick="setPubLang('it')" class="px-2 py-0.5 text-xs font-bold bg-rame text-white">IT</button>
-          <button id="lang-en" onclick="setPubLang('en')" class="px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white">EN</button>
+        <!-- Lingua -->
+        <div class="inline-flex rounded-lg border border-oak-border bg-oak-900 p-0.5" role="group" aria-label="Cambia lingua">
+          <button id="lang-it" onclick="setPubLang('it')" class="px-2.5 py-1 text-xs font-bold rounded bg-amber-brand text-black transition">IT</button>
+          <button id="lang-en" onclick="setPubLang('en')" class="px-2.5 py-1 text-xs font-medium rounded text-slate-400 hover:text-white transition">EN</button>
         </div>
       </div>
     </div>
   </aside>
 
-  <!-- 2. NAVBAR -->
+  <!-- 2. NAVBAR PRINCIPALE -->
   <header class="sticky top-0 z-40 bg-oak-950/95 backdrop-blur-md border-b border-oak-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo Pub -->
-        <a href="#" class="flex items-center gap-3 group">
-          <div class="w-11 h-11 rounded bg-oak-850 border border-oak-border flex items-center justify-center text-rame font-display font-black text-2xl group-hover:border-rame transition">
-            BO
+        <a href="#" class="flex items-center gap-3.5 group">
+          <div class="w-12 h-12 rounded-xl bg-oak-850 border border-oak-border flex items-center justify-center text-amber-brand font-display font-extrabold text-2xl group-hover:border-amber-brand transition shadow-sm">
+            🍻
           </div>
           <div>
-            <span class="block font-display text-2xl font-black tracking-wider uppercase text-white group-hover:text-rame transition">
+            <span class="block font-display text-xl font-bold tracking-tight text-white group-hover:text-amber-brand transition">
               The Black Oak
             </span>
-            <span class="block text-[10px] uppercase tracking-widest text-neutral-400 font-semibold" data-i18n="tagline">
-              Craft Beer & Smokehouse
+            <span class="block text-xs uppercase tracking-wider text-slate-400 font-medium" data-i18n="tagline">
+              Birreria & Smokehouse Artigianale
             </span>
           </div>
         </a>
 
         <!-- Desktop Menu -->
-        <nav class="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-widest text-neutral-300">
-          <a href="#taplist" class="hover:text-rame transition" data-i18n="nav_taps">Le 12 Spine</a>
-          <a href="#smokehouse" class="hover:text-rame transition" data-i18n="nav_food">Smokehouse & Burger</a>
-          <a href="#partite" class="hover:text-rame transition" data-i18n="nav_sports">Partite in Diretta</a>
-          <a href="#recensioni" class="hover:text-rame transition" data-i18n="nav_reviews">Dicono di Noi</a>
-          <a href="#orari" class="hover:text-rame transition" data-i18n="nav_hours">Orari & Mappa</a>
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-300">
+          <a href="#taplist" class="hover:text-amber-brand transition" data-i18n="nav_taps">Le 12 Spine</a>
+          <a href="#smokehouse" class="hover:text-amber-brand transition" data-i18n="nav_food">Smokehouse & Burger</a>
+          <a href="#partite" class="hover:text-amber-brand transition" data-i18n="nav_sports">Partite in Diretta</a>
+          <a href="#recensioni" class="hover:text-amber-brand transition" data-i18n="nav_reviews">Recensioni</a>
+          <a href="#orari" class="hover:text-amber-brand transition" data-i18n="nav_hours">Orari & Dove Siamo</a>
         </nav>
 
         <!-- CTA Header -->
         <div class="flex items-center gap-3">
-          <a href="#prenota" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded bg-rame hover:bg-rame-hover text-white font-display font-black text-sm uppercase tracking-wider transition shadow" data-i18n="btn_book_table">
+          <a href="#prenota" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-amber-brand hover:bg-amber-hover text-slate-950 font-display font-bold text-sm transition shadow-md" data-i18n="btn_book_table">
             <span>Prenota Tavolo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
-          <button onclick="togglePubNav()" class="md:hidden p-2 rounded text-neutral-300 hover:text-white" aria-label="Menu">
+          <button onclick="togglePubNav()" class="md:hidden p-2.5 rounded-lg bg-oak-850 border border-oak-border text-slate-200 hover:text-white" aria-label="Apri Menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
         </div>
@@ -254,260 +177,599 @@
     </div>
 
     <!-- Mobile Drawer -->
-    <div id="pub-drawer" class="hidden md:hidden bg-oak-900 border-b border-oak-border px-4 py-5 space-y-3">
-      <a href="#taplist" onclick="togglePubNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="nav_taps">Le 12 Spine</a>
-      <a href="#smokehouse" onclick="togglePubNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="nav_food">Smokehouse & Burger</a>
-      <a href="#partite" onclick="togglePubNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="nav_sports">Partite in Diretta</a>
-      <a href="#recensioni" onclick="togglePubNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="nav_reviews">Dicono di Noi</a>
-      <a href="#orari" onclick="togglePubNav()" class="block px-3 py-2 text-sm font-bold uppercase tracking-wider text-white" data-i18n="nav_hours">Orari & Mappa</a>
+    <div id="pub-drawer" class="hidden md:hidden bg-oak-900 border-b border-oak-border px-5 py-6 space-y-3">
+      <a href="#taplist" onclick="togglePubNav()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-200 hover:bg-oak-800" data-i18n="nav_taps">Le 12 Spine</a>
+      <a href="#smokehouse" onclick="togglePubNav()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-200 hover:bg-oak-800" data-i18n="nav_food">Smokehouse & Burger</a>
+      <a href="#partite" onclick="togglePubNav()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-200 hover:bg-oak-800" data-i18n="nav_sports">Partite in Diretta</a>
+      <a href="#recensioni" onclick="togglePubNav()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-200 hover:bg-oak-800" data-i18n="nav_reviews">Recensioni</a>
+      <a href="#orari" onclick="togglePubNav()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-200 hover:bg-oak-800" data-i18n="nav_hours">Orari & Dove Siamo</a>
       <div class="pt-3 border-t border-oak-border">
-        <a href="#prenota" onclick="togglePubNav()" class="block w-full py-3 rounded bg-rame text-white text-center font-display font-black text-base uppercase tracking-wider" data-i18n="btn_book_table">
+        <a href="#prenota" onclick="togglePubNav()" class="block w-full py-3 rounded-lg bg-amber-brand text-slate-950 text-center font-display font-bold text-base" data-i18n="btn_book_table">
           Prenota il Tuo Tavolo
         </a>
       </div>
     </div>
   </header>
 
-  <!-- 3. HERO — Full-Bleed Industriale -->
-  <section class="pub-hero">
-    <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1600&q=85"
-         alt="The Black Oak Pub — spine artigianali e smokehouse"
-         class="pub-hero-img"
-         loading="eager">
-    <div class="pub-hero-overlay"></div>
+  <!-- 3. HERO SECTION PULITA E COMUNICATIVA -->
+  <section class="relative overflow-hidden bg-oak-950 border-b border-oak-border py-16 sm:py-24">
+    <!-- Immagine di sfondo con overlay elegante ad alto contrasto -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1800&q=85"
+           alt="The Black Oak Pub — banco spine e ambiente"
+           class="w-full h-full object-cover object-center opacity-25 filter brightness-90">
+      <div class="absolute inset-0 bg-gradient-to-r from-oak-950 via-oak-950/90 to-oak-950/70"></div>
+    </div>
 
-    <div class="pub-hero-content">
-
-      <div class="inline-flex items-center gap-3 mb-5">
-        <span class="w-8 h-0.5 bg-rame inline-block"></span>
-        <span class="text-rame-light text-xs font-bold uppercase tracking-widest" style="font-family: 'Inter', sans-serif;">🍻 12 Spine Artigianali Indipendenti · Roma Rione Monti</span>
-      </div>
-
-      <h1 class="font-display leading-[0.9] text-white mb-6" style="font-size: clamp(3rem, 8vw, 6.5rem);" data-i18n="hero_h1">
-        BIRRA AUTENTICA.<br>
-        <span style="color: #D97724; text-shadow: 0 0 40px rgba(217,119,36,0.4);">CARNI A LEGNA.</span>
-      </h1>
-
-      <p class="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-xl mb-7" data-i18n="hero_p">
-        Al <strong class="text-white">The Black Oak</strong> niente birre industriali: selezioniamo i migliori birrifici indipendenti con fusti a rotazione settimanale, burger di Fassona e pulled pork affumicato 14 ore.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-3 mb-8">
-        <a href="#taplist" class="px-7 py-3.5 rounded bg-rame hover:bg-rame-hover text-white font-display text-xl uppercase tracking-wider text-center shadow-lg shadow-rame/20 transition" data-i18n="hero_cta_taps">
-          Tabellone Spine
-        </a>
-        <a href="#prenota" class="px-7 py-3.5 rounded border border-oak-border bg-oak-850/80 hover:bg-oak-800 text-white font-display text-xl uppercase tracking-wider text-center transition" data-i18n="hero_cta_book">
-          Riserva Tavolo
-        </a>
-      </div>
-
-      <!-- Stats strip inline -->
-      <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 max-w-md">
-        <div>
-          <span class="block font-display text-3xl text-rame" style="text-shadow: 0 0 20px rgba(217,119,36,0.5);">12</span>
-          <span class="text-xs text-neutral-400 uppercase tracking-wider">Spine Attive</span>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-amber-brand/10 border border-amber-brand/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-6">
+          <span>🍺 12 Spine Indipendenti</span>
+          <span class="text-amber-brand/40">•</span>
+          <span>🥩 Smokehouse a Legna</span>
+          <span class="text-amber-brand/40">•</span>
+          <span>Roma Monti</span>
         </div>
-        <div>
-          <span class="block font-display text-3xl text-white">14h</span>
-          <span class="text-xs text-neutral-400 uppercase tracking-wider">Affumicatura</span>
-        </div>
-        <div>
-          <span class="block font-display text-3xl text-white">4.8★</span>
-          <span class="text-xs text-neutral-400 uppercase tracking-wider">520+ Voti</span>
-        </div>
-      </div>
 
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6" data-i18n="hero_h1">
+          La vera birra artigianale.<br>
+          <span class="text-amber-brand">Carni affumicate a legna</span> e grandi match live.
+        </h1>
+
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl" data-i18n="hero_p">
+          Nessuna birra industriale pastorizzata: selezioniamo i migliori birrifici indipendenti italiani ed europei con fusti a rotazione continua. Accompagnali con burger di Fassona e pulled pork affumicato 14 ore.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3.5 mb-10">
+          <a href="#taplist" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-amber-brand hover:bg-amber-hover text-slate-950 font-display font-bold text-base transition shadow-lg shadow-amber-brand/20" data-i18n="hero_cta_taps">
+            <span>Guarda le 12 Spine Attive</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+          <a href="#prenota" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-oak-850 hover:bg-oak-800 border border-oak-border text-white font-display font-bold text-base transition" data-i18n="hero_cta_book">
+            <span>Riserva un Tavolo</span>
+          </a>
+        </div>
+
+        <!-- Key Metrics trasparenti e facili da leggere -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-oak-border">
+          <div>
+            <div class="font-display text-3xl font-extrabold text-amber-brand">12</div>
+            <div class="text-xs text-slate-400 font-medium uppercase tracking-wider mt-0.5">Spine a Rotazione</div>
+          </div>
+          <div>
+            <div class="font-display text-3xl font-extrabold text-white">14 Ore</div>
+            <div class="text-xs text-slate-400 font-medium uppercase tracking-wider mt-0.5">Affumicatura Hickory</div>
+          </div>
+          <div>
+            <div class="font-display text-3xl font-extrabold text-white">3 Schermi</div>
+            <div class="text-xs text-slate-400 font-medium uppercase tracking-wider mt-0.5">Maxischermi 4K Live</div>
+          </div>
+          <div>
+            <div class="font-display text-3xl font-extrabold text-emerald-400">4.8 ★</div>
+            <div class="text-xs text-slate-400 font-medium uppercase tracking-wider mt-0.5">520+ Recensioni Google</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- 4. STATS STRIP CON BORDI 1PX (Stile PalestraHercules) -->
-  <section class="bg-black border-y border-oak-border py-6" aria-label="Numeri del locale">
+  <!-- 4. I NOSTRI PUNTI DI FORZA -->
+  <section class="py-12 bg-oak-900 border-b border-oak-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-oak-border border border-oak-border">
-        <div class="bg-oak-950 p-6 text-center">
-          <span class="font-display text-4xl sm:text-5xl font-black text-rame block">12</span>
-          <span class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 mt-1 block">Spine Attive a Rotazione</span>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="p-6 rounded-xl bg-oak-850 border border-oak-border">
+          <div class="w-12 h-12 rounded-lg bg-amber-brand/10 border border-amber-brand/20 flex items-center justify-center text-amber-brand text-2xl mb-4">
+            🌾
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Solo Birrifici Indipendenti</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Collaboriamo direttamente con mastri birrai artigianali. Ogni settimana aggiorniamo le linee con IPA freschissime, stout complesse e lager non filtrate.
+          </p>
         </div>
-        <div class="bg-oak-950 p-6 text-center">
-          <span class="font-display text-4xl sm:text-5xl font-black text-white block">14h</span>
-          <span class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 mt-1 block">Affumicatura a Legna</span>
+
+        <div class="p-6 rounded-xl bg-oak-850 border border-oak-border">
+          <div class="w-12 h-12 rounded-lg bg-amber-brand/10 border border-amber-brand/20 flex items-center justify-center text-amber-brand text-2xl mb-4">
+            🔥
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Smokehouse & Burger Gourmet</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Niente semilavorati: carne di Fassona certificata, bun sfornati dal fornaio locale ogni mattina e salse fatte in casa arricchite dalle nostre birre.
+          </p>
         </div>
-        <div class="bg-oak-950 p-6 text-center">
-          <span class="font-display text-4xl sm:text-5xl font-black text-white block">4.8 ★</span>
-          <span class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 mt-1 block">520+ Voti Google</span>
+
+        <div class="p-6 rounded-xl bg-oak-850 border border-oak-border">
+          <div class="w-12 h-12 rounded-lg bg-amber-brand/10 border border-amber-brand/20 flex items-center justify-center text-amber-brand text-2xl mb-4">
+            ⚽
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Tutti i Match con Audio Live</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Champions League, Serie A e Sei Nazioni di Rugby su 3 maxischermi con audio di qualità da stadio. Atmosfera da vero pub britannico.
+          </p>
         </div>
-        <div class="bg-oak-950 p-6 text-center">
-          <span class="font-display text-4xl sm:text-5xl font-black text-white block">02:30</span>
-          <span class="text-[11px] font-bold uppercase tracking-widest text-neutral-400 mt-1 block">Chiusura nel Weekend</span>
-        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- 5. TABELLONE TAPLIST ALLA SPINA (Design Lavagna da Birreria) -->
+  <!-- 5. TABELLONE 12 SPINE (TAPLIST COMPLETA & LEGGIBILISSIMA) -->
   <section id="taplist" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mb-10">
-      <div class="pub-divider">
-        <span class="text-xs font-bold uppercase tracking-widest text-rame">Tap Board in Tempo Reale</span>
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-brand block mb-1">Tabellone in Tempo Reale</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white" data-i18n="taplist_title">
+          Le 12 Vie Alla Spina
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-2xl" data-i18n="taplist_sub">
+          Spillate con impianto a carbo-azoto certificato alla temperatura esatta richiesta da ogni stile.
+        </p>
       </div>
-      <h2 class="font-display text-4xl sm:text-5xl font-black uppercase text-white mt-3" data-i18n="taplist_title">
-        Le Nostre 12 Vie Alla Spina
-      </h2>
-      <p class="text-neutral-400 text-sm mt-1" data-i18n="taplist_sub">
-        Ogni fusto viene spillato alla temperatura ideale per lo stile con impianto a carbo-azoto certificato.
-      </p>
+
+      <!-- Filtri Taplist -->
+      <div class="flex flex-wrap gap-2" id="tap-filters">
+        <button onclick="filterTaps('all', this)" class="tap-filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-oak-850 border border-oak-border text-slate-300 hover:text-white transition">Tutte (12)</button>
+        <button onclick="filterTaps('ipa', this)" class="tap-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-oak-850 border border-oak-border text-slate-300 hover:text-white transition">Luppolate & IPA</button>
+        <button onclick="filterTaps('lager', this)" class="tap-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-oak-850 border border-oak-border text-slate-300 hover:text-white transition">Chiare & Lager</button>
+        <button onclick="filterTaps('scure', this)" class="tap-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-oak-850 border border-oak-border text-slate-300 hover:text-white transition">Scure & Stout</button>
+        <button onclick="filterTaps('special', this)" class="tap-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-oak-850 border border-oak-border text-slate-300 hover:text-white transition">Speciali & Sidri</button>
+      </div>
     </div>
 
-    <!-- Lista Tabellone Tipo Tabella Lavagna -->
-    <div class="bg-oak-900 border border-oak-border rounded-lg overflow-hidden">
+    <!-- Lista Spine a Schede Chiare ed Eleganti -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="taps-grid">
       
-      <!-- Intestazione Tabella Desktop -->
-      <div class="hidden md:grid grid-cols-[56px_2.5fr_1.5fr_1fr_auto] gap-4 px-5 py-3 bg-oak-950 text-[11px] font-bold uppercase tracking-wider text-neutral-400 border-b border-oak-border">
-        <span>Via</span>
-        <span>Birra & Stile</span>
-        <span>Birrificio & Origine</span>
-        <span>Gradazione & IBU</span>
-        <span class="text-right">Pinta 0.4L</span>
-      </div>
-
       <!-- Tap 01 -->
-      <div class="tap-row">
-        <span class="font-display font-black text-2xl text-rame">01</span>
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="ipa">
         <div>
-          <span class="font-display font-bold text-xl uppercase text-white block">Foggy Coast New England IPA</span>
-          <span class="text-xs text-neutral-400">Torba e succosa con sentori di mango, frutto della passione e luppoli Citra & Mosaic in dry hopping.</span>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">01</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Foggy Coast NEIPA</h3>
+                <span class="text-xs text-slate-400">Overtone Brewing • Glasgow, Scozia</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">New England IPA</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Torba e vellutata. Profumi intensi di mango maturo, frutto della passione e agrumi grazie al doppio dry hopping con luppoli Citra e Mosaic.
+          </p>
         </div>
-        <div class="hidden md:block">
-          <span class="text-xs font-bold text-neutral-300 block">Overtone Brewing Co.</span>
-          <span class="text-[11px] text-neutral-500">Glasgow, Scozia</span>
-        </div>
-        <div class="hidden md:block text-xs font-mono text-neutral-300">
-          ALC 6.5% • IBU 35
-        </div>
-        <div class="text-right">
-          <span class="font-display font-bold text-xl text-white block">€ 6,50</span>
-          <span class="text-[10px] text-neutral-500">Mezza € 4,00</span>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">6.5%</strong> • IBU <strong class="text-white">35</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,50</span>
+            <span class="text-slate-400 ml-2">Mezza € 4,00</span>
+          </div>
         </div>
       </div>
 
       <!-- Tap 02 -->
-      <div class="tap-row">
-        <span class="font-display font-black text-2xl text-ottone">02</span>
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="scure">
         <div>
-          <span class="font-display font-bold text-xl uppercase text-white block">Midnight Velvet Imperial Stout</span>
-          <span class="text-xs text-neutral-400">Spillata a carbo-azoto con cascata cremosa. Fave di cacao tostate, caffè espresso e vaniglia Bourbon.</span>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">02</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Midnight Velvet Stout</h3>
+                <span class="text-xs text-slate-400">De Molen • Bodegraven, Olanda</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">Imperial Stout (Azoto)</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Spillata a carbo-azoto con cascata cremosa. Note dense di cioccolato fondente 80%, caffè espresso e sfumature di vaniglia Bourbon.
+          </p>
         </div>
-        <div class="hidden md:block">
-          <span class="text-xs font-bold text-neutral-300 block">Brouwerij De Molen</span>
-          <span class="text-[11px] text-neutral-500">Bodegraven, Olanda</span>
-        </div>
-        <div class="hidden md:block text-xs font-mono text-neutral-300">
-          ALC 8.2% • IBU 55
-        </div>
-        <div class="text-right">
-          <span class="font-display font-bold text-xl text-white block">€ 7,00</span>
-          <span class="text-[10px] text-neutral-500">Calice 0.33L</span>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">8.2%</strong> • IBU <strong class="text-white">55</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Calice € 7,00</span>
+            <span class="text-slate-400 ml-2">0.33L</span>
+          </div>
         </div>
       </div>
 
       <!-- Tap 03 -->
-      <div class="tap-row">
-        <span class="font-display font-black text-2xl text-white">03</span>
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="lager">
         <div>
-          <span class="font-display font-bold text-xl uppercase text-white block">Franconian Kellerbier Naturtrüb</span>
-          <span class="text-xs text-neutral-400">Lager artigianale cruda bavarese non filtrata. Crosta di pane, miele millefiori e luppolo Hallertau.</span>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">03</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Franconian Kellerbier</h3>
+                <span class="text-xs text-slate-400">Mahr's Bräu • Bamberga, Germania</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">Lager Cruda Bavarese</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Biondo dorato opalescente, non filtrata e non pastorizzata. Sentori di crosta di pane fresco, miele chiaro e lieve erbaceo da luppolo Hallertau.
+          </p>
         </div>
-        <div class="hidden md:block">
-          <span class="text-xs font-bold text-neutral-300 block">Mahr's Bräu Bamberg</span>
-          <span class="text-[11px] text-neutral-500">Bamberga, Germania</span>
-        </div>
-        <div class="hidden md:block text-xs font-mono text-neutral-300">
-          ALC 5.1% • IBU 22
-        </div>
-        <div class="text-right">
-          <span class="font-display font-bold text-xl text-white block">€ 6,00</span>
-          <span class="text-[10px] text-neutral-500">Boccale 0.5L</span>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">5.1%</strong> • IBU <strong class="text-white">22</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Boccale 0.5L € 6,00</span>
+            <span class="text-slate-400 ml-2">0.25L € 3,50</span>
+          </div>
         </div>
       </div>
 
       <!-- Tap 04 -->
-      <div class="tap-row">
-        <span class="font-display font-black text-2xl text-rame">04</span>
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="ipa">
         <div>
-          <span class="font-display font-bold text-xl uppercase text-white block">West Coast Timber IPA</span>
-          <span class="text-xs text-neutral-400">Oro ambrato limpido, amaro deciso e resinoso con profumi di aghi di pino e scorza di pompelmo.</span>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">04</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Pacific Timber West Coast</h3>
+                <span class="text-xs text-slate-400">Birrificio Rurale • Desio (MB), Italia</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">West Coast IPA</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Limpida e secca con corpo snello. Amaro resinoso deciso, sentori di aghi di pino silvestre, pompelmo rosa e finale pulito ed erbaceo.
+          </p>
         </div>
-        <div class="hidden md:block">
-          <span class="text-xs font-bold text-neutral-300 block">Birra del Borgo</span>
-          <span class="text-[11px] text-neutral-500">Borgorose (RI), Italia</span>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">6.8%</strong> • IBU <strong class="text-white">65</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,50</span>
+            <span class="text-slate-400 ml-2">Mezza € 4,00</span>
+          </div>
         </div>
-        <div class="hidden md:block text-xs font-mono text-neutral-300">
-          ALC 7.0% • IBU 68
+      </div>
+
+      <!-- Tap 05 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="lager">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">05</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Bohemian Pilsner Tradizionale</h3>
+                <span class="text-xs text-slate-400">Únětice • Repubblica Ceca</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Pilsner Boema</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Tradizione ceca autentica con decozione a doppio impasto. Luppolo Saaz nobile al 100%, schiuma densa e chiusura fresca con amaro persistente.
+          </p>
         </div>
-        <div class="text-right">
-          <span class="font-display font-bold text-xl text-white block">€ 6,50</span>
-          <span class="text-[10px] text-neutral-500">Mezza € 4,00</span>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">4.9%</strong> • IBU <strong class="text-white">38</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,00</span>
+            <span class="text-slate-400 ml-2">Mezza € 3,50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 06 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="scure">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">06</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Black Oak Irish Red Ale</h3>
+                <span class="text-xs text-slate-400">Carlow Brewing • Carlow, Irlanda</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-red-500/20 text-red-300 border border-red-500/30">Red Ale Irlandese</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Colore rubino brillante con riflessi ramati. Note morbide di caramello mou, malto tostato, nocciola e una finitura secca e pulita.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">5.0%</strong> • IBU <strong class="text-white">25</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,00</span>
+            <span class="text-slate-400 ml-2">Mezza € 3,50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 07 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="ipa">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">07</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Citra Sun Session IPA</h3>
+                <span class="text-xs text-slate-400">Crak Brewery • Campodarsego (PD), Italia</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Session IPA</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Gradazione moderata senza rinunciare all'esplosione luppolata. Agrumata, dissetante, con sentori di lime, cedro e un corpo leggero e beverino.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">4.2%</strong> • IBU <strong class="text-white">30</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,00</span>
+            <span class="text-slate-400 ml-2">Mezza € 3,50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 08 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="special">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">08</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">White Orchard Blanche</h3>
+                <span class="text-xs text-slate-400">Brasserie de Silly • Silly, Belgio</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Blanche Belga</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Grano non maltato, scorze d'arancia amara di Curaçao e coriandolo macinato. Freschissima, piacevolmente acidula e speziata.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">5.0%</strong> • IBU <strong class="text-white">15</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,00</span>
+            <span class="text-slate-400 ml-2">Mezza € 3,50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 09 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="scure">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">09</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">London Porter Tradizionale</h3>
+                <span class="text-xs text-slate-400">Fuller's • Londra, Regno Unito</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-stone-500/20 text-stone-300 border border-stone-500/30">Porter Inglese</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Spillatura all'inglese. Miscela di malti brown e crystal con aromi eleganti di liquirizia, cacao amaro e un sentore affumicato delicato.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">5.4%</strong> • IBU <strong class="text-white">32</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,50</span>
+            <span class="text-slate-400 ml-2">Mezza € 4,00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 10 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="ipa">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">10</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Double Hazard DIPA</h3>
+                <span class="text-xs text-slate-400">To Øl • Svinninge, Danimarca</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-orange-500/20 text-orange-300 border border-orange-500/30">Double IPA</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Per palati esperti: massiccia dose di luppoli americani Simcoe e Idaho 7. Calda, resinosa, con note di ananas caramellato e finale secco.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">8.0%</strong> • IBU <strong class="text-white">75</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Calice 0.33L € 7,00</span>
+            <span class="text-slate-400 ml-2">0.2L € 4,50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 11 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="lager">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">11</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Augustiner Hell Edelstoff</h3>
+                <span class="text-xs text-slate-400">Augustiner-Bräu • Monaco di Baviera</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">Helles Bavarese</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Il punto di riferimento delle birre di Monaco. Pulitissima, fragrante, con perfetto equilibrio tra malto dolce e leggero amaro di luppolo Hallertauer.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">5.6%</strong> • IBU <strong class="text-white">20</strong></span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Boccale 0.5L € 6,00</span>
+            <span class="text-slate-400 ml-2">0.25L € 3,50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tap 12 -->
+      <div class="tap-card p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/50 transition flex flex-col justify-between" data-style="special">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg bg-amber-brand/10 border border-amber-brand/30 text-amber-brand font-display font-black text-sm flex items-center justify-center">12</span>
+              <div>
+                <h3 class="font-display font-bold text-lg text-white">Vintage Somerset Dry Cider</h3>
+                <span class="text-xs text-slate-400">Sheppy's • Taunton, Regno Unito</span>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-lime-500/20 text-lime-300 border border-lime-500/30">Sidro Naturale (Gluten Free)</span>
+          </div>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Sidro di mele da cultivar tradizionali britanniche pressate a freddo. Secco, frizzante, naturalmente senza glutine con acidità rinfrescante.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-oak-border flex items-center justify-between text-xs">
+          <span class="font-mono text-slate-400">ALC <strong class="text-white">6.0%</strong> • Gluten-Free</span>
+          <div class="text-right">
+            <span class="font-display font-bold text-base text-amber-brand">Pinta € 6,50</span>
+            <span class="text-slate-400 ml-2">Mezza € 4,00</span>
+          </div>
         </div>
       </div>
 
     </div>
+
+    <!-- Banner Info Spine -->
+    <div class="mt-6 p-4 rounded-xl bg-oak-850 border border-oak-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="flex items-center gap-3 text-slate-300">
+        <span class="text-amber-brand text-lg">💡</span>
+        <span><strong>Vuoi assaggiare prima di scegliere?</strong> Chiedi al banco un sorso di degustazione per trovare la tua birra ideale.</span>
+      </div>
+      <a href="#prenota" class="font-semibold text-amber-brand hover:text-amber-hover whitespace-nowrap">
+        Prenota un tavolo per la serata &rarr;
+      </a>
+    </div>
+
   </section>
 
-  <!-- 6. SMOKEHOUSE & BURGER GOURMET (Layout Editoriale) -->
-  <section id="smokehouse" class="py-16 bg-oak-900 border-y border-oak-border">
+  <!-- 6. SMOKEHOUSE & BURGER GOURMET -->
+  <section id="smokehouse" class="py-16 md:py-24 bg-oak-900 border-y border-oak-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-12">
-        <div class="lg:col-span-6 space-y-4">
-          <div class="pub-divider">
-            <span class="text-xs font-bold uppercase tracking-widest text-rame">Cucina Artigianale</span>
-          </div>
-          <h2 class="font-display text-4xl sm:text-5xl font-black uppercase text-white" data-i18n="food_title">
-            Dalla Nostra Smokehouse a Legna
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-12">
+        <div class="lg:col-span-7">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-brand block mb-1">Dalla Nostra Cucina</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white" data-i18n="food_title">
+            Smokehouse a Legna & Burger Artigianali
           </h2>
-          <p class="text-neutral-300 text-sm sm:text-base leading-relaxed" data-i18n="food_sub">
-            Non usiamo salse confezionate o carni da discount. I nostri bun brioche vengono sfornati ogni mattina dal fornaio del quartiere, le spalle di maiale affumicano 14 ore con legno di noce americano e i patty da 200g di Fassona sono cotti sulla piastra ardente.
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mt-3" data-i18n="food_sub">
+            Le nostre spalle di maiale affumicano 14 ore con legno di noce americano nel nostro smoker a vista. I burger sono preparati con tagli freschi di Fassona Piemontese macinati ogni giorno, serviti nei soffici bun brioche sfornati dal nostro fornaio di fiducia.
           </p>
         </div>
-        <div class="lg:col-span-6">
-          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" 
-               alt="Gourmet smash burger The Black Oak" class="w-full h-72 object-cover rounded-lg border border-oak-border shadow-xl">
+        <div class="lg:col-span-5">
+          <div class="relative rounded-2xl overflow-hidden border border-oak-border shadow-xl">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" 
+                 alt="Gourmet smash burger The Black Oak" class="w-full h-72 object-cover">
+            <div class="absolute bottom-3 left-3 bg-oak-950/90 backdrop-blur-md px-3.5 py-1.5 rounded-lg border border-oak-border text-xs text-white">
+              🍔 <strong class="text-amber-brand">Cotto al momento:</strong> Fassona & Bun Brioche Artigianale
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Piatti a Listino con Leader Line -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 pt-4 border-t border-oak-border">
+      <!-- Menu piatti principali con layout a schede pulite -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <div class="p-3">
-          <div class="flex items-baseline justify-between">
-            <span class="font-display text-2xl font-bold uppercase text-white">The Black Oak Monster Smash</span>
-            <span class="font-display text-2xl font-black text-rame">€ 13,50</span>
+        <!-- Piatto 1 -->
+        <div class="p-5 rounded-xl bg-oak-850 border border-oak-border hover:border-amber-brand/40 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="font-display font-bold text-lg text-white">Black Oak Monster Smash</h3>
+              <span class="font-display font-bold text-xl text-amber-brand">€ 13,50</span>
+            </div>
+            <div class="inline-flex gap-2 mb-2">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-brand/10 text-amber-300 border border-amber-brand/20">Specialità</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              2x100g Fassona Piemontese, doppio Cheddar stagionato irlandese, bacon croccante al melo, cipolla caramellata alla birra Stout e salsa Black Oak segreta. Con patate dippers incluse.
+            </p>
           </div>
-          <p class="text-xs text-neutral-400 mt-1 leading-relaxed">2x100g Fassona Piemontese, doppio Cheddar stagionato irlandese, bacon croccante al melo, cipolla alla birra Stout e salsa Black Oak segreta. Con patate dippers.</p>
         </div>
 
-        <div class="p-3">
-          <div class="flex items-baseline justify-between">
-            <span class="font-display text-2xl font-bold uppercase text-white">14-Hour Smoked Pulled Pork</span>
-            <span class="font-display text-2xl font-black text-rame">€ 12,00</span>
+        <!-- Piatto 2 -->
+        <div class="p-5 rounded-xl bg-oak-850 border border-oak-border hover:border-amber-brand/40 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="font-display font-bold text-lg text-white">14-Hour Smoked Pulled Pork</h3>
+              <span class="font-display font-bold text-xl text-amber-brand">€ 12,00</span>
+            </div>
+            <div class="inline-flex gap-2 mb-2">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20">Smokehouse</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Spalla di maiale affumicata 14 ore con legno hickory e sfilacciata a mano, coleslaw croccante, salsa barbecue casalinga alla birra IPA e bun brioche tostato al burro.
+            </p>
           </div>
-          <p class="text-xs text-neutral-400 mt-1 leading-relaxed">Spalla di maiale sfilacciata a mano, coleslaw croccante di cavolo cappuccio, maionese all'aneto e salsa barbecue fatta in casa con birra IPA.</p>
         </div>
 
-        <div class="p-3">
-          <div class="flex items-baseline justify-between">
-            <span class="font-display text-2xl font-bold uppercase text-white">Loaded Dippers & Cheese Fondue</span>
-            <span class="font-display text-2xl font-black text-rame">€ 8,50</span>
+        <!-- Piatto 3 -->
+        <div class="p-5 rounded-xl bg-oak-850 border border-oak-border hover:border-amber-brand/40 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="font-display font-bold text-lg text-white">Crispy Smokehouse Wings</h3>
+              <span class="font-display font-bold text-xl text-amber-brand">€ 9,00</span>
+            </div>
+            <div class="inline-flex gap-2 mb-2">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-orange-500/10 text-orange-300 border border-orange-500/20">8 Pezzi</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Alette di pollo ruspante marinate per 24h nella birra ambrata, glassate con salsa BBQ all'habanero e servite con salsa blue cheese cremosa e bastoncini di sedano.
+            </p>
           </div>
-          <p class="text-xs text-neutral-400 mt-1 leading-relaxed">Maxi porzione di patate con buccia fritte due volte, colata di fonduta calda al Cheddar e jalapeños a rondelle.</p>
         </div>
 
-        <div class="p-3">
-          <div class="flex items-baseline justify-between">
-            <span class="font-display text-2xl font-bold uppercase text-white">Crispy Smokehouse Chicken Wings</span>
-            <span class="font-display text-2xl font-black text-rame">€ 9,00</span>
+        <!-- Piatto 4 -->
+        <div class="p-5 rounded-xl bg-oak-850 border border-oak-border hover:border-amber-brand/40 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="font-display font-bold text-lg text-white">Loaded Dippers & Cheddar</h3>
+              <span class="font-display font-bold text-xl text-amber-brand">€ 8,50</span>
+            </div>
+            <div class="inline-flex gap-2 mb-2">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Da Condividere</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Patate dippers fritte con la buccia croccante, colata di fonduta calda al Cheddar fuso, bacon croccante sbriciolato e jalapeños a rondelle.
+            </p>
           </div>
-          <p class="text-xs text-neutral-400 mt-1 leading-relaxed">Alette di pollo marinate alla birra, glassate con salsa piccante all'habanero e servite con salsa blue cheese rinfrescante.</p>
+        </div>
+
+        <!-- Piatto 5 -->
+        <div class="p-5 rounded-xl bg-oak-850 border border-oak-border hover:border-amber-brand/40 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="font-display font-bold text-lg text-white">Green Oak Veggie Burger</h3>
+              <span class="font-display font-bold text-xl text-amber-brand">€ 11,50</span>
+            </div>
+            <div class="inline-flex gap-2 mb-2">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Vegetariano</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Patty artigianale di ceci, funghi porcini e noci, provola affumicata alla piastra, rucola fresca selvatica, pomodori secchi sott'olio e maionese vegana al basilico.
+            </p>
+          </div>
+        </div>
+
+        <!-- Piatto 6 -->
+        <div class="p-5 rounded-xl bg-oak-850 border border-oak-border hover:border-amber-brand/40 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="font-display font-bold text-lg text-white">Stout Birramisù</h3>
+              <span class="font-display font-bold text-xl text-amber-brand">€ 6,00</span>
+            </div>
+            <div class="inline-flex gap-2 mb-2">
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">Dessert Artigianale</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              La nostra versione del tiramisù: savoiardi bagnati nell'Imperial Stout Midnight Velvet e caffè arabica, crema al mascarpone soffice e cacao amaro cru.
+            </p>
+          </div>
         </div>
 
       </div>
@@ -516,217 +778,320 @@
   </section>
 
   <!-- 7. CALENDARIO PARTITE IN DIRETTA -->
-  <section id="partite" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="partite" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mb-8">
-      <div class="pub-divider">
-        <span class="text-xs font-bold uppercase tracking-widest text-rame">Maxischermi 4K</span>
-      </div>
-      <h2 class="font-display text-4xl sm:text-5xl font-black uppercase text-white mt-3" data-i18n="sports_title">
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-brand block mb-1">Maxischermi 4K con Audio</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white" data-i18n="sports_title">
         Partite di Calcio & Live Sports
       </h2>
-      <p class="text-neutral-400 text-sm mt-1" data-i18n="sports_desc">
-        Vivi il calcio con l'audio dal vivo e il boccale pieno. Riserva il tuo tavolo per evitare di rimanere in piedi.
+      <p class="text-slate-300 text-sm sm:text-base mt-2" data-i18n="sports_desc">
+        Vivi il calcio con l'audio dal vivo e il boccale pieno. Riserva il tuo tavolo per evitare di rimanere in piedi durante i big match.
       </p>
     </div>
 
-    <div class="space-y-3">
-      <div class="p-4 bg-oak-900 border border-oak-border rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="text-center sm:text-left">
-          <span class="text-[11px] uppercase font-bold text-rame block">Mercoledì 20:45 • Champions League</span>
-          <span class="font-display text-2xl font-black uppercase text-white">Fase a Gironi — Big Match in Diretta</span>
+    <div class="space-y-4">
+      
+      <div class="p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/40 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">Champions League</span>
+            <span class="text-xs font-semibold text-amber-brand">Mercoledì ore 20:45</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">Fase a Eliminazione Diretta — Big Match Europeo</h3>
+          <p class="text-xs text-slate-400">Trasmessa su 3 Maxischermi con audio dedicato nella sala principale.</p>
         </div>
-        <a href="#prenota" class="px-5 py-2.5 rounded bg-rame hover:bg-rame-hover text-white font-display font-black text-sm uppercase tracking-wider transition">
+        <a href="#prenota" onclick="selectMatchTime('20:30')" class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-amber-brand hover:bg-amber-hover text-slate-950 font-display font-bold text-sm transition">
           Prenota per la Partita
         </a>
       </div>
 
-      <div class="p-4 bg-oak-900 border border-oak-border rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="text-center sm:text-left">
-          <span class="text-[11px] uppercase font-bold text-rame block">Domenica 20:45 • Serie A</span>
-          <span class="font-display text-2xl font-black uppercase text-white">Posticipo Serale Serie A su 3 Maxischermi</span>
+      <div class="p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/40 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Serie A</span>
+            <span class="text-xs font-semibold text-amber-brand">Domenica ore 20:45</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">Posticipo Serale Campionato Italiano</h3>
+          <p class="text-xs text-slate-400">Menu burger e birre disponibile per tutta la durata del match.</p>
         </div>
-        <a href="#prenota" class="px-5 py-2.5 rounded bg-rame hover:bg-rame-hover text-white font-display font-black text-sm uppercase tracking-wider transition">
+        <a href="#prenota" onclick="selectMatchTime('20:30')" class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-amber-brand hover:bg-amber-hover text-slate-950 font-display font-bold text-sm transition">
           Prenota per la Partita
         </a>
       </div>
+
+      <div class="p-5 rounded-xl bg-oak-900 border border-oak-border hover:border-amber-brand/40 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Sei Nazioni Rugby</span>
+            <span class="text-xs font-semibold text-amber-brand">Sabato ore 15:15 & 17:45</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">Pomeriggio Ovale con Pinte e Taglieri</h3>
+          <p class="text-xs text-slate-400">Apertura straordinaria anticipata per tifare insieme.</p>
+        </div>
+        <a href="#prenota" onclick="selectMatchTime('19:30')" class="whitespace-nowrap px-5 py-2.5 rounded-lg bg-oak-850 hover:bg-oak-800 border border-oak-border text-white font-display font-bold text-sm transition">
+          Prenota per il Rugby
+        </a>
+      </div>
+
     </div>
   </section>
 
-  <!-- 8. RECENSIONI -->
-  <section id="recensioni" class="py-16 bg-oak-900 border-t border-oak-border">
+  <!-- 8. RECENSIONI VERIFICATE -->
+  <section id="recensioni" class="py-16 md:py-24 bg-oak-900 border-t border-oak-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
-        <div class="pub-divider">
-          <span class="text-xs font-bold uppercase tracking-widest text-rame">Opinioni Verificate</span>
-        </div>
-        <h2 class="font-display text-4xl font-black uppercase text-white" data-i18n="reviews_pub_title">I Nostri Bevitori Più Fedeli</h2>
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-brand block mb-1">Opinioni su Google</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white" data-i18n="reviews_pub_title">
+          Cosa Dicono i Nostri Clienti
+        </h2>
+        <p class="text-slate-400 text-sm mt-2">Oltre 520 recensioni a 5 stelle da amanti della birra e buongustai.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-lg bg-oak-950 border border-oak-border flex flex-col justify-between">
-          <p class="font-serif italic text-sm sm:text-base text-neutral-300 leading-relaxed mb-6">
-            “La miglior taplist di Roma per chi ama le NEIPA e le birre scure inglesi. Chi spilla sa sempre spiegarti ogni luppolo nel dettaglio. Il burger è una certezza assoluta.”
-          </p>
-          <div class="pt-4 border-t border-oak-border flex items-center justify-between text-xs text-neutral-400">
-            <strong class="text-white">Simone V.</strong>
-            <span>Beer Enthusiast</span>
+        
+        <div class="p-6 rounded-xl bg-oak-850 border border-oak-border flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 text-amber-brand mb-3">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              <span class="text-xs text-slate-400 ml-2 font-medium">Recensione verificata</span>
+            </div>
+            <p class="text-slate-200 text-sm leading-relaxed mb-6">
+              “La miglior taplist di Roma per chi ama le NEIPA e le birre artigianali serie. Il personale al banco è competente e ti spiega le differenze tra i vari luppoli. Il Monster Smash Burger è favoloso!”
+            </p>
+          </div>
+          <div class="pt-4 border-t border-oak-border flex items-center justify-between text-xs">
+            <span class="font-bold text-white">Simone V.</span>
+            <span class="text-slate-400">Cliente abituale</span>
           </div>
         </div>
 
-        <div class="p-6 rounded-lg bg-oak-950 border border-oak-border flex flex-col justify-between">
-          <p class="font-serif italic text-sm sm:text-base text-neutral-300 leading-relaxed mb-6">
-            “Atmosfera da autentico pub britannico. Ottima musica, personale sempre attento e pulled pork morbido che si scioglie in bocca. Consigliatissimo prenotare il tavolo per le partite.”
-          </p>
-          <div class="pt-4 border-t border-oak-border flex items-center justify-between text-xs text-neutral-400">
-            <strong class="text-white">Giulia M.</strong>
-            <span>Cliente dal 2022</span>
+        <div class="p-6 rounded-xl bg-oak-850 border border-oak-border flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 text-amber-brand mb-3">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              <span class="text-xs text-slate-400 ml-2 font-medium">Recensione verificata</span>
+            </div>
+            <p class="text-slate-200 text-sm leading-relaxed mb-6">
+              “Atmosfera da autentico pub britannico nel cuore di Monti. Ottima musica rock di sottofondo, pulled pork morbidissimo e maxischermi perfetti per vedere la Champions. Prenotate sempre il tavolo!”
+            </p>
+          </div>
+          <div class="pt-4 border-t border-oak-border flex items-center justify-between text-xs">
+            <span class="font-bold text-white">Giulia M.</span>
+            <span class="text-slate-400">Cliente dal 2022</span>
           </div>
         </div>
 
-        <div class="p-6 rounded-lg bg-oak-950 border border-oak-border flex flex-col justify-between">
-          <p class="font-serif italic text-sm sm:text-base text-neutral-300 leading-relaxed mb-6">
-            “Siamo venuti in 10 amici per vedere la partita. Servizio spine rapidissimo nonostante il pub fosse pieno e alette piccanti spettacolari. Ormai il nostro ritrovo fisso.”
-          </p>
-          <div class="pt-4 border-t border-oak-border flex items-center justify-between text-xs text-neutral-400">
-            <strong class="text-white">Lorenzo P.</strong>
-            <span>Gruppo del Mercoledì</span>
+        <div class="p-6 rounded-xl bg-oak-850 border border-oak-border flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1 text-amber-brand mb-3">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              <span class="text-xs text-slate-400 ml-2 font-medium">Recensione verificata</span>
+            </div>
+            <p class="text-slate-200 text-sm leading-relaxed mb-6">
+              “Siamo venuti in 10 amici per una partita. Servizio spine rapidissimo nonostante il pub fosse pienissimo. La birra arriva alla temperatura perfetta. Diventato il nostro punto di ritrovo.”
+            </p>
+          </div>
+          <div class="pt-4 border-t border-oak-border flex items-center justify-between text-xs">
+            <span class="font-bold text-white">Lorenzo P.</span>
+            <span class="text-slate-400">Gruppo amici</span>
           </div>
         </div>
+
       </div>
+
     </div>
   </section>
 
   <!-- 9. PRENOTAZIONE TAVOLO -->
-  <section id="prenota" class="py-16 max-w-3xl mx-auto px-4 sm:px-6">
-    <div class="bg-oak-900 border border-oak-border p-6 sm:p-8 rounded-lg shadow-2xl">
-      <div class="text-center space-y-2 mb-6">
-        <div class="pub-divider">
-          <span class="text-xs font-bold uppercase tracking-widest text-rame">Nessun No-Show</span>
-        </div>
-        <h2 class="font-display text-4xl font-black uppercase text-white" data-i18n="booking_pub_title">Prenota il Tuo Tavolo</h2>
-        <p class="text-xs text-neutral-400">Conferma immediata via SMS o WhatsApp direttamente dal publican.</p>
+  <section id="prenota" class="py-16 md:py-24 max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="bg-oak-900 border border-oak-border p-6 sm:p-10 rounded-2xl shadow-2xl">
+      
+      <div class="text-center mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-brand block mb-1">Nessuna Attesa Fuori</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white" data-i18n="booking_pub_title">
+          Prenota il Tuo Tavolo
+        </h2>
+        <p class="text-slate-300 text-sm mt-2">
+          Conferma immediata. Consigliato per le serate con partite di calcio o nel weekend.
+        </p>
       </div>
 
-      <div id="pub-success" class="hidden mb-6 p-4 rounded bg-emerald-900/30 border border-emerald-500/40 text-emerald-200 text-center text-xs font-bold">
-        Tavolo Riservato con Successo! Ti abbiamo inviato il messaggio WhatsApp di conferma.
+      <div id="pub-success" class="hidden mb-6 p-4 rounded-xl bg-emerald-900/30 border border-emerald-500/50 text-emerald-200 text-center text-sm font-semibold">
+        🎉 Tavolo Riservato con Successo! Ti abbiamo inviato una notifica WhatsApp di conferma.
       </div>
 
       <form onsubmit="submitPubBook(event)" class="space-y-4">
+        
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-bold uppercase text-neutral-400 mb-1">Nome Referente *</label>
-            <input type="text" required placeholder="Es. Alessio Nardi" class="w-full px-4 py-3 rounded bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-rame">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nome e Cognome *</label>
+            <input type="text" required placeholder="Es. Mario Rossi" class="w-full px-4 py-3 rounded-lg bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-amber-brand">
           </div>
           <div>
-            <label class="block text-xs font-bold uppercase text-neutral-400 mb-1">Telefono / WhatsApp *</label>
-            <input type="tel" required placeholder="Es. 333 4567890" class="w-full px-4 py-3 rounded bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-rame">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Telefono / WhatsApp *</label>
+            <input type="tel" required placeholder="Es. 333 1234567" class="w-full px-4 py-3 rounded-lg bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-amber-brand">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-bold uppercase text-neutral-400 mb-1">Giorno *</label>
-            <input type="date" id="pub-date" required class="w-full px-4 py-3 rounded bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-rame">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Data *</label>
+            <input type="date" id="pub-date" required class="w-full px-4 py-3 rounded-lg bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-amber-brand">
           </div>
           <div>
-            <label class="block text-xs font-bold uppercase text-neutral-400 mb-1">Orario *</label>
-            <select required class="w-full px-4 py-3 rounded bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-rame">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Orario Arrivo *</label>
+            <select id="pub-time" required class="w-full px-4 py-3 rounded-lg bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-amber-brand">
+              <option value="18:30">18:30 (Aperitivo / Prime pinte)</option>
               <option value="19:30">19:30 (Cena presto)</option>
-              <option value="20:30" selected>20:30 (Partita / Cena)</option>
-              <option value="22:00">22:00 (Dopocena birre)</option>
+              <option value="20:30" selected>20:30 (Cena / Partite live)</option>
+              <option value="21:45">21:45 (Secondo turno)</option>
+              <option value="22:30">22:30 (Dopocena birreria)</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold uppercase text-neutral-400 mb-1">Persone *</label>
-            <select required class="w-full px-4 py-3 rounded bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-rame">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Numero Persone *</label>
+            <select required class="w-full px-4 py-3 rounded-lg bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-amber-brand">
               <option value="2">2 Persone</option>
               <option value="4" selected>4 Persone</option>
               <option value="6">6 Persone</option>
-              <option value="8+">Tavolata 8+ Persone</option>
+              <option value="8">8 Persone</option>
+              <option value="10+">Tavolata 10+ Persone</option>
             </select>
           </div>
         </div>
 
-        <button type="submit" id="btn-pub-book" class="w-full py-4 rounded bg-rame hover:bg-rame-hover text-white font-display font-black text-lg uppercase tracking-wider transition">
-          <span id="btn-pub-text" data-i18n="btn_submit_pub">Blocca il Tavolo Adesso</span>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Preferenze o Note (Opzionale)</label>
+          <input type="text" placeholder="Es. Tavolo vicino al maxischermo per la partita, seggiolone, allergie..." class="w-full px-4 py-3 rounded-lg bg-oak-950 border border-oak-border text-white text-sm focus:outline-none focus:border-amber-brand">
+        </div>
+
+        <button type="submit" id="btn-pub-book" class="w-full py-4 rounded-lg bg-amber-brand hover:bg-amber-hover text-slate-950 font-display font-bold text-base transition shadow-lg shadow-amber-brand/20">
+          <span id="btn-pub-text" data-i18n="btn_submit_pub">Conferma Prenotazione Tavolo</span>
         </button>
+
+        <p class="text-[11px] text-center text-slate-400 pt-1">
+          Nessuna carta di credito richiesta. Se hai un imprevisto ti chiediamo solo di avvisarci su WhatsApp.
+        </p>
+
       </form>
     </div>
   </section>
 
-  <!-- 10. ORARI & MAPPA -->
-  <section id="orari" class="py-16 bg-black border-t border-oak-border">
+  <!-- 10. ORARI, POSIZIONE & CONTATTI -->
+  <section id="orari" class="py-16 md:py-24 bg-oak-950 border-t border-oak-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div class="space-y-4">
-          <div class="pub-divider">
-            <span class="text-xs font-bold uppercase tracking-widest text-rame">Vieni a Bere</span>
+        
+        <div class="space-y-6">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-brand block mb-1">Dove Trovarci</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white" data-i18n="hours_pub_title">
+              Orari & Posizione
+            </h2>
+            <p class="text-slate-300 text-sm mt-2">
+              Nel cuore del Rione Monti, a soli 200 metri dalla fermata metro B Cavour e a 5 minuti a piedi dal Colosseo.
+            </p>
           </div>
-          <h2 class="font-display text-4xl font-black uppercase text-white" data-i18n="hours_pub_title">Orari & Posizione</h2>
-          <p class="text-neutral-400 text-sm">
-            Situato nel Rione Monti, a 200 metri dalla fermata metro Cavour.
-          </p>
-          <div class="p-4 rounded bg-oak-900 border border-oak-border text-xs space-y-2">
-            <p><strong class="text-white">Indirizzo:</strong> Via del Luppolo 18, 00184 Roma</p>
-            <p><strong class="text-white">Telefono:</strong> +39 06 9488 421</p>
-            <p><strong class="text-white">WhatsApp:</strong> +39 333 9988776</p>
-            <a href="https://maps.google.com" target="_blank" rel="noopener" class="inline-block text-xs font-bold text-rame-light hover:underline pt-1">
-              Indicazioni Stradali su Google Maps &rarr;
-            </a>
+
+          <div class="p-5 rounded-xl bg-oak-900 border border-oak-border space-y-3 text-sm">
+            <div class="flex items-start gap-3">
+              <span class="text-amber-brand text-lg">📍</span>
+              <div>
+                <strong class="text-white block">Indirizzo:</strong>
+                <span class="text-slate-300">Via del Luppolo 18, 00184 Roma (Rione Monti)</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-amber-brand text-lg">📞</span>
+              <div>
+                <strong class="text-white block">Telefono:</strong>
+                <a href="tel:+39069488421" class="text-amber-brand hover:underline font-semibold">+39 06 9488 421</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-emerald-400 text-lg">💬</span>
+              <div>
+                <strong class="text-white block">WhatsApp Publican:</strong>
+                <a href="https://wa.me/39069488421?text=Ciao%20The%20Black%20Oak" class="text-emerald-400 hover:underline font-semibold">+39 333 9988776</a>
+              </div>
+            </div>
+            <div class="pt-2">
+              <a href="https://maps.google.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-oak-850 hover:bg-oak-800 border border-oak-border text-slate-200 text-xs font-semibold transition">
+                <span>Apri in Google Maps</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div class="bg-oak-900 p-6 rounded border border-oak-border">
-          <h3 class="font-display text-xl font-bold uppercase text-white mb-3">Orari Pub & Spine</h3>
-          <table class="w-full text-xs divide-y divide-oak-border">
-            <tbody>
-              <tr class="py-2.5 flex justify-between">
-                <td class="font-semibold text-neutral-400">Lunedì</td>
-                <td class="text-red-400 font-mono">Chiuso per Riposo</td>
-              </tr>
-              <tr class="py-2.5 flex justify-between">
-                <td class="font-semibold text-white">Martedì — Giovedì</td>
-                <td class="font-mono text-white">18:00 — 01:30</td>
-              </tr>
-              <tr class="py-2.5 flex justify-between bg-rame/10 px-2 rounded">
-                <td class="font-bold text-rame-light">Venerdì & Sabato (Weekend)</td>
-                <td class="font-mono text-rame-light font-bold">18:00 — 02:30</td>
-              </tr>
-              <tr class="py-2.5 flex justify-between">
-                <td class="font-semibold text-white">Domenica</td>
-                <td class="font-mono text-white">18:00 — 01:30</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="bg-oak-900 p-6 rounded-2xl border border-oak-border">
+          <h3 class="font-display text-xl font-bold text-white mb-4 flex items-center justify-between">
+            <span>Orari Settimanali Spine & Cucina</span>
+            <span class="text-xs font-normal text-slate-400">Aggiornati 2026</span>
+          </h3>
+
+          <div class="divide-y divide-oak-border text-sm">
+            <div class="py-3 flex justify-between items-center" id="day-mon">
+              <span class="font-semibold text-slate-400">Lunedì</span>
+              <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-rose-500/10 text-rose-300 border border-rose-500/20">Chiuso per Riposo</span>
+            </div>
+            <div class="py-3 flex justify-between items-center" id="day-tue">
+              <span class="font-semibold text-slate-200">Martedì</span>
+              <span class="font-mono text-slate-300">18:00 — 01:30</span>
+            </div>
+            <div class="py-3 flex justify-between items-center" id="day-wed">
+              <span class="font-semibold text-slate-200">Mercoledì (Partite Live)</span>
+              <span class="font-mono text-slate-300">18:00 — 01:30</span>
+            </div>
+            <div class="py-3 flex justify-between items-center" id="day-thu">
+              <span class="font-semibold text-slate-200">Giovedì</span>
+              <span class="font-mono text-slate-300">18:00 — 01:30</span>
+            </div>
+            <div class="py-3 flex justify-between items-center" id="day-fri">
+              <span class="font-semibold text-slate-200">Venerdì (Weekend)</span>
+              <span class="font-mono text-amber-brand font-bold">18:00 — 02:30</span>
+            </div>
+            <div class="py-3 flex justify-between items-center" id="day-sat">
+              <span class="font-semibold text-slate-200">Sabato (Weekend & Rugby)</span>
+              <span class="font-mono text-amber-brand font-bold">18:00 — 02:30</span>
+            </div>
+            <div class="py-3 flex justify-between items-center" id="day-sun">
+              <span class="font-semibold text-slate-200">Domenica (Serie A)</span>
+              <span class="font-mono text-slate-300">18:00 — 01:30</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-black py-8 px-4 border-t border-oak-border text-center text-xs text-neutral-500">
+  <!-- 11. FOOTER -->
+  <footer class="bg-oak-950 py-8 px-4 border-t border-oak-border text-center text-xs text-slate-400">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <span>The Black Oak Pub S.r.l. • P.IVA: 08765432190 • Via del Luppolo 18, Roma</span>
-      <div class="flex gap-4 font-bold text-neutral-400">
-        <a href="#taplist" class="hover:text-rame">Spine</a>
-        <a href="#smokehouse" class="hover:text-rame">Cucina</a>
-        <a href="#prenota" class="hover:text-rame">Tavoli</a>
+      <div class="flex gap-5 font-semibold text-slate-300">
+        <a href="#taplist" class="hover:text-amber-brand transition">Spine</a>
+        <a href="#smokehouse" class="hover:text-amber-brand transition">Cucina</a>
+        <a href="#partite" class="hover:text-amber-brand transition">Partite</a>
+        <a href="#prenota" class="hover:text-amber-brand transition">Prenotazioni</a>
       </div>
     </div>
   </footer>
 
-  <!-- BARRA MOBILE FISSA (< 768px) -->
-  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-oak-950/95 backdrop-blur-md border-t border-oak-border p-2 shadow-2xl flex items-center gap-2">
-    <a href="tel:+39069488421" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded border border-oak-border text-white font-bold text-xs active:bg-oak-850 min-h-[48px]">
-      <svg class="w-4 h-4 text-rame" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+  <!-- 12. BARRA MOBILE FISSA (< 768px) ERGONOMICA -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 bg-oak-950/95 backdrop-blur-md border-t border-oak-border p-2.5 shadow-2xl flex items-center gap-2">
+    <a href="tel:+39069488421" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-oak-850 border border-oak-border text-white font-semibold text-xs active:bg-oak-800 min-h-[44px]">
+      <svg class="w-4 h-4 text-amber-brand" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
       <span>Chiama</span>
     </a>
-    <a href="https://wa.me/39069488421?text=Ciao%20The%20Black%20Oak" class="flex-1 flex items-center justify-center gap-1.5 py-3 rounded bg-emerald-600 text-white font-bold text-xs active:bg-emerald-700 min-h-[48px]">
+    <a href="https://wa.me/39069488421?text=Ciao%20The%20Black%20Oak" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-emerald-700 text-white font-semibold text-xs active:bg-emerald-800 min-h-[44px]">
       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
       <span>WhatsApp</span>
     </a>
-    <a href="#prenota" class="flex-1 flex items-center justify-center gap-1 py-3 rounded bg-rame text-white font-display font-black text-sm uppercase tracking-wider min-h-[48px]">
-      <span>Tavoli</span>
+    <a href="#prenota" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-amber-brand text-slate-950 font-display font-bold text-xs min-h-[44px]">
+      <span>Prenota</span>
     </a>
   </div>
 
@@ -734,6 +1099,27 @@
     function togglePubNav() {
       const d = document.getElementById('pub-drawer');
       d.classList.toggle('hidden');
+    }
+
+    function selectMatchTime(timeVal) {
+      const select = document.getElementById('pub-time');
+      if (select) {
+        select.value = timeVal;
+      }
+    }
+
+    function filterTaps(style, btn) {
+      document.querySelectorAll('.tap-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.tap-card');
+      cards.forEach(card => {
+        if (style === 'all' || card.getAttribute('data-style') === style) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
 
     function updatePubHours() {
@@ -746,15 +1132,15 @@
       let isOpen = false;
       let closeText = "";
 
-      if (day === 1) {
+      if (day === 1) { // Lunedì
         isOpen = false;
-      } else if (day >= 2 && day <= 4) {
+      } else if (day >= 2 && day <= 4) { // Mar - Gio
         isOpen = (timeNum >= 1080 || timeNum < 90);
         closeText = "01:30";
-      } else if (day === 5 || day === 6) {
+      } else if (day === 5 || day === 6) { // Ven - Sab
         isOpen = (timeNum >= 1080 || timeNum < 150);
         closeText = "02:30";
-      } else {
+      } else { // Dom
         isOpen = (timeNum >= 1080 || timeNum < 90);
         closeText = "01:30";
       }
@@ -763,10 +1149,17 @@
       const dot = document.getElementById('live-pub-dot');
       if (isOpen) {
         txt.textContent = `Aperto Ora • Fino alle ${closeText}`;
-        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
       } else {
         txt.textContent = "Chiuso Ora • Spine attive dalle 18:00";
-        dot.className = "w-2 h-2 rounded-full bg-amber-400";
+        dot.className = "w-2.5 h-2.5 rounded-full bg-amber-brand";
+      }
+
+      // Evidenzia giorno corrente nella tabella
+      const dayIds = ['day-sun', 'day-mon', 'day-tue', 'day-wed', 'day-thu', 'day-fri', 'day-sat'];
+      const currentDayRow = document.getElementById(dayIds[day]);
+      if (currentDayRow) {
+        currentDayRow.classList.add('bg-amber-brand/10', 'px-2', 'rounded-lg');
       }
     }
 
@@ -776,62 +1169,63 @@
       const txt = document.getElementById('btn-pub-text');
       const succ = document.getElementById('pub-success');
 
-      txt.textContent = "Blocco tavolo...";
+      txt.textContent = "Verifica disponibilità tavolo...";
       btn.disabled = true;
 
       setTimeout(() => {
-        txt.textContent = "Tavolo Riservato!";
-        btn.classList.add('bg-emerald-700');
+        txt.textContent = "Tavolo Riservato con Successo!";
+        btn.classList.remove('bg-amber-brand', 'hover:bg-amber-hover', 'text-slate-950');
+        btn.classList.add('bg-emerald-600', 'text-white');
         succ.classList.remove('hidden');
         succ.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 900);
+      }, 750);
     }
 
     const pubI18n = {
       it: {
-        tagline: 'Craft Beer & Smokehouse',
+        tagline: 'Birreria & Smokehouse Artigianale',
         nav_taps: 'Le 12 Spine',
         nav_food: 'Smokehouse & Burger',
         nav_sports: 'Partite in Diretta',
-        nav_reviews: 'Dicono di Noi',
-        nav_hours: 'Orari & Mappa',
+        nav_reviews: 'Recensioni',
+        nav_hours: 'Orari & Dove Siamo',
         btn_book_table: 'Prenota Tavolo',
-        hero_h1: 'Birra Artigianale Autentica. Carni Affumicate a Legna.',
-        hero_p: 'Al The Black Oak niente birre industriali pastorizzate: selezioniamo i migliori birrifici indipendenti italiani ed europei con fusti a rotazione settimanale, burger gourmet macinati a punta di coltello e pulled pork cotto 14 ore nel nostro affumicatore.',
-        hero_cta_taps: 'Consulta il Tabellone Spine',
-        hero_cta_book: 'Riserva un Tavolo per Stasera',
-        taplist_title: 'Le Nostre 12 Vie Alla Spina',
-        taplist_sub: 'Ogni fusto viene spillato alla temperatura ideale per lo stile con impianto a carbo-azoto certificato.',
-        food_title: 'Dalla Nostra Smokehouse a Legna',
-        food_sub: 'Non usiamo salse confezionate o carni da discount. I nostri bun brioche vengono sfornati ogni mattina dal fornaio del quartiere.',
+        hero_h1: 'La vera birra artigianale. Carni affumicate a legna e grandi match live.',
+        hero_p: 'Nessuna birra industriale pastorizzata: selezioniamo i migliori birrifici indipendenti italiani ed europei con fusti a rotazione continua. Accompagnali con burger di Fassona e pulled pork affumicato 14 ore.',
+        hero_cta_taps: 'Guarda le 12 Spine Attive',
+        hero_cta_book: 'Riserva un Tavolo',
+        taplist_title: 'Le 12 Vie Alla Spina',
+        taplist_sub: 'Spillate con impianto a carbo-azoto certificato alla temperatura esatta richiesta da ogni stile.',
+        food_title: 'Smokehouse a Legna & Burger Artigianali',
+        food_sub: 'Le nostre spalle di maiale affumicano 14 ore con legno di noce americano nel nostro smoker a vista. I burger sono preparati con tagli freschi di Fassona Piemontese macinati ogni giorno.',
         sports_title: 'Partite di Calcio & Live Sports',
-        sports_desc: 'Vivi il calcio con l\'audio dal vivo e il boccale pieno. Riserva il tuo tavolo per evitare di rimanere in piedi.',
-        reviews_pub_title: 'I Nostri Bevitori Più Fedeli',
+        sports_desc: 'Vivi il calcio con l\'audio dal vivo e il boccale pieno. Riserva il tuo tavolo per evitare di rimanere in piedi durante i big match.',
+        reviews_pub_title: 'Cosa Dicono i Nostri Clienti',
         booking_pub_title: 'Prenota il Tuo Tavolo',
-        btn_submit_pub: 'Blocca il Tavolo Adesso',
+        btn_submit_pub: 'Conferma Prenotazione Tavolo',
         hours_pub_title: 'Orari & Posizione'
       },
       en: {
-        tagline: 'Craft Beer & Smokehouse',
-        nav_taps: '12 On-Tap Board',
+        tagline: 'Artisan Craft Beer & Smokehouse',
+        nav_taps: '12 On-Tap Lines',
         nav_food: 'Smokehouse & Burgers',
-        nav_sports: 'Live Matches',
+        nav_sports: 'Live Sports & Matches',
         nav_reviews: 'Reviews',
         nav_hours: 'Hours & Location',
         btn_book_table: 'Book Table',
-        hero_h1: 'Real Independent Craft Beer. Wood Smoked Meats.',
-        hero_p: 'At The Black Oak we pour zero pasteurized corporate beers: only the finest independent European craft breweries with rotating weekly kegs, prime burgers, and 14-hour hickory smoked pulled pork.',
-        hero_cta_taps: 'View Live Tap Board',
-        hero_cta_book: 'Reserve for Tonight',
+        hero_h1: 'Authentic craft beer. Wood-smoked meats and live match nights.',
+        hero_p: 'Zero commercial pasteurized beer: we handpick the finest independent Italian and European breweries with rotating weekly kegs, prime Fassona burgers, and 14-hour smoked pulled pork.',
+        hero_cta_taps: 'View 12 Live Taps',
+        hero_cta_book: 'Reserve a Table',
         taplist_title: 'Our 12 Live On-Tap Lines',
-        taplist_sub: 'Every beer is poured at precise style temperature on certified nitrogen-infused lines.',
-        food_title: 'From Our In-House Wood Smokehouse',
-        food_sub: 'Zero commercial jarred sauces. Fresh artisan brioche buns baked daily and prime beef burgers.',
-        sports_title: 'Live Sports & Match Nights',
-        sports_desc: 'Watch the matches with stadium sound and cold pints. Book your spot in advance.',
-        reviews_pub_title: 'What Our Regulars Say',
+        taplist_sub: 'Poured with certified nitrogen-carb lines at the exact temperature suited for each beer style.',
+        food_title: 'Wood Smokehouse & Artisan Burgers',
+        food_sub: 'Pork shoulders smoked for 14 hours with American hickory wood. Fresh Piedmontese Fassona beef burgers ground daily and served in bakery brioche buns.',
+        sports_title: 'Live Football Matches & Sports',
+        sports_desc: 'Experience match day with live audio and fresh pints. Reserve your table to secure prime screen views.',
+        reviews_pub_title: 'What Our Customers Say',
         booking_pub_title: 'Reserve Your Table',
-        btn_submit_pub: 'Lock In Your Table',
+        btn_submit_pub: 'Confirm Table Reservation',
         hours_pub_title: 'Hours & Location'
       }
     };
@@ -844,11 +1238,11 @@
       const itB = document.getElementById('lang-it');
       const enB = document.getElementById('lang-en');
       if (lang === 'it') {
-        itB.className = "px-2 py-0.5 text-xs font-bold bg-rame text-white";
-        enB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white";
+        itB.className = "px-2.5 py-1 text-xs font-bold rounded bg-amber-brand text-black transition";
+        enB.className = "px-2.5 py-1 text-xs font-medium rounded text-slate-400 hover:text-white transition";
       } else {
-        enB.className = "px-2 py-0.5 text-xs font-bold bg-rame text-white";
-        itB.className = "px-2 py-0.5 text-xs font-medium text-neutral-400 hover:text-white";
+        enB.className = "px-2.5 py-1 text-xs font-bold rounded bg-amber-brand text-black transition";
+        itB.className = "px-2.5 py-1 text-xs font-medium rounded text-slate-400 hover:text-white transition";
       }
     }
 
