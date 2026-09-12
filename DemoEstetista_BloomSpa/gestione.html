@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestione Prenotazioni — Bloom Beauty Spa</title>
+  <meta name="description" content="Dashboard gestione prenotazioni per Bloom Beauty Spa. Visualizza, conferma e gestisci gli appuntamenti.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0F0A0A;--bg2:#161010;--surf:#1E1515;--card:#231818;
+      --bdr:rgba(200,115,106,.12);--bdrh:rgba(200,115,106,.25);
+      --rosa:#C8736A;--rosa2:#A85A52;--rosaf:rgba(200,115,106,.15);
+      --oro:#C4975A;--oro2:#A67C40;--orof:rgba(196,151,90,.12);
+      --verde:#2ECC71;--ross:#E74C3C;--giallo:#F39C12;--blu:#3498DB;
+      --tx:#F5EDE8;--dim:#A08880;--mut:#5A4040;
+      --rad:14px;--rsm:8px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+
+    /* SIDEBAR */
+    .sidebar{width:240px;background:var(--bg2);border-right:1px solid var(--bdr);padding:1.5rem 0;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:40;transition:transform .3s}
+    @media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}}
+    .sb-logo{display:flex;align-items:center;gap:.7rem;padding:0 1.4rem 1.5rem;border-bottom:1px solid var(--bdr);text-decoration:none}
+    .sb-logo-ic{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--oro));display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 14px rgba(200,115,106,.3);flex-shrink:0}
+    .sb-logo-tx h2{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:var(--rosa);line-height:1.1}
+    .sb-logo-tx p{font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+    .sb-nav{padding:1.2rem 0;flex:1}
+    .sb-section{font-size:.62rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.09em;padding:.6rem 1.4rem .3rem}
+    .sb-link{display:flex;align-items:center;gap:.75rem;padding:.7rem 1.4rem;text-decoration:none;color:var(--dim);font-size:.84rem;font-weight:500;transition:all .2s;border-left:3px solid transparent;position:relative}
+    .sb-link:hover{color:var(--tx);background:rgba(200,115,106,.07)}
+    .sb-link.active{color:var(--rosa);background:rgba(200,115,106,.1);border-left-color:var(--rosa)}
+    .sb-link .ic{font-size:1.05rem;width:20px;text-align:center}
+    .sb-link .badge{margin-left:auto;background:var(--rosa);color:#fff;font-size:.62rem;font-weight:700;padding:.1rem .45rem;border-radius:999px}
+    .sb-footer{padding:1rem 1.4rem;border-top:1px solid var(--bdr)}
+    .sb-footer a{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--dim);font-size:.8rem;font-weight:500;transition:color .2s}
+    .sb-footer a:hover{color:var(--tx)}
+
+    /* MAIN */
+    .main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+    @media(max-width:900px){.main{margin-left:0}}
+
+    /* TOPBAR */
+    .topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:30}
+    .tb-left{display:flex;align-items:center;gap:1rem}
+    .menu-btn{display:none;background:none;border:none;color:var(--dim);cursor:pointer;font-size:1.3rem;padding:.2rem}
+    @media(max-width:900px){.menu-btn{display:block}}
+    .tb-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--tx)}
+    .tb-sub{font-size:.78rem;color:var(--dim);margin-top:.1rem}
+    .tb-right{display:flex;align-items:center;gap:.75rem}
+    .tb-date{font-size:.8rem;color:var(--dim);padding:.4rem .85rem;border-radius:999px;background:var(--surf);border:1px solid var(--bdr)}
+    .tb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--oro));display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer}
+
+    /* CONTENT */
+    .content{padding:2rem;flex:1}
+    @media(max-width:600px){.content{padding:1rem}}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .stat-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.4rem;display:flex;align-items:flex-start;gap:1rem;transition:all .25s;position:relative;overflow:hidden}
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--sc-top,linear-gradient(90deg,var(--rosa),var(--oro)))}
+    .stat-card:hover{border-color:var(--bdrh);transform:translateY(-2px)}
+    .stat-ic{width:44px;height:44px;border-radius:12px;background:var(--sc-bg,var(--rosaf));display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .stat-num{font-size:1.9rem;font-weight:700;color:var(--tx);line-height:1;margin-bottom:.2rem}
+    .stat-lbl{font-size:.75rem;color:var(--dim);font-weight:500}
+    .stat-delta{font-size:.72rem;font-weight:600;margin-top:.3rem}
+    .stat-delta.up{color:#2ECC71}
+    .stat-delta.down{color:#E74C3C}
+
+    /* FILTERS ROW */
+    .filters{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .filter-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:999px;font-size:.78rem;font-weight:600;background:var(--surf);border:1px solid var(--bdr);color:var(--dim);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+    .filter-btn:hover{border-color:var(--bdrh);color:var(--tx)}
+    .filter-btn.active{background:var(--rosa);color:#fff;border-color:var(--rosa)}
+    .search-box{display:flex;align-items:center;gap:.5rem;padding:.45rem 1rem;border-radius:999px;background:var(--surf);border:1px solid var(--bdr);margin-left:auto}
+    .search-box input{background:none;border:none;outline:none;font-size:.8rem;color:var(--tx);font-family:'DM Sans',sans-serif;width:160px}
+    .search-box input::placeholder{color:var(--dim)}
+
+    /* TABLE */
+    .table-wrap{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;margin-bottom:1.5rem}
+    .table-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--bdr)}
+    .table-head h3{font-size:.9rem;font-weight:700;color:var(--tx)}
+    .th-actions{display:flex;gap:.5rem}
+    .btn-sm{padding:.38rem .85rem;border-radius:var(--rsm);font-size:.75rem;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+    .btn-sm.primary{background:var(--rosa);color:#fff}
+    .btn-sm.primary:hover{background:var(--rosa2)}
+    .btn-sm.ghost{background:var(--surf);color:var(--dim);border:1px solid var(--bdr)}
+    .btn-sm.ghost:hover{border-color:var(--bdrh);color:var(--tx)}
+    table{width:100%;border-collapse:collapse}
+    thead tr{background:rgba(200,115,106,.06)}
+    thead th{text-align:left;padding:.85rem 1.25rem;font-size:.72rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+    tbody tr{border-top:1px solid var(--bdr);transition:background .15s}
+    tbody tr:hover{background:rgba(200,115,106,.04)}
+    tbody td{padding:.9rem 1.25rem;font-size:.84rem;color:var(--tx);vertical-align:middle}
+    .client-info{display:flex;align-items:center;gap:.75rem}
+    .client-av{width:34px;height:34px;border-radius:50%;background:var(--sc-bg,linear-gradient(135deg,var(--rosaf),var(--bdrh)));display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--rosa);flex-shrink:0;border:1px solid var(--bdr)}
+    .client-name{font-weight:600;color:var(--tx);font-size:.86rem}
+    .client-phone{font-size:.73rem;color:var(--dim)}
+    .serv-pill{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .65rem;border-radius:999px;font-size:.72rem;font-weight:600;background:var(--rosaf);color:var(--rosa);white-space:nowrap}
+    .status-pill{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .65rem;border-radius:999px;font-size:.72rem;font-weight:700;white-space:nowrap}
+    .status-pill.confermato{background:rgba(46,204,113,.12);color:#2ECC71}
+    .status-pill.in-attesa{background:rgba(243,156,18,.12);color:#F39C12}
+    .status-pill.annullato{background:rgba(231,76,60,.12);color:#E74C3C}
+    .status-pill.completato{background:rgba(52,152,219,.12);color:#3498DB}
+    .status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+    .row-actions{display:flex;gap:.4rem}
+    .act-btn{width:30px;height:30px;border-radius:var(--rsm);border:1px solid var(--bdr);background:var(--surf);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s}
+    .act-btn:hover{border-color:var(--bdrh);color:var(--tx)}
+    .act-btn.green:hover{background:rgba(46,204,113,.15);border-color:#2ECC71;color:#2ECC71}
+    .act-btn.red:hover{background:rgba(231,76,60,.15);border-color:#E74C3C;color:#E74C3C}
+    .act-btn.blue:hover{background:rgba(52,152,219,.15);border-color:#3498DB;color:#3498DB}
+    @media(max-width:700px){table{display:none}.mob-cards{display:flex!important}}
+
+    /* MOB CARDS (fallback) */
+    .mob-cards{display:none;flex-direction:column;gap:.75rem;padding:1rem}
+    .mob-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.1rem;display:flex;align-items:flex-start;gap:.9rem}
+    .mob-info{flex:1}
+    .mob-name{font-weight:700;font-size:.9rem;margin-bottom:.25rem}
+    .mob-meta{font-size:.75rem;color:var(--dim)}
+
+    /* CALENDAR MINI */
+    .side-col{display:flex;flex-direction:column;gap:1.5rem}
+    .widget{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden}
+    .widget-h{padding:1rem 1.25rem;border-bottom:1px solid var(--bdr);font-size:.85rem;font-weight:700;color:var(--tx);display:flex;align-items:center;justify-content:space-between}
+    .widget-h span{font-size:.72rem;font-weight:500;color:var(--dim)}
+    .cal{padding:1rem}
+    .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem}
+    .cal-month{font-size:.88rem;font-weight:700;color:var(--tx)}
+    .cal-nav{background:none;border:1px solid var(--bdr);color:var(--dim);border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .cal-nav:hover{border-color:var(--rosa);color:var(--rosa)}
+    .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+    .cal-wd{font-size:.62rem;font-weight:700;color:var(--mut);padding:.2rem 0;text-transform:uppercase}
+    .cal-day{font-size:.78rem;padding:.3rem;border-radius:6px;cursor:pointer;transition:all .15s;color:var(--dim)}
+    .cal-day:hover{background:var(--rosaf);color:var(--rosa)}
+    .cal-day.today{background:var(--rosa);color:#fff;font-weight:700}
+    .cal-day.has-appt{font-weight:700;color:var(--oro)}
+    .cal-day.empty{cursor:default}
+
+    /* NEXT APPTS */
+    .appt-list{display:flex;flex-direction:column}
+    .appt-item{display:flex;align-items:center;gap:.85rem;padding:.9rem 1.25rem;border-bottom:1px solid var(--bdr);transition:background .15s;cursor:pointer}
+    .appt-item:last-child{border-bottom:none}
+    .appt-item:hover{background:rgba(200,115,106,.05)}
+    .appt-time{font-size:.78rem;font-weight:700;color:var(--rosa);min-width:42px;text-align:center;line-height:1.2}
+    .appt-time small{display:block;font-size:.65rem;color:var(--dim);font-weight:500}
+    .appt-info{flex:1}
+    .appt-client{font-size:.83rem;font-weight:600;color:var(--tx);margin-bottom:.15rem}
+    .appt-serv{font-size:.73rem;color:var(--dim)}
+    .appt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .appt-dot.confermato{background:#2ECC71}
+    .appt-dot.in-attesa{background:#F39C12}
+    .appt-dot.annullato{background:#E74C3C}
+
+    /* REVENUE CHART */
+    .rev-bars{padding:1rem 1.25rem;display:flex;align-items:flex-end;gap:.4rem;height:100px}
+    .rev-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+    .rev-bar{width:100%;border-radius:4px 4px 0 0;background:var(--rosaf);transition:height .6s;cursor:pointer;min-height:4px}
+    .rev-bar:hover{background:var(--rosa)}
+    .rev-bar-lbl{font-size:.6rem;color:var(--mut)}
+
+    /* MAIN GRID */
+    .main-grid{display:grid;grid-template-columns:1fr 300px;gap:1.5rem;align-items:start}
+    @media(max-width:1100px){.main-grid{grid-template-columns:1fr}}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--card);border:1px solid var(--bdrh);border-radius:20px;padding:2rem;width:100%;max-width:480px;position:relative;animation:slideUp .25s ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}}
+    .modal-close{position:absolute;top:1rem;right:1rem;background:var(--surf);border:1px solid var(--bdr);color:var(--dim);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .modal-close:hover{border-color:var(--bdrh);color:var(--tx)}
+    .modal h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--tx);margin-bottom:.3rem}
+    .modal-sub{font-size:.8rem;color:var(--dim);margin-bottom:1.5rem}
+    .mrow{margin-bottom:1rem}
+    .mrow label{display:block;font-size:.72rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem}
+    .mrow input,.mrow select,.mrow textarea{width:100%;padding:.7rem 1rem;border-radius:var(--rsm);border:1.5px solid var(--bdr);background:var(--surf);color:var(--tx);font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+    .mrow input:focus,.mrow select:focus,.mrow textarea:focus{border-color:var(--rosa)}
+    .mrow select option{background:#231818}
+    .mrow-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    .modal-actions{display:flex;gap:.65rem;margin-top:1.5rem}
+    .mbtn{flex:1;padding:.8rem;border-radius:999px;font-size:.85rem;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+    .mbtn.primary{background:linear-gradient(135deg,var(--rosa),var(--rosa2));color:#fff;box-shadow:0 4px 14px rgba(200,115,106,.35)}
+    .mbtn.primary:hover{box-shadow:0 6px 20px rgba(200,115,106,.5)}
+    .mbtn.ghost{background:var(--surf);color:var(--dim);border:1px solid var(--bdr)}
+    .mbtn.ghost:hover{color:var(--tx);border-color:var(--bdrh)}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;display:flex;align-items:center;gap:.75rem;padding:.85rem 1.3rem;border-radius:var(--rad);background:var(--card);border:1px solid var(--bdrh);box-shadow:0 8px 30px rgba(0,0,0,.4);font-size:.84rem;font-weight:600;color:var(--tx);transform:translateY(80px);opacity:0;transition:all .35s}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast-ic{font-size:1.1rem}
+
+    /* MISC */
+    .page-tabs{display:flex;gap:0;border-bottom:1px solid var(--bdr);margin-bottom:1.5rem}
+    .ptab{padding:.7rem 1.2rem;font-size:.83rem;font-weight:600;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif}
+    .ptab:hover{color:var(--tx)}
+    .ptab.active{color:var(--rosa);border-bottom-color:var(--rosa)}
+    .empty-state{text-align:center;padding:3rem;color:var(--dim)}
+    .empty-state .eic{font-size:3rem;margin-bottom:1rem;opacity:.5}
+    .empty-state p{font-size:.88rem}
+
+    /* NUOVA PRENOTAZIONE FORM INLINE */
+    .new-appt-form{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.5rem;margin-bottom:1.5rem}
+    .naf-title{font-size:.9rem;font-weight:700;color:var(--tx);margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem}
+    .naf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;margin-bottom:1rem}
+    .naf-field label{display:block;font-size:.7rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+    .naf-field input,.naf-field select{width:100%;padding:.65rem .9rem;border-radius:var(--rsm);border:1.5px solid var(--bdr);background:var(--surf);color:var(--tx);font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+    .naf-field input:focus,.naf-field select:focus{border-color:var(--rosa)}
+    .naf-field select option{background:#231818}
+    .naf-actions{display:flex;gap:.5rem;justify-content:flex-end}
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sb-logo">
+    <div class="sb-logo-ic">&#x1F338;</div>
+    <div class="sb-logo-tx"><h2>Bloom Beauty</h2><p>Pannello Admin</p></div>
+  </a>
+  <nav class="sb-nav">
+    <div class="sb-section">Principale</div>
+    <a href="#" class="sb-link active" onclick="showSection('dashboard',this)">
+      <span class="ic">&#x1F4CA;</span> Dashboard<span class="badge">3</span>
+    </a>
+    <a href="#" class="sb-link" onclick="showSection('prenotazioni',this)">
+      <span class="ic">&#x1F4C5;</span> Prenotazioni<span class="badge">12</span>
+    </a>
+    <a href="#" class="sb-link" onclick="showSection('nuova',this)">
+      <span class="ic">&#x2795;</span> Nuova Prenotazione
+    </a>
+    <div class="sb-section">Clienti</div>
+    <a href="#" class="sb-link" onclick="showSection('clienti',this)">
+      <span class="ic">&#x1F465;</span> Clienti
+    </a>
+    <div class="sb-section">Impostazioni</div>
+    <a href="#" class="sb-link" onclick="showSection('orari',this)">
+      <span class="ic">&#x1F550;</span> Orari &amp; Servizi
+    </a>
+  </nav>
+  <div class="sb-footer">
+    <a href="index.html">&#x2190; Torna al sito</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">&#x2630;</button>
+      <div>
+        <div class="tb-title" id="page-title">Dashboard</div>
+        <div class="tb-sub" id="page-sub">Benvenuta, Giulia &mdash; oggi hai 4 appuntamenti</div>
+      </div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-date" id="topbar-date"></div>
+      <div class="tb-avatar">&#x1F469;</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content" id="content-area">
+
+    <!-- DASHBOARD -->
+    <div id="sec-dashboard">
+      <!-- STATS -->
+      <div class="stats">
+        <div class="stat-card" style="--sc-top:linear-gradient(90deg,#C8736A,#C4975A);--sc-bg:rgba(200,115,106,.12)">
+          <div class="stat-ic">&#x1F4C5;</div>
+          <div>
+            <div class="stat-num">4</div>
+            <div class="stat-lbl">Appuntamenti Oggi</div>
+            <div class="stat-delta up">&#x25B2; 1 rispetto a ieri</div>
+          </div>
+        </div>
+        <div class="stat-card" style="--sc-top:linear-gradient(90deg,#F39C12,#E67E22);--sc-bg:rgba(243,156,18,.1)">
+          <div class="stat-ic">&#x23F3;</div>
+          <div>
+            <div class="stat-num">3</div>
+            <div class="stat-lbl">In Attesa Conferma</div>
+            <div class="stat-delta down">&#x25BC; da confermare</div>
+          </div>
+        </div>
+        <div class="stat-card" style="--sc-top:linear-gradient(90deg,#2ECC71,#27AE60);--sc-bg:rgba(46,204,113,.1)">
+          <div class="stat-ic">&#x1F4B0;</div>
+          <div>
+            <div class="stat-num">&euro; 620</div>
+            <div class="stat-lbl">Incasso Settimana</div>
+            <div class="stat-delta up">&#x25B2; +18% vs settimana scorsa</div>
+          </div>
+        </div>
+        <div class="stat-card" style="--sc-top:linear-gradient(90deg,#3498DB,#2980B9);--sc-bg:rgba(52,152,219,.1)">
+          <div class="stat-ic">&#x1F465;</div>
+          <div>
+            <div class="stat-num">28</div>
+            <div class="stat-lbl">Clienti questo mese</div>
+            <div class="stat-delta up">&#x25B2; 3 nuove</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <div>
+          <!-- PROSSIMI APPUNTAMENTI OGGI -->
+          <div class="table-wrap">
+            <div class="table-head">
+              <h3>&#x1F4CC; Appuntamenti di Oggi &mdash; <span id="today-label" style="color:var(--rosa)"></span></h3>
+              <div class="th-actions">
+                <button class="btn-sm ghost" onclick="showSection('nuova',document.querySelector('.sb-link[onclick*=nuova]'))">+ Aggiungi</button>
+              </div>
+            </div>
+            <table id="table-oggi">
+              <thead><tr>
+                <th>Cliente</th><th>Orario</th><th>Servizio</th><th>Estetista</th><th>Stato</th><th>Azioni</th>
+              </tr></thead>
+              <tbody id="tbody-oggi"></tbody>
+            </table>
+            <div class="mob-cards" id="mob-oggi"></div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR WIDGETS -->
+        <div class="side-col">
+          <!-- MINI CALENDAR -->
+          <div class="widget">
+            <div class="widget-h">&#x1F4C6; Settembre 2026 <span>&#x2039; &#x203A;</span></div>
+            <div class="cal">
+              <div class="cal-days" id="cal-grid"></div>
+            </div>
+          </div>
+          <!-- APPUNTAMENTI PROSSIMI -->
+          <div class="widget">
+            <div class="widget-h">&#x23F0; Prossimi <span>oggi</span></div>
+            <div class="appt-list" id="next-appt-list"></div>
+          </div>
+          <!-- INCASSO SETTIMANA -->
+          <div class="widget">
+            <div class="widget-h">&#x1F4C8; Incasso 7 giorni</div>
+            <div class="rev-bars" id="rev-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /dashboard -->
+
+    <!-- PRENOTAZIONI -->
+    <div id="sec-prenotazioni" style="display:none">
+      <div class="page-tabs">
+        <button class="ptab active" onclick="filterStatus('all',this)">Tutte <span style="background:var(--rosaf);color:var(--rosa);border-radius:999px;padding:.05rem .4rem;font-size:.7rem;margin-left:.3rem" id="cnt-all">12</span></button>
+        <button class="ptab" onclick="filterStatus('in-attesa',this)">In Attesa <span style="background:rgba(243,156,18,.15);color:#F39C12;border-radius:999px;padding:.05rem .4rem;font-size:.7rem;margin-left:.3rem" id="cnt-attesa">3</span></button>
+        <button class="ptab" onclick="filterStatus('confermato',this)">Confermate <span style="background:rgba(46,204,113,.12);color:#2ECC71;border-radius:999px;padding:.05rem .4rem;font-size:.7rem;margin-left:.3rem" id="cnt-conf">7</span></button>
+        <button class="ptab" onclick="filterStatus('annullato',this)">Annullate <span style="background:rgba(231,76,60,.12);color:#E74C3C;border-radius:999px;padding:.05rem .4rem;font-size:.7rem;margin-left:.3rem" id="cnt-ann">2</span></button>
+        <button class="ptab" onclick="filterStatus('completato',this)">Completate</button>
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterEstetista('all',this)">Tutte le estetiste</button>
+        <button class="filter-btn" onclick="filterEstetista('giulia',this)">Giulia</button>
+        <button class="filter-btn" onclick="filterEstetista('sofia',this)">Sofia</button>
+        <button class="filter-btn" onclick="filterEstetista('valentina',this)">Valentina</button>
+        <div class="search-box">&#x1F50D; <input type="text" id="search-input" placeholder="Cerca cliente..." oninput="searchTable(this.value)"></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-head">
+          <h3>&#x1F4CB; Tutte le Prenotazioni</h3>
+          <div class="th-actions">
+            <button class="btn-sm primary" onclick="openModal()">+ Nuova</button>
+            <button class="btn-sm ghost">&#x1F4E5; Esporta</button>
+          </div>
+        </div>
+        <table id="table-all">
+          <thead><tr>
+            <th>Cliente</th><th>Data &amp; Ora</th><th>Servizio</th><th>Estetista</th><th>Prezzo</th><th>Stato</th><th>Azioni</th>
+          </tr></thead>
+          <tbody id="tbody-all"></tbody>
+        </table>
+        <div class="mob-cards" id="mob-all"></div>
+      </div>
+    </div><!-- /prenotazioni -->
+
+    <!-- NUOVA PRENOTAZIONE -->
+    <div id="sec-nuova" style="display:none">
+      <div class="new-appt-form">
+        <div class="naf-title">&#x2795; Nuova Prenotazione</div>
+        <div class="naf-grid">
+          <div class="naf-field"><label>Nome Cliente</label><input type="text" id="nf-nome" placeholder="Sara Rossi"></div>
+          <div class="naf-field"><label>Telefono</label><input type="tel" id="nf-tel" placeholder="+39 333 000 0000"></div>
+          <div class="naf-field"><label>Servizio</label>
+            <select id="nf-serv">
+              <option value="pulizia">Pulizia Viso — &euro; 55</option>
+              <option value="massaggio">Massaggio Rilassante — &euro; 65</option>
+              <option value="laser">Epilazione Laser — &euro; 40</option>
+              <option value="manicure">Manicure &amp; Semi — &euro; 35</option>
+              <option value="pressoterapia">Pressoterapia — &euro; 45</option>
+              <option value="sposa">Rituale Sposa — &euro; 180</option>
+            </select>
+          </div>
+          <div class="naf-field"><label>Estetista</label>
+            <select id="nf-est">
+              <option>Giulia Martini</option>
+              <option>Sofia Romano</option>
+              <option>Valentina Conti</option>
+            </select>
+          </div>
+          <div class="naf-field"><label>Data</label><input type="date" id="nf-data"></div>
+          <div class="naf-field"><label>Orario</label>
+            <select id="nf-ora">
+              <option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option>
+              <option>11:00</option><option>11:30</option><option>14:00</option><option>14:30</option>
+              <option>15:00</option><option>15:30</option><option>16:00</option><option>16:30</option>
+              <option>17:00</option><option>17:30</option><option>18:00</option>
+            </select>
+          </div>
+          <div class="naf-field"><label>Note</label><input type="text" id="nf-note" placeholder="Allergie, preferenze..."></div>
+          <div class="naf-field"><label>Stato</label>
+            <select id="nf-stato">
+              <option value="in-attesa">In attesa</option>
+              <option value="confermato">Confermata</option>
+            </select>
+          </div>
+        </div>
+        <div class="naf-actions">
+          <button class="btn-sm ghost" onclick="resetForm()">Annulla</button>
+          <button class="btn-sm primary" onclick="saveAppt()">&#x2714; Salva Prenotazione</button>
+        </div>
+      </div>
+
+      <!-- Calendario disponibilità visual (decorativo) -->
+      <div class="table-wrap">
+        <div class="table-head"><h3>&#x1F4C6; Disponibilita della Settimana</h3></div>
+        <div style="padding:1.25rem;overflow-x:auto">
+          <div id="week-grid" style="display:grid;grid-template-columns:80px repeat(6,1fr);gap:4px;min-width:600px"></div>
+        </div>
+      </div>
+    </div><!-- /nuova -->
+
+    <!-- CLIENTI -->
+    <div id="sec-clienti" style="display:none">
+      <div class="table-wrap">
+        <div class="table-head"><h3>&#x1F465; Anagrafica Clienti</h3>
+          <button class="btn-sm primary">+ Nuovo Cliente</button>
+        </div>
+        <table>
+          <thead><tr><th>Cliente</th><th>Telefono</th><th>Ultimo Appuntamento</th><th>Totale Visite</th><th>Spesa Totale</th><th>Azioni</th></tr></thead>
+          <tbody id="tbody-clienti"></tbody>
+        </table>
+      </div>
+    </div><!-- /clienti -->
+
+    <!-- ORARI E SERVIZI -->
+    <div id="sec-orari" style="display:none">
+      <div class="main-grid">
+        <div class="table-wrap">
+          <div class="table-head"><h3>&#x1F550; Orari di Apertura</h3><button class="btn-sm ghost">Modifica</button></div>
+          <div style="padding:0">
+            <table>
+              <thead><tr><th>Giorno</th><th>Apertura Mattina</th><th>Apertura Pomeriggio</th><th>Stato</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:700">Lunedi</td><td>09:00 &ndash; 13:00</td><td>14:30 &ndash; 20:00</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+                <tr><td style="font-weight:700">Martedi</td><td>09:00 &ndash; 13:00</td><td>14:30 &ndash; 20:00</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+                <tr><td style="font-weight:700">Mercoledi</td><td>09:00 &ndash; 13:00</td><td>14:30 &ndash; 20:00</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+                <tr><td style="font-weight:700">Giovedi</td><td>09:00 &ndash; 13:00</td><td>14:30 &ndash; 20:00</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+                <tr><td style="font-weight:700">Venerdi</td><td>09:00 &ndash; 13:00</td><td>14:30 &ndash; 20:00</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+                <tr><td style="font-weight:700">Sabato</td><td>09:00 &ndash; 18:00</td><td>&mdash;</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+                <tr><td style="font-weight:700">Domenica</td><td>10:00 &ndash; 16:00</td><td>&mdash;</td><td><span class="status-pill confermato"><span class="status-dot"></span> Aperto</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="side-col">
+          <div class="widget">
+            <div class="widget-h">&#x1F48E; Listino Servizi</div>
+            <div style="padding:.5rem 0">
+              <div class="appt-item"><div class="appt-info"><div class="appt-client">Pulizia Viso Profonda</div><div class="appt-serv">60 min</div></div><div style="font-weight:700;color:var(--rosa);font-size:.9rem">&euro; 55</div></div>
+              <div class="appt-item"><div class="appt-info"><div class="appt-client">Massaggio Rilassante</div><div class="appt-serv">50 min</div></div><div style="font-weight:700;color:var(--rosa);font-size:.9rem">&euro; 65</div></div>
+              <div class="appt-item"><div class="appt-info"><div class="appt-client">Epilazione Laser</div><div class="appt-serv">20&ndash;45 min</div></div><div style="font-weight:700;color:var(--rosa);font-size:.9rem">da &euro; 40</div></div>
+              <div class="appt-item"><div class="appt-info"><div class="appt-client">Manicure &amp; Semiperm.</div><div class="appt-serv">60 min</div></div><div style="font-weight:700;color:var(--rosa);font-size:.9rem">&euro; 35</div></div>
+              <div class="appt-item"><div class="appt-info"><div class="appt-client">Pressoterapia</div><div class="appt-serv">40 min</div></div><div style="font-weight:700;color:var(--rosa);font-size:.9rem">&euro; 45</div></div>
+              <div class="appt-item"><div class="appt-info"><div class="appt-client">Rituale Sposa</div><div class="appt-serv">4 ore</div></div><div style="font-weight:700;color:var(--rosa);font-size:.9rem">da &euro; 180</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /orari -->
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- MODAL NUOVA/MODIFICA -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    <h3 id="modal-title">Modifica Prenotazione</h3>
+    <div class="modal-sub" id="modal-sub">Aggiorna i dettagli dell'appuntamento</div>
+    <div class="mrow-2">
+      <div class="mrow"><label>Stato</label>
+        <select id="m-stato">
+          <option value="in-attesa">In attesa</option>
+          <option value="confermato">Confermata</option>
+          <option value="completato">Completata</option>
+          <option value="annullato">Annullata</option>
+        </select>
+      </div>
+      <div class="mrow"><label>Data</label><input type="date" id="m-data"></div>
+    </div>
+    <div class="mrow-2">
+      <div class="mrow"><label>Orario</label>
+        <select id="m-ora">
+          <option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option>
+          <option>11:00</option><option>11:30</option><option>14:00</option><option>14:30</option>
+          <option>15:00</option><option>15:30</option><option>16:00</option><option>16:30</option>
+        </select>
+      </div>
+      <div class="mrow"><label>Estetista</label>
+        <select id="m-est">
+          <option>Giulia Martini</option><option>Sofia Romano</option><option>Valentina Conti</option>
+        </select>
+      </div>
+    </div>
+    <div class="mrow"><label>Note</label><textarea id="m-note" rows="2" placeholder="Aggiungi note..."></textarea></div>
+    <div class="modal-actions">
+      <button class="mbtn ghost" onclick="closeModal()">Annulla</button>
+      <button class="mbtn primary" onclick="saveModal()">&#x2714; Salva Modifiche</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-ic" id="toast-ic">&#x2705;</span><span id="toast-msg">Azione completata</span></div>
+
+<script>
+// === DATI ===
+var appuntamenti = [
+  {id:1,nome:'Sara Bianchi',tel:'333 111 0001',servizio:'Pulizia Viso',estetista:'Giulia',data:'2026-09-12',ora:'09:00',prezzo:55,stato:'confermato',note:''},
+  {id:2,nome:'Laura Ferrari',tel:'333 111 0002',servizio:'Massaggio',estetista:'Valentina',data:'2026-09-12',ora:'10:30',prezzo:65,stato:'confermato',note:'Prima visita'},
+  {id:3,nome:'Marta Rossi',tel:'333 111 0003',servizio:'Manicure',estetista:'Sofia',data:'2026-09-12',ora:'14:00',prezzo:35,stato:'in-attesa',note:'Gel rosa cipria'},
+  {id:4,nome:'Chiara Conti',tel:'333 111 0004',servizio:'Epilazione Laser',estetista:'Sofia',data:'2026-09-12',ora:'16:00',prezzo:40,stato:'in-attesa',note:'Zona gambe'},
+  {id:5,nome:'Anna Verdi',tel:'333 111 0005',servizio:'Pulizia Viso',estetista:'Giulia',data:'2026-09-13',ora:'09:30',prezzo:55,stato:'confermato',note:''},
+  {id:6,nome:'Federica Longo',tel:'333 111 0006',servizio:'Pressoterapia',estetista:'Valentina',data:'2026-09-13',ora:'11:00',prezzo:45,stato:'confermato',note:'Ciclo 5/10'},
+  {id:7,nome:'Giovanna Neri',tel:'333 111 0007',servizio:'Rituale Sposa',estetista:'Giulia',data:'2026-09-14',ora:'10:00',prezzo:180,stato:'confermato',note:'Matrimonio 20/09'},
+  {id:8,nome:'Silvia Mari',tel:'333 111 0008',servizio:'Massaggio',estetista:'Valentina',data:'2026-09-15',ora:'15:00',prezzo:65,stato:'in-attesa',note:''},
+  {id:9,nome:'Elena Bruno',tel:'333 111 0009',servizio:'Manicure',estetista:'Sofia',data:'2026-09-10',ora:'09:00',prezzo:35,stato:'completato',note:''},
+  {id:10,nome:'Paola Ricci',tel:'333 111 0010',servizio:'Pulizia Viso',estetista:'Giulia',data:'2026-09-09',ora:'10:00',prezzo:55,stato:'completato',note:''},
+  {id:11,nome:'Monica Galli',tel:'333 111 0011',servizio:'Epilazione Laser',estetista:'Sofia',data:'2026-09-08',ora:'14:30',prezzo:40,stato:'annullato',note:'Disdetta 2h prima'},
+  {id:12,nome:'Teresa Moro',tel:'333 111 0012',servizio:'Massaggio',estetista:'Valentina',data:'2026-09-07',ora:'16:00',prezzo:65,stato:'annullato',note:''},
+];
+var clienti = [
+  {nome:'Sara Bianchi',tel:'333 111 0001',ultimo:'12 Set 2026',visite:8,spesa:440},
+  {nome:'Laura Ferrari',tel:'333 111 0002',ultimo:'12 Set 2026',visite:3,spesa:195},
+  {nome:'Marta Rossi',tel:'333 111 0003',ultimo:'12 Set 2026',visite:5,spesa:175},
+  {nome:'Giovanna Neri',tel:'333 111 0007',ultimo:'14 Set 2026',visite:2,spesa:235},
+  {nome:'Anna Verdi',tel:'333 111 0005',ultimo:'13 Set 2026',visite:12,spesa:660},
+  {nome:'Federica Longo',tel:'333 111 0006',ultimo:'13 Set 2026',visite:7,spesa:315},
+];
+var activeFilter='all', activeEstetista='all', editingId=null;
+var todayStr='2026-09-12';
+
+// === INIT ===
+window.addEventListener('DOMContentLoaded',function(){
+  var now=new Date();
+  document.getElementById('topbar-date').textContent=now.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('today-label').textContent=now.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+  renderTodayTable(); renderAllTable(); renderClienti();
+  buildCalendar(); buildWeekGrid(); buildNextAppt(); buildRevChart();
+  // default today for new appt form
+  var dInput=document.getElementById('nf-data');
+  if(dInput)dInput.valueAsDate=new Date();
+});
+
+function statusLabel(s){
+  var map={confermato:'Confermata','in-attesa':'In Attesa',annullato:'Annullata',completato:'Completata'};
+  return map[s]||s;
+}
+function statusPill(s){return '<span class="status-pill '+s+'"><span class="status-dot"></span>'+statusLabel(s)+'</span>';}
+function rowActions(id,s){
+  var btns='<div class="row-actions">';
+  if(s==='in-attesa') btns+='<button class="act-btn green" title="Conferma" onclick="changeStatus('+id+',\'confermato\')">&#x2714;</button>';
+  btns+='<button class="act-btn blue" title="Modifica" onclick="editAppt('+id+')">&#x270E;</button>';
+  if(s!=='annullato') btns+='<button class="act-btn red" title="Annulla" onclick="changeStatus('+id+',\'annullato\')">&#x2715;</button>';
+  btns+='</div>';
+  return btns;
+}
+function renderTodayTable(){
+  var today=appuntamenti.filter(function(a){return a.data===todayStr;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
+  var tb=document.getElementById('tbody-oggi');
+  var mc=document.getElementById('mob-oggi');
+  tb.innerHTML=''; mc.innerHTML='';
+  if(!today.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--dim)">Nessun appuntamento oggi</td></tr>';return;}
+  today.forEach(function(a){
+    tb.innerHTML+='<tr data-id="'+a.id+'" data-est="'+a.estetista.toLowerCase()+'" data-status="'+a.stato+'">'
+      +'<td><div class="client-info"><div class="client-av">'+a.nome.charAt(0)+'</div><div><div class="client-name">'+a.nome+'</div><div class="client-phone">'+a.tel+'</div></div></div></td>'
+      +'<td style="font-weight:700;color:var(--rosa)">'+a.ora+'</td>'
+      +'<td><span class="serv-pill">'+a.servizio+'</span></td>'
+      +'<td style="font-size:.83rem">'+a.estetista+'</td>'
+      +'<td>'+statusPill(a.stato)+'</td>'
+      +'<td>'+rowActions(a.id,a.stato)+'</td>'
+    +'</tr>';
+    mc.innerHTML+='<div class="mob-card"><div class="client-av">'+a.nome.charAt(0)+'</div><div class="mob-info"><div class="mob-name">'+a.nome+' &mdash; '+a.ora+'</div><div class="mob-meta">'+a.servizio+' &bull; '+a.estetista+'</div></div>'+statusPill(a.stato)+'</div>';
+  });
+}
+function renderAllTable(){
+  var list=appuntamenti.filter(function(a){
+    var okS=(activeFilter==='all'||a.stato===activeFilter);
+    var okE=(activeEstetista==='all'||a.estetista.toLowerCase()===activeEstetista);
+    return okS&&okE;
+  }).sort(function(a,b){return (a.data+a.ora).localeCompare(b.data+b.ora);}).reverse();
+  var tb=document.getElementById('tbody-all');
+  var mc=document.getElementById('mob-all');
+  tb.innerHTML=''; mc.innerHTML='';
+  list.forEach(function(a){
+    var d=new Date(a.data);
+    var dStr=d.toLocaleDateString('it-IT',{day:'numeric',month:'short'});
+    tb.innerHTML+='<tr data-id="'+a.id+'" data-est="'+a.estetista.toLowerCase()+'" data-status="'+a.stato+'">'
+      +'<td><div class="client-info"><div class="client-av">'+a.nome.charAt(0)+'</div><div><div class="client-name">'+a.nome+'</div><div class="client-phone">'+a.tel+'</div></div></div></td>'
+      +'<td style="font-weight:600">'+dStr+' <span style="color:var(--rosa)">'+a.ora+'</span></td>'
+      +'<td><span class="serv-pill">'+a.servizio+'</span></td>'
+      +'<td style="font-size:.83rem">'+a.estetista+'</td>'
+      +'<td style="font-weight:700;color:var(--oro)">&euro; '+a.prezzo+'</td>'
+      +'<td>'+statusPill(a.stato)+'</td>'
+      +'<td>'+rowActions(a.id,a.stato)+'</td>'
+    +'</tr>';
+    mc.innerHTML+='<div class="mob-card"><div class="client-av">'+a.nome.charAt(0)+'</div><div class="mob-info"><div class="mob-name">'+a.nome+'</div><div class="mob-meta">'+dStr+' '+a.ora+' &bull; '+a.servizio+'</div></div>'+statusPill(a.stato)+'</div>';
+  });
+}
+function renderClienti(){
+  var tb=document.getElementById('tbody-clienti');
+  tb.innerHTML='';
+  clienti.forEach(function(c){
+    tb.innerHTML+='<tr><td><div class="client-info"><div class="client-av">'+c.nome.charAt(0)+'</div><div><div class="client-name">'+c.nome+'</div></div></div></td><td>'+c.tel+'</td><td style="color:var(--dim)">'+c.ultimo+'</td><td style="font-weight:700">'+c.visite+'</td><td style="font-weight:700;color:var(--oro)">&euro; '+c.spesa+'</td><td><div class="row-actions"><button class="act-btn blue" title="Storico">&#x1F4CB;</button></div></td></tr>';
+  });
+}
+function changeStatus(id,nuovoStato){
+  var a=appuntamenti.find(function(x){return x.id===id;});
+  if(!a)return;
+  a.stato=nuovoStato;
+  renderTodayTable(); renderAllTable();
+  showToast(nuovoStato==='confermato'?'&#x2705;':'&#x1F534;',nuovoStato==='confermato'?'Prenotazione confermata!':'Prenotazione annullata');
+}
+function editAppt(id){
+  var a=appuntamenti.find(function(x){return x.id===id;});
+  if(!a)return;
+  editingId=id;
+  document.getElementById('modal-title').textContent='Modifica &mdash; '+a.nome;
+  document.getElementById('modal-sub').textContent=a.servizio+' con '+a.estetista;
+  document.getElementById('m-stato').value=a.stato;
+  document.getElementById('m-data').value=a.data;
+  document.getElementById('m-ora').value=a.ora;
+  document.getElementById('m-est').value=a.estetista+' Martini'; // semplificato
+  document.getElementById('m-note').value=a.note||'';
+  openModal();
+}
+function saveModal(){
+  if(editingId){
+    var a=appuntamenti.find(function(x){return x.id===editingId;});
+    if(a){
+      a.stato=document.getElementById('m-stato').value;
+      a.data=document.getElementById('m-data').value;
+      a.ora=document.getElementById('m-ora').value;
+      a.note=document.getElementById('m-note').value;
+    }
+    renderTodayTable(); renderAllTable();
+    showToast('&#x270E;','Prenotazione aggiornata!');
+  }
+  closeModal();
+}
+function openModal(){document.getElementById('modal').classList.add('open');}
+function closeModal(){document.getElementById('modal').classList.remove('open');editingId=null;}
+function filterStatus(s,btn){
+  activeFilter=s; document.querySelectorAll('.ptab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active'); renderAllTable();
+}
+function filterEstetista(e,btn){
+  activeEstetista=e; document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active'); renderAllTable();
+}
+function searchTable(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('#tbody-all tr').forEach(function(r){
+    r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
+  });
+}
+function saveAppt(){
+  var nome=document.getElementById('nf-nome').value.trim();
+  if(!nome){showToast('&#x26A0;','Inserisci il nome del cliente');return;}
+  var servMap={pulizia:'Pulizia Viso',massaggio:'Massaggio',laser:'Epilazione Laser',manicure:'Manicure',pressoterapia:'Pressoterapia',sposa:'Rituale Sposa'};
+  var priceMap={pulizia:55,massaggio:65,laser:40,manicure:35,pressoterapia:45,sposa:180};
+  var servKey=document.getElementById('nf-serv').value;
+  var est=document.getElementById('nf-est').value.split(' ')[0];
+  var newA={id:Date.now(),nome:nome,tel:document.getElementById('nf-tel').value,servizio:servMap[servKey],estetista:est,data:document.getElementById('nf-data').value||todayStr,ora:document.getElementById('nf-ora').value,prezzo:priceMap[servKey],stato:document.getElementById('nf-stato').value,note:document.getElementById('nf-note').value};
+  appuntamenti.push(newA);
+  renderTodayTable(); renderAllTable();
+  showToast('&#x2705;','Prenotazione salvata per '+nome+'!');
+  showSection('prenotazioni',document.querySelector('.sb-link[onclick*=prenotazioni]'));
+}
+function resetForm(){
+  ['nf-nome','nf-tel','nf-note'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+}
+function showSection(id,btn){
+  ['dashboard','prenotazioni','nuova','clienti','orari'].forEach(function(s){
+    var el=document.getElementById('sec-'+s);if(el)el.style.display=(s===id)?'block':'none';
+  });
+  var titles={dashboard:'Dashboard',prenotazioni:'Prenotazioni',nuova:'Nuova Prenotazione',clienti:'Clienti',orari:'Orari & Servizi'};
+  document.getElementById('page-title').textContent=titles[id]||id;
+  document.querySelectorAll('.sb-link').forEach(function(l){l.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  return false;
+}
+function buildCalendar(){
+  var grid=document.getElementById('cal-grid');
+  var days=['L','M','M','G','V','S','D'];
+  days.forEach(function(d){grid.innerHTML+='<div class="cal-wd">'+d+'</div>';});
+  var apptDays=appuntamenti.map(function(a){return parseInt(a.data.split('-')[2]);});
+  for(var i=0;i<2;i++) grid.innerHTML+='<div class="cal-day empty"></div>'; // offset Sep start
+  for(var d=1;d<=30;d++){
+    var cls='cal-day';
+    if(d===12) cls+=' today';
+    else if(apptDays.includes(d)) cls+=' has-appt';
+    grid.innerHTML+='<div class="'+cls+'">'+d+'</div>';
+  }
+}
+function buildNextAppt(){
+  var list=appuntamenti.filter(function(a){return a.data===todayStr;}).sort(function(a,b){return a.ora.localeCompare(b.ora);}).slice(0,4);
+  var el=document.getElementById('next-appt-list');
+  el.innerHTML='';
+  list.forEach(function(a){
+    el.innerHTML+='<div class="appt-item"><div class="appt-time">'+a.ora+'<small>'+a.estetista+'</small></div><div class="appt-info"><div class="appt-client">'+a.nome+'</div><div class="appt-serv">'+a.servizio+'</div></div><div class="appt-dot '+a.stato+'"></div></div>';
+  });
+}
+function buildRevChart(){
+  var el=document.getElementById('rev-chart');
+  var days=['Lu','Ma','Me','Gi','Ve','Sa','Do'];
+  var vals=[85,140,95,180,65,210,120];
+  var max=Math.max.apply(null,vals);
+  el.innerHTML='';
+  days.forEach(function(d,i){
+    el.innerHTML+='<div class="rev-bar-wrap"><div class="rev-bar" style="height:'+Math.round((vals[i]/max)*80)+'px" title="&euro; '+vals[i]+'"></div><div class="rev-bar-lbl">'+d+'</div></div>';
+  });
+}
+function buildWeekGrid(){
+  var el=document.getElementById('week-grid');
+  var giorni=['','Lun 14','Mar 15','Mer 16','Gio 17','Ven 18','Sab 19'];
+  var ore=['09:00','10:00','11:00','12:00','14:00','15:00','16:00','17:00'];
+  var occupied={
+    'Lun 14-09:00':'Giulia','Lun 14-10:00':'Sofia','Mer 16-14:00':'Valentina',
+    'Gio 17-09:00':'Giulia','Ven 18-15:00':'Sofia','Sab 19-10:00':'Giulia'
+  };
+  // headers
+  giorni.forEach(function(g){
+    el.innerHTML+='<div style="font-size:.7rem;font-weight:700;color:var(--dim);text-align:center;padding:.3rem">'+(g||'')+'</div>';
+  });
+  ore.forEach(function(o){
+    el.innerHTML+='<div style="font-size:.72rem;color:var(--mut);padding:.3rem .5rem;display:flex;align-items:center">'+o+'</div>';
+    giorni.slice(1).forEach(function(g){
+      var key=g+'-'+o;
+      var occ=occupied[key];
+      el.innerHTML+='<div style="border-radius:6px;padding:.3rem;font-size:.7rem;text-align:center;cursor:pointer;transition:all .2s;background:'+(occ?'rgba(200,115,106,.2)':'rgba(255,255,255,.03)')+';border:1px solid '+(occ?'rgba(200,115,106,.35)':'var(--bdr)')+';color:'+(occ?'var(--rosa)':'var(--dim)')+'">'+( occ||'&#x25CB;')+'</div>';
+    });
+  });
+}
+function showToast(ic,msg){
+  var t=document.getElementById('toast');
+  document.getElementById('toast-ic').innerHTML=ic;
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2800);
+}
+</script>
+</body>
+</html>

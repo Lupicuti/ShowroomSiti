@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmacia Salus Verde — Il tuo punto di salute di fiducia</title>
+  <meta name="description" content="Farmacia Salus Verde: prenotazione servizi, ricerca farmaci, orari e contatti. Demo sito web per farmacia moderna.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --blu:#0A3D62;--blu2:#1E6FAC;--verde:#1ABC9C;--verde2:#0E9D82;
+      --bg:#F4F9FF;--bg2:#EBF4F1;--card:#fff;--tx:#1A2D3E;--dim:#5A7A8A;
+      --bdr:#D6E9F5;--rad:16px;--rsm:10px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr);padding:.75rem 2rem}
+    .ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+    .logo-ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--blu),var(--blu2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 4px 14px rgba(10,61,98,.25)}
+    .logo-tx h1{font-size:.95rem;font-weight:800;color:var(--blu);line-height:1.1}
+    .logo-tx p{font-size:.67rem;color:var(--dim);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+    .nbadge{display:inline-flex;align-items:center;gap:.45rem;padding:.38rem .85rem;border-radius:999px;background:#E8F8F3;border:1px solid #B2E5D8;font-size:.73rem;font-weight:700;color:#0E9D82}
+    .ndot{width:7px;height:7px;border-radius:50%;background:#1ABC9C;box-shadow:0 0 8px #1ABC9C;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{text-decoration:none;font-size:.85rem;font-weight:700;color:var(--dim);transition:color .2s}
+    .nav-links a:hover{color:var(--blu)}
+    .nbtn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.25rem;border-radius:999px;background:var(--verde);color:#fff;font-size:.82rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(26,188,156,.35);transition:all .2s}
+    .nbtn:hover{background:var(--verde2);transform:translateY(-2px)}
+    @media(max-width:768px){.nav-links{display:none}}
+    /* OFFERTE */
+    .off-sec{padding:5rem 2rem;background:linear-gradient(180deg,var(--bg),var(--bg2))}
+    .off-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+    .off-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .3s;position:relative;display:flex;flex-direction:column;box-shadow:0 4px 18px rgba(10,61,98,.05)}
+    .off-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(10,61,98,.12);border-color:#B2DCF0}
+    .off-top{height:190px;position:relative;overflow:hidden;background:#EBF4F1}
+    .off-top img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+    .off-card:hover .off-top img{transform:scale(1.06)}
+    .off-pct{position:absolute;top:.75rem;right:.75rem;background:#E74C3C;color:#fff;font-size:.72rem;font-weight:900;padding:.25rem .6rem;border-radius:999px;box-shadow:0 4px 10px rgba(231,76,60,.35)}
+    .off-lim{position:absolute;bottom:.75rem;left:.75rem;background:rgba(10,61,98,.78);backdrop-filter:blur(6px);color:#fff;font-size:.65rem;font-weight:700;padding:.22rem .55rem;border-radius:999px}
+    .off-body{padding:1.3rem;display:flex;flex-direction:column;flex:1}
+    .off-brand{font-size:.7rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+    .off-tit{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--blu);margin-bottom:.35rem}
+    .off-desc{font-size:.82rem;color:var(--dim);line-height:1.5;margin-bottom:.9rem;flex:1}
+    .off-price{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.9rem}
+    .off-price .new{font-size:1.3rem;font-weight:800;color:var(--blu)}
+    .off-price .old{font-size:.85rem;color:var(--dim);text-decoration:line-through}
+    .off-price .save{font-size:.72rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;background:rgba(231,76,60,.1);color:#E74C3C}
+    .off-btn{display:flex;align-items:center;justify-content:center;gap:.45rem;padding:.75rem;border-radius:var(--rsm);background:var(--verde);color:#fff;font-size:.84rem;font-weight:700;border:none;cursor:pointer;width:100%;font-family:'Nunito',sans-serif;transition:all .2s;box-shadow:0 4px 14px rgba(26,188,156,.25)}
+    .off-btn:hover{background:var(--verde2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(26,188,156,.35)}
+    /* PREORDINI */
+    .pre-sec{padding:5.5rem 2rem;background:linear-gradient(135deg,#0A3D62 0%,#0E5080 60%,#0A6060 100%);position:relative;overflow:hidden}
+    .pre-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    @media(max-width:900px){.pre-grid{grid-template-columns:1fr;gap:2.5rem}}
+    .pre-tx{color:#fff}
+    .pre-tx h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:.8rem}
+    .pre-why{display:flex;flex-direction:column;gap:.85rem}
+    .pwhy{display:flex;align-items:center;gap:.85rem}
+    .pwhy-ic{width:34px;height:34px;border-radius:50%;background:rgba(26,188,156,.15);border:1px solid rgba(26,188,156,.3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+    .pwhy span{font-size:.85rem;color:rgba(255,255,255,.75)}
+    .pre-form{background:rgba(255,255,255,.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:2rem}
+    .pf-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.4rem;text-align:center}
+    .pf-sub{font-size:.78rem;color:rgba(255,255,255,.55);text-align:center;margin-bottom:1.4rem}
+    .pf-row{margin-bottom:1rem}
+    .pf-row label{display:block;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem}
+    .pf-row input,.pf-row select,.pf-row textarea{width:100%;padding:.75rem 1rem;border-radius:var(--rsm);border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:.85rem;font-family:'Nunito',sans-serif;outline:none;transition:border-color .2s}
+    .pf-row input::placeholder{color:rgba(255,255,255,.35)}
+    .pf-row select option{background:#0A3D62}
+    .pf-row textarea{resize:vertical;min-height:70px}
+    .pf-row input:focus,.pf-row select:focus,.pf-row textarea:focus{border-color:rgba(26,188,156,.7)}
+    .pf-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    .pf-btn{width:100%;padding:.9rem;border-radius:999px;background:var(--verde);color:#fff;font-size:.9rem;font-weight:800;border:none;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 4px 18px rgba(26,188,156,.4);transition:all .2s;margin-top:.5rem}
+    .pf-btn:hover{background:var(--verde2)}
+    .hero{background:linear-gradient(135deg,#0A3D62 0%,#0E6DAA 55%,#1ABC9C 100%);padding:5rem 2rem 4rem;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-60px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:-100px;left:-50px;width:300px;height:300px;border-radius:50%;background:rgba(26,188,156,.12);pointer-events:none}
+    .hi{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    @media(max-width:900px){.hi{grid-template-columns:1fr;text-align:center;gap:2rem}}
+    .htx{position:relative;z-index:1}
+    .hbadge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .9rem;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:.72rem;font-weight:700;color:#E8F8F3;text-transform:uppercase;letter-spacing:.07em;margin-bottom:1.4rem}
+    .htx h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:1rem}
+    .htx h2 em{font-style:normal;color:#A8EDDe}
+    .htx p{font-size:1rem;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:2rem}
+    .hbtns{display:flex;gap:.75rem;flex-wrap:wrap}
+    @media(max-width:900px){.hbtns{justify-content:center}}
+    .hbtn1{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;border-radius:999px;background:#fff;color:var(--blu);font-size:.9rem;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:all .2s}
+    .hbtn1:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+    .hbtn2{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.8rem;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;backdrop-filter:blur(8px);transition:all .2s}
+    .hbtn2:hover{background:rgba(255,255,255,.22);transform:translateY(-3px)}
+    .hcard-wrap{position:relative;z-index:1}
+    .hcard{background:rgba(255,255,255,.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .hstat{background:rgba(255,255,255,.1);border-radius:14px;padding:1.2rem;text-align:center;border:1px solid rgba(255,255,255,.15)}
+    .hstat .num{font-size:2rem;font-weight:800;color:#fff;line-height:1;margin-bottom:.3rem}
+    .hstat .lbl{font-size:.72rem;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+    .serv{padding:5rem 2rem;background:var(--bg)}
+    .si{max-width:1200px;margin:0 auto}
+    .sh{text-align:center;margin-bottom:3.5rem}
+    .sh .stag{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border-radius:999px;background:#E8F8F3;font-size:.72rem;font-weight:700;color:var(--verde2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.9rem}
+    .sh h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;color:var(--blu);margin-bottom:.6rem}
+    .sh p{font-size:.9rem;color:var(--dim);max-width:520px;margin:0 auto;line-height:1.6}
+    .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+    .scard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.75rem;transition:all .3s;position:relative;overflow:hidden}
+    .scard::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--sc-grad,linear-gradient(90deg,var(--blu),var(--verde)));border-radius:var(--rad) var(--rad) 0 0}
+    .scard:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(10,61,98,.1);border-color:#B2DCF0}
+    .sic{width:52px;height:52px;border-radius:14px;background:var(--sc-bg,#E8F4FD);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+    .scard h3{font-size:1.1rem;font-weight:800;color:var(--blu);margin-bottom:.55rem}
+    .scard p{font-size:.85rem;color:var(--dim);line-height:1.6;margin-bottom:1.2rem}
+    .scard a{display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;font-weight:700;color:var(--blu2);text-decoration:none;transition:gap .2s}
+    .scard a:hover{gap:.55rem}
+    .scard a svg{width:14px;height:14px}
+    .team{padding:5rem 2rem;background:var(--bg)}
+    .ti{max-width:1200px;margin:0 auto}
+    .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem;margin-top:3rem}
+    .tcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .3s;text-align:center}
+    .tcard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(10,61,98,.1)}
+    .timg{height:200px;background:var(--tc-bg,linear-gradient(135deg,#E8F4FD,#C5E3F5));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+    .timg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to top,#fff,transparent)}
+    .tbody{padding:1.5rem}
+    .tname{font-size:1.05rem;font-weight:800;color:var(--blu);margin-bottom:.25rem}
+    .trole{font-size:.78rem;font-weight:600;color:var(--verde2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem}
+    .tdesc{font-size:.82rem;color:var(--dim);line-height:1.55}
+    .orari{padding:5rem 2rem;background:linear-gradient(180deg,var(--bg2),var(--bg))}
+    .oi{max-width:1000px;margin:0 auto}
+    .og{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    @media(max-width:700px){.og{grid-template-columns:1fr;gap:2rem}}
+    .otab{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;box-shadow:0 4px 20px rgba(10,61,98,.07)}
+    .otab-h{padding:1rem 1.5rem;background:linear-gradient(135deg,var(--blu),var(--blu2));color:#fff;font-weight:800;font-size:.9rem;display:flex;align-items:center;gap:.5rem}
+    .orow{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.5rem;border-bottom:1px solid var(--bdr);font-size:.85rem}
+    .orow:last-child{border-bottom:none}
+    .orow .day{font-weight:700;color:var(--tx)}
+    .orow .hs{color:var(--dim);font-weight:600}
+    .orow.today{background:#E8F8F3}
+    .orow.today .day{color:var(--verde2)}
+    .orow.today .hs{color:var(--verde2);font-weight:800}
+    .status-box{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:2rem;text-align:center;box-shadow:0 4px 20px rgba(10,61,98,.07)}
+    .sbig{font-size:3.5rem;margin-bottom:.75rem}
+    .status-label{font-size:1.4rem;font-weight:800;margin-bottom:.5rem}
+    .status-sub{font-size:.85rem;color:var(--dim);margin-bottom:1.5rem;line-height:1.5}
+    .cta-call{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.75rem;border-radius:999px;background:var(--blu);color:#fff;font-size:.9rem;font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(10,61,98,.3);transition:all .2s;margin-bottom:.65rem}
+    .cta-call:hover{background:var(--blu2);transform:translateY(-2px)}
+    .cta-wa{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.75rem;border-radius:999px;background:#25D366;color:#fff;font-size:.9rem;font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(37,211,102,.3);transition:all .2s;margin-left:.5rem}
+    .cta-wa:hover{background:#1DAE56;transform:translateY(-2px)}
+    .contatti{padding:5rem 2rem;background:var(--bg2)}
+    .ci{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    @media(max-width:800px){.ci{grid-template-columns:1fr;gap:2rem}}
+    .cinfo h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--blu);margin-bottom:.75rem}
+    .cinfo p{font-size:.88rem;color:var(--dim);line-height:1.65;margin-bottom:2rem}
+    .cblock{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.3rem;padding:1.1rem;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rsm)}
+    .cic{width:40px;height:40px;border-radius:10px;background:#E8F4FD;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .cbl-tx h4{font-size:.88rem;font-weight:800;color:var(--blu);margin-bottom:.2rem}
+    .cbl-tx p{font-size:.82rem;color:var(--dim);line-height:1.5}
+    .mmap{border-radius:var(--rad);overflow:hidden;height:320px;background:linear-gradient(135deg,#C5E3F5,#B2DCF0);display:flex;align-items:center;justify-content:center;border:1px solid var(--bdr);font-size:4rem;flex-direction:column;gap:1rem}
+    .mmap p{font-size:.85rem;color:var(--dim);font-weight:600}
+    footer{background:var(--blu);color:rgba(255,255,255,.7);padding:2rem;text-align:center;font-size:.8rem}
+    footer strong{color:#fff}
+    footer a{color:#A8EDD8;text-decoration:none}
+    .back-link{position:fixed;bottom:1.5rem;left:1.5rem;z-index:999;display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;border-radius:999px;background:rgba(10,61,98,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .2s}
+    .back-link:hover{background:var(--blu2)}
+    .back-link svg{width:14px;height:14px}
+  </style>
+</head>
+<body>
+<a href="../index.html" class="back-link">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Showroom
+</a>
+<nav>
+  <div class="ni">
+    <a href="#" class="logo">
+      <div class="logo-ic">&#x1F48A;</div>
+      <div class="logo-tx"><h1>Farmacia Salus Verde</h1><p>Via della Salute, 12 &middot; Roma</p></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#offerte">Offerte</a></li>
+      <li><a href="#preordini">Preordini</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#orari">Orari</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <div class="nbadge"><div class="ndot"></div><span id="status-nav">...</span></div>
+      <a href="tel:0612345678" class="nbtn">&#x1F4DE; Chiama</a>
+    </div>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hi">
+    <div class="htx">
+      <div class="hbadge">&#x1F3E5; Farmacia Convenzionata SSN</div>
+      <h2>La tua salute,<br><em>sempre vicina.</em></h2>
+      <p>Assistenza farmaceutica professionale, prenotazione esami, misurazione pressione e glicemia, servizio CUP. Siamo qui per te ogni giorno.</p>
+      <div class="hbtns">
+        <a href="#offerte" class="hbtn1">&#x1F3F7;&#xFE0F; Offerte della Settimana</a>
+        <a href="#preordini" class="hbtn2">&#x1F4E6; Preordina un Farmaco</a>
+      </div>
+    </div>
+    <div class="hcard-wrap">
+      <div class="hcard">
+        <div class="hstat"><div class="num">24h</div><div class="lbl">Guardia Notturna</div></div>
+        <div class="hstat"><div class="num">3800+</div><div class="lbl">Prodotti Stock</div></div>
+        <div class="hstat"><div class="num">30+</div><div class="lbl">Anni Attivita</div></div>
+        <div class="hstat"><div class="num">&#x1F321;&#xFE0F;</div><div class="lbl">Misurazione Gratis</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="serv" id="servizi">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#x2695;&#xFE0F; I Nostri Servizi</div>
+      <h2>Tutto per la tua salute</h2>
+      <p>Non solo farmaci: offriamo una gamma completa di servizi sanitari per prenderci cura di te e della tua famiglia.</p>
+    </div>
+    <div class="sg">
+      <div class="scard" style="--sc-bg:#E8F4FD;--sc-grad:linear-gradient(90deg,#0A3D62,#1E6FAC)">
+        <div class="sic">&#x1FA7A;</div>
+        <h3>Misurazione Pressione</h3>
+        <p>Controlla la tua pressione arteriosa gratuitamente con strumenti professionali. Nessun appuntamento necessario.</p>
+        <a href="#contatti">Scopri di piu <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="scard" style="--sc-bg:#E8F8F3;--sc-grad:linear-gradient(90deg,#0E9D82,#1ABC9C)">
+        <div class="sic" style="background:#E8F8F3">&#x1FA78;</div>
+        <h3>Test Glicemia</h3>
+        <p>Misurazione rapida della glicemia in meno di 5 minuti. Prenota o vieni direttamente in farmacia.</p>
+        <a href="#contatti">Prenota ora <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="scard" style="--sc-bg:#F0EDFF;--sc-grad:linear-gradient(90deg,#6C3483,#9B59B6)">
+        <div class="sic" style="background:#F0EDFF">&#x1F4C5;</div>
+        <h3>Prenotazione CUP</h3>
+        <p>Prenota visite specialistiche ed esami diagnostici direttamente in farmacia, senza file al CUP.</p>
+        <a href="#contatti">Prenota subito <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="scard" style="--sc-bg:#FFF4E8;--sc-grad:linear-gradient(90deg,#E67E22,#F39C12)">
+        <div class="sic" style="background:#FFF4E8">&#x1F489;</div>
+        <h3>Vaccini &amp; Tamponi</h3>
+        <p>Vaccini antinfluenzali, anti-COVID e tamponi rapidi molecolari. Prenota online in pochi clic.</p>
+        <a href="#contatti">Prenota ora <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="scard" style="--sc-bg:#E8FDF5;--sc-grad:linear-gradient(90deg,#1ABC9C,#2ECC71)">
+        <div class="sic" style="background:#E8FDF5">&#x1F33F;</div>
+        <h3>Fitoterapia &amp; Integratori</h3>
+        <p>Consulenza personalizzata su integratori, fitoterapia e omeopatia. I nostri farmacisti ti guidano nella scelta giusta.</p>
+        <a href="#contatti">Consulenza gratis <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="scard" style="--sc-bg:#FDE8F0;--sc-grad:linear-gradient(90deg,#E91E63,#F06292)">
+        <div class="sic" style="background:#FDE8F0">&#x1F486;</div>
+        <h3>Dermocosmetica</h3>
+        <p>Ampia selezione di prodotti dermocosmestici professionali. Consulenza dermatologica e test cutaneo gratuito.</p>
+        <a href="#contatti">Scopri i prodotti <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- OFFERTE SETTIMANALI -->
+<section class="off-sec" id="offerte">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#x1F3F7;&#xFE0F; Offerte della Settimana</div>
+      <h2>Risparmia sulla salute</h2>
+      <p>Ogni settimana selezioniamo prodotti da banco, integratori e dermocosmetici a prezzi speciali con consegna rapida o ritiro gratuito.</p>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:2.5rem">
+      <div style="background:rgba(10,61,98,.07);border:1px solid var(--bdr);border-radius:12px;padding:.75rem 1.75rem;text-align:center;box-shadow:0 4px 16px rgba(10,61,98,.06)">
+        <div style="font-size:.68rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em">Offerte attive fino a</div>
+        <div id="off-countdown" style="font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--blu);letter-spacing:.02em">--:--:--</div>
+        <div style="font-size:.7rem;color:var(--dim)">domenica alle 23:59 &bull; Preordina per bloccare il prezzo</div>
+      </div>
+    </div>
+    <div class="off-grid">
+      <div class="off-card">
+        <div class="off-top">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Kit Difese Immunitarie Arkopharma" loading="lazy">
+          <div class="off-pct">-30%</div>
+          <div class="off-lim">&#x23F3; Scade domenica</div>
+        </div>
+        <div class="off-body">
+          <div class="off-brand">Arkopharma</div>
+          <div class="off-tit">Kit Difese Immunitarie</div>
+          <div class="off-desc">Vitamina C 1000mg + Zinco + Echinacea. Confezione risparmio per 3 mesi. Supporto ideale per cambio stagione.</div>
+          <div class="off-price"><span class="new">&euro; 24,90</span><span class="old">&euro; 35,50</span><span class="save">-&euro; 10,60</span></div>
+          <button class="off-btn" onclick="farmPreordinaOfferta('Kit Difese Immunitarie Arkopharma','Integratore / Parafarmaco')">&#x1F4E6; Preordina Offerta</button>
+        </div>
+      </div>
+      <div class="off-card">
+        <div class="off-top">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" alt="La Roche-Posay Anthelios SPF50+" loading="lazy">
+          <div class="off-pct">-25%</div>
+          <div class="off-lim">&#x23F3; Ultimi 15 pz</div>
+        </div>
+        <div class="off-body">
+          <div class="off-brand">La Roche-Posay</div>
+          <div class="off-tit">Anthelios SPF 50+ Fluido</div>
+          <div class="off-desc">Fluido viso invisibile ad altissima protezione UVA/UVB. Texture ultra-leggera, non unge, per pelli reattive.</div>
+          <div class="off-price"><span class="new">&euro; 16,90</span><span class="old">&euro; 22,50</span><span class="save">-&euro; 5,60</span></div>
+          <button class="off-btn" onclick="farmPreordinaOfferta('La Roche-Posay Anthelios SPF 50+','Dermocosmetica')">&#x1F4E6; Preordina Offerta</button>
+        </div>
+      </div>
+      <div class="off-card">
+        <div class="off-top">
+          <img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=600&q=80" alt="Promo Multivitaminici Adulti 3x2" loading="lazy">
+          <div class="off-pct">3x2</div>
+          <div class="off-lim">&#x23F3; Promo del mese</div>
+        </div>
+        <div class="off-body">
+          <div class="off-brand">Multicentrum &amp; Supradyn</div>
+          <div class="off-tit">Promo Multivitaminici Adulti</div>
+          <div class="off-desc">Acquista 2 confezioni tra le linee selezionate, la terza &egrave; in omaggio. Formula completa con minerali essenziali.</div>
+          <div class="off-price"><span class="new">3 &times; 2</span><span class="save">1 in omaggio</span></div>
+          <button class="off-btn" onclick="farmPreordinaOfferta('Promo Multivitaminici Adulti 3x2','Integratore / Parafarmaco')">&#x1F4E6; Preordina Offerta</button>
+        </div>
+      </div>
+      <div class="off-card">
+        <div class="off-top">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" alt="Lierac Crema Idratante Viso" loading="lazy">
+          <div class="off-pct">-20%</div>
+          <div class="off-lim">&#x2713; Disponibile</div>
+        </div>
+        <div class="off-body">
+          <div class="off-brand">Lierac Paris</div>
+          <div class="off-tit">Crema Idratante Viso 50ml</div>
+          <div class="off-desc">Idratazione profonda 24h, texture setosa con acido ialuronico puro e vitamina E. Ripristina l'elasticit&agrave; cutanea.</div>
+          <div class="off-price"><span class="new">&euro; 18,40</span><span class="old">&euro; 23,00</span><span class="save">-&euro; 4,60</span></div>
+          <button class="off-btn" onclick="farmPreordinaOfferta('Lierac Crema Idratante Viso 50ml','Dermocosmetica')">&#x1F4E6; Preordina Offerta</button>
+        </div>
+      </div>
+    </div>
+    <div id="farm-cart-toast" style="margin-top:1.5rem;display:none;background:var(--card);border:1px solid #B2E5D8;border-radius:12px;padding:1rem 1.5rem;text-align:center;font-size:.88rem;font-weight:700;color:var(--verde2);box-shadow:0 4px 16px rgba(14,157,130,.1)"></div>
+  </div>
+</section>
+
+<!-- PREORDINI FARMACI -->
+<section class="pre-sec" id="preordini">
+  <div class="pre-grid">
+    <div class="pre-tx">
+      <div style="display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border-radius:999px;background:rgba(26,188,156,.15);border:1px solid rgba(26,188,156,.35);font-size:.72rem;font-weight:700;color:#A8EDD8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.9rem">&#x1F4E6; Preordini &amp; Prenotazione Farmaci</div>
+      <h2>Il farmaco non &egrave; disponibile?<br><em style="color:#A8EDD8;font-style:normal">Preordinalo ora online.</em></h2>
+      <p style="font-size:.92rem;color:rgba(255,255,255,.75);line-height:1.68;margin-bottom:1.75rem">Se il farmaco o prodotto che cerchi &egrave; esaurito, richiede ricetta medica o fa parte delle nostre offerte settimanali, puoi preordinarlo senza anticipo. Ti avvisiamo su WhatsApp non appena &egrave; pronto per il ritiro.</p>
+      <div class="pre-why">
+        <div class="pwhy"><div class="pwhy-ic">&#x23F1;</div><span>Farmaci da banco e offerte: pronti al ritiro entro 24 ore</span></div>
+        <div class="pwhy"><div class="pwhy-ic">&#x1F4AC;</div><span>Notifica rapida su WhatsApp o telefono alla disponibilit&agrave;</span></div>
+        <div class="pwhy"><div class="pwhy-ic">&#x1F4B3;</div><span>Nessun anticipo richiesto &mdash; paghi comodamente al ritiro</span></div>
+        <div class="pwhy"><div class="pwhy-ic">&#x1F4CB;</div><span>Farmaci con ricetta SSN / bianca: consegna la prescrizione al ritiro</span></div>
+        <div class="pwhy"><div class="pwhy-ic">&#x1F69A;</div><span>Consegna a domicilio disponibile a Roma entro la giornata</span></div>
+      </div>
+    </div>
+    <div class="pre-form">
+      <div class="pf-title">&#x1F48A; Modulo Preordine</div>
+      <div class="pf-sub">Compila il modulo. Ti confermiamo la disponibilit&agrave; entro 2 ore lavorative.</div>
+      <div class="pf-row"><label>Nome del Farmaco o Prodotto in Offerta *</label>
+        <input type="text" id="pf-farm" placeholder="Es. Augmentin 875mg, Tachipirina, Kit Immunitario..." required>
+      </div>
+      <div class="pf-2">
+        <div class="pf-row"><label>Quantit&agrave; (confezioni)</label>
+          <input type="number" id="pf-qty" value="1" min="1" max="10">
+        </div>
+        <div class="pf-row"><label>Tipo di prodotto</label>
+          <select id="pf-tipo">
+            <option>Farmaco da banco (OTC)</option>
+            <option>Farmaco con ricetta (SSN)</option>
+            <option>Farmaco con ricetta bianca</option>
+            <option>Integratore / Parafarmaco</option>
+            <option>Dermocosmetica</option>
+            <option>Dispositivo medico</option>
+          </select>
+        </div>
+      </div>
+      <div class="pf-row"><label>Notifica preferita</label>
+        <select id="pf-notif">
+          <option>&#x1F4AC; WhatsApp (raccomandato &mdash; notifica immediata)</option>
+          <option>&#x1F4DE; Chiamata telefonica</option>
+          <option>&#x1F4E7; Email</option>
+        </select>
+      </div>
+      <div class="pf-2">
+        <div class="pf-row"><label>Nome e Cognome *</label><input type="text" id="pf-nome" placeholder="Mario Rossi" required></div>
+        <div class="pf-row"><label>Cellulare / WhatsApp *</label><input type="tel" id="pf-tel" placeholder="+39 333 000 0000" required></div>
+      </div>
+      <div class="pf-row"><label>Note (dosaggio, formato, istruzioni ricetta...)</label>
+        <textarea id="pf-note" placeholder="Es: compresse o sciroppo, medico curante, orario preferito di ritiro..."></textarea>
+      </div>
+      <div class="pf-row"><label>Modalit&agrave; di ritiro</label>
+        <select id="pf-ritiro">
+          <option>&#x1F3E5; Ritiro gratuito in farmacia (Via della Salute, 12)</option>
+          <option>&#x1F69A; Consegna a domicilio Roma (+&euro; 3,00)</option>
+        </select>
+      </div>
+      <button class="pf-btn" id="farm-pf-submit" onclick="submitFarmPreordine()">&#x1F4E4; Invia Preordine &mdash; Nessun Anticipo</button>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.5);text-align:center;margin-top:.75rem">&#x1F512; Pagamento al ritiro o alla consegna. Dati trattati secondo normativa privacy sanitaria.</p>
+    </div>
+  </div>
+</section>
+<section class="team" id="team">
+  <div class="ti">
+    <div class="sh">
+      <div class="stag">&#x1F465; Il Nostro Team</div>
+      <h2>Farmacisti qualificati al tuo servizio</h2>
+      <p>Professionisti con anni di esperienza pronti a rispondere a ogni tua domanda.</p>
+    </div>
+    <div class="tg">
+      <div class="tcard">
+        <div class="timg" style="background:linear-gradient(135deg,#E8F4FD,#B2DCF0)">&#x1F469;&#x200D;&#x2695;&#xFE0F;</div>
+        <div class="tbody">
+          <div class="tname">Dott.ssa Maria Rossi</div>
+          <div class="trole">Farmacista Titolare</div>
+          <div class="tdesc">30 anni di esperienza. Specializzata in fitoterapia, nutrizione e farmaci oncologici.</div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="timg" style="background:linear-gradient(135deg,#E8F8F3,#B2E5D8)">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div>
+        <div class="tbody">
+          <div class="tname">Dott. Luca Bianchi</div>
+          <div class="trole">Farmacista</div>
+          <div class="tdesc">Esperto in dermocosmetica e integratori sportivi. Consulente nutrizionale certificato.</div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="timg" style="background:linear-gradient(135deg,#F0EDFF,#D5CCFF)">&#x1F469;&#x200D;&#x2695;&#xFE0F;</div>
+        <div class="tbody">
+          <div class="tname">Dott.ssa Sofia Verdi</div>
+          <div class="trole">Farmacista</div>
+          <div class="tdesc">Specializzata in pediatria e farmaci pediatrici. Coordina il servizio di prenotazione CUP.</div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="timg" style="background:linear-gradient(135deg,#FFF4E8,#FFD9A8)">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div>
+        <div class="tbody">
+          <div class="tname">Dott. Marco Ferrari</div>
+          <div class="trole">Farmacista</div>
+          <div class="tdesc">Referente per il servizio vaccini. Esperto in farmacovigilanza e aderenza terapeutica.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="orari" id="orari">
+  <div class="oi">
+    <div class="sh">
+      <div class="stag">&#x1F550; Orari di Apertura</div>
+      <h2>Siamo aperti per te</h2>
+    </div>
+    <div class="og">
+      <div class="otab">
+        <div class="otab-h">&#x1F4C5; Orario Settimanale</div>
+        <div class="orow" id="day-lun"><span class="day">Lunedi</span><span class="hs">08:30 &ndash; 13:00 / 15:30 &ndash; 19:30</span></div>
+        <div class="orow" id="day-mar"><span class="day">Martedi</span><span class="hs">08:30 &ndash; 13:00 / 15:30 &ndash; 19:30</span></div>
+        <div class="orow" id="day-mer"><span class="day">Mercoledi</span><span class="hs">08:30 &ndash; 13:00 / 15:30 &ndash; 19:30</span></div>
+        <div class="orow" id="day-gio"><span class="day">Giovedi</span><span class="hs">08:30 &ndash; 13:00 / 15:30 &ndash; 19:30</span></div>
+        <div class="orow" id="day-ven"><span class="day">Venerdi</span><span class="hs">08:30 &ndash; 13:00 / 15:30 &ndash; 19:30</span></div>
+        <div class="orow" id="day-sab"><span class="day">Sabato</span><span class="hs">08:30 &ndash; 13:00</span></div>
+        <div class="orow" id="day-dom"><span class="day">Domenica</span><span class="hs">&mdash; Chiuso &mdash;</span></div>
+      </div>
+      <div>
+        <div class="status-box">
+          <div class="sbig" id="status-icon">&#x23F3;</div>
+          <div class="status-label" id="status-text">Calcolando...</div>
+          <div class="status-sub" id="status-sub">Verifica lo stato attuale</div>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-top:.5rem">
+            <a href="tel:0612345678" class="cta-call">&#x1F4DE; 06 12 34 56 78</a>
+            <a href="#" class="cta-wa">&#x1F4AC; WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contatti" id="contatti">
+  <div class="ci">
+    <div class="cinfo">
+      <h2>Dove Siamo</h2>
+      <p>Vieni a trovarci oppure contattaci: siamo sempre a disposizione per qualsiasi esigenza sanitaria.</p>
+      <div class="cblock"><div class="cic">&#x1F4CD;</div><div class="cbl-tx"><h4>Indirizzo</h4><p>Via della Salute, 12 &mdash; Roma (RM) 00100</p></div></div>
+      <div class="cblock"><div class="cic">&#x1F4DE;</div><div class="cbl-tx"><h4>Telefono</h4><p><a href="tel:0612345678" style="color:var(--blu2)">06 12 34 56 78</a></p></div></div>
+      <div class="cblock"><div class="cic">&#x1F4AC;</div><div class="cbl-tx"><h4>WhatsApp</h4><p><a href="#" style="color:var(--verde2)">Scrivici su WhatsApp</a></p></div></div>
+      <div class="cblock"><div class="cic">&#x1F4E7;</div><div class="cbl-tx"><h4>Email</h4><p><a href="mailto:info@farmaciasalusverde.it" style="color:var(--blu2)">info@farmaciasalusverde.it</a></p></div></div>
+    </div>
+    <div class="mmap">&#x1F5FA;&#xFE0F;<p>Via della Salute, 12 &middot; Roma</p></div>
+  </div>
+</section>
+<footer>
+  <p><strong>Farmacia Salus Verde</strong> &mdash; Via della Salute, 12, Roma &middot; P.IVA 00000000000<br>
+  <small>&#x26A0;&#xFE0F; Sito dimostrativo &mdash; dati fittizi &middot; <a href="../index.html">Torna allo showroom</a></small></p>
+</footer>
+<script>
+var sched={1:[[510,780],[930,1170]],2:[[510,780],[930,1170]],3:[[510,780],[930,1170]],4:[[510,780],[930,1170]],5:[[510,780],[930,1170]],6:[[510,780]],0:[]};
+var dayIds=['day-dom','day-lun','day-mar','day-mer','day-gio','day-ven','day-sab'];
+function checkStatus(){
+  var now=new Date(),d=now.getDay(),h=now.getHours()*60+now.getMinutes();
+  var slots=sched[d]||[];
+  var open=slots.some(function(s){return h>=s[0]&&h<s[1];});
+  var icon=document.getElementById('status-icon'),text=document.getElementById('status-text'),sub=document.getElementById('status-sub'),nav=document.getElementById('status-nav');
+  if(open){icon.textContent='&#x1F7E2;';text.textContent='Aperto Ora';text.style.color='#0E9D82';sub.textContent='Farmacia aperta, vieni pure!';if(nav)nav.textContent='Aperto';}
+  else{icon.textContent='&#x1F534;';text.textContent='Attualmente Chiuso';text.style.color='#C0392B';sub.textContent='Controlla gli orari o chiama per urgenze.';if(nav)nav.textContent='Chiuso';}
+  dayIds.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('today');});
+  var tid=dayIds[d];var tel=document.getElementById(tid);if(tel)tel.classList.add('today');
+}
+checkStatus();
+// Countdown offerte
+function updateOffCountdown(){
+  var now=new Date(),d=now.getDay();
+  var sun=new Date(now);
+  sun.setDate(now.getDate()+(d===0?7:7-d));
+  sun.setHours(23,59,59,0);
+  var diff=sun-now;
+  if(diff<0){sun.setDate(sun.getDate()+7);diff=sun-now;}
+  var h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  var el=document.getElementById('off-countdown');
+  if(el)el.textContent=(h<10?'0':'')+h+'h '+(m<10?'0':'')+m+'m '+(s<10?'0':'')+s+'s';
+}
+updateOffCountdown(); setInterval(updateOffCountdown,1000);
+
+// Preordine diretto da Offerte
+function farmPreordinaOfferta(nome, tipo){
+  var farmInput=document.getElementById('pf-farm');
+  var tipoSelect=document.getElementById('pf-tipo');
+  if(farmInput){
+    farmInput.value=nome;
+    farmInput.focus();
+    farmInput.style.borderColor='#1ABC9C';
+    farmInput.style.boxShadow='0 0 14px rgba(26,188,156,.6)';
+    setTimeout(function(){
+      farmInput.style.borderColor='';
+      farmInput.style.boxShadow='';
+    },2500);
+  }
+  if(tipoSelect && tipo){
+    for(var i=0;i<tipoSelect.options.length;i++){
+      if(tipoSelect.options[i].value.indexOf(tipo)!==-1||tipo.indexOf(tipoSelect.options[i].value)!==-1){
+        tipoSelect.selectedIndex=i;
+        break;
+      }
+    }
+  }
+  var preSec=document.getElementById('preordini');
+  if(preSec){
+    preSec.scrollIntoView({behavior:'smooth'});
+  }
+  var toast=document.getElementById('farm-cart-toast');
+  if(toast){
+    toast.style.display='block';
+    toast.innerHTML='&#x2705; <strong>'+nome+'</strong> inserito nel modulo di preordine qui sotto! Completa con i tuoi recapiti per bloccare lo sconto.';
+    setTimeout(function(){toast.style.display='none';},6000);
+  }
+}
+
+// Submit modulo preordine
+function submitFarmPreordine(){
+  var farm=document.getElementById('pf-farm').value.trim();
+  var nome=document.getElementById('pf-nome').value.trim();
+  var tel=document.getElementById('pf-tel').value.trim();
+  if(!farm){alert('Inserisci il nome del farmaco o del prodotto da preordinare.');document.getElementById('pf-farm').focus();return;}
+  if(!nome){alert('Inserisci il tuo nome e cognome.');document.getElementById('pf-nome').focus();return;}
+  if(!tel){alert('Inserisci il tuo numero di cellulare o WhatsApp.');document.getElementById('pf-tel').focus();return;}
+  var btn=document.getElementById('farm-pf-submit');
+  btn.textContent='✓ Preordine inviato per "'+farm+'"! Ti contatteremo a breve.';
+  btn.style.background='#0E9D82';
+  btn.style.cursor='default';
+  btn.onclick=null;
+}
+</script>
+</body>
+</html>

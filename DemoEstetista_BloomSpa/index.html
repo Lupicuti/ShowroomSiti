@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom Beauty Spa — Centro Estetico Premium</title>
+  <meta name="description" content="Bloom Beauty Spa: trattamenti viso, corpo, nail art, epilazione laser e massaggi. Prenota online il tuo trattamento. Demo sito web per estetista.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --rosa:#C8736A;--rosa2:#A85A52;--rosaf:#F2C5C0;--rosaf2:#FBEAE8;
+      --oro:#C4975A;--oro2:#A67C40;--oro-l:#F5E6C8;
+      --bianco:#FFFAF8;--bg2:#FDF5F3;--card:#fff;
+      --tx:#2C1A18;--dim:#7A5A58;--bdr:#E8D5D2;
+      --rad:18px;--rsm:12px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--bianco);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:50;background:rgba(255,250,248,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);padding:.75rem 2rem}
+    .ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+    .logo-ic{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--oro));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 4px 16px rgba(200,115,106,.3)}
+    .logo-tx h1{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--rosa2);line-height:1.1}
+    .logo-tx p{font-size:.62rem;color:var(--dim);font-weight:500;text-transform:uppercase;letter-spacing:.09em}
+    .nav-links{display:flex;gap:1.75rem;list-style:none}
+    .nav-links a{text-decoration:none;font-size:.84rem;font-weight:500;color:var(--dim);transition:color .2s;letter-spacing:.02em}
+    .nav-links a:hover{color:var(--rosa)}
+    .nbtn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.4rem;border-radius:999px;background:linear-gradient(135deg,var(--rosa),var(--rosa2));color:#fff;font-size:.82rem;font-weight:600;text-decoration:none;box-shadow:0 4px 16px rgba(200,115,106,.35);transition:all .2s;letter-spacing:.02em}
+    .nbtn:hover{box-shadow:0 6px 22px rgba(200,115,106,.5);transform:translateY(-2px)}
+    .nbtn2{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.4rem;border-radius:999px;background:transparent;border:1.5px solid var(--bdr);color:var(--dim);font-size:.82rem;font-weight:600;text-decoration:none;transition:all .2s}
+    .nbtn2:hover{border-color:var(--rosa);color:var(--rosa)}
+    @media(max-width:768px){.nav-links{display:none}}
+
+    /* HERO */
+    .hero{min-height:95vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;min-height:auto}}
+    .hero-left{background:linear-gradient(160deg,#FAE8E6 0%,#F2D5D2 40%,#E8C0BB 100%);display:flex;align-items:center;padding:5rem 3rem 5rem 4rem;position:relative;overflow:hidden}
+    .hero-left::before{content:'&#x2728;';position:absolute;top:2rem;right:3rem;font-size:5rem;opacity:.15}
+    .hero-left::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:rgba(200,115,106,.12);pointer-events:none}
+    .htx{position:relative;z-index:1;max-width:500px}
+    .hpre{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .85rem;border-radius:999px;background:rgba(200,115,106,.12);border:1px solid rgba(200,115,106,.25);font-size:.7rem;font-weight:600;color:var(--rosa);text-transform:uppercase;letter-spacing:.09em;margin-bottom:1.5rem}
+    .htx h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,4rem);font-weight:700;color:var(--tx);line-height:1.1;margin-bottom:1.2rem}
+    .htx h2 em{font-style:italic;color:var(--rosa)}
+    .htx p{font-size:.95rem;color:var(--dim);line-height:1.72;margin-bottom:2.2rem;font-weight:300}
+    .hbtns{display:flex;flex-direction:column;gap:.75rem;max-width:280px}
+    .hbtn1{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem 2rem;border-radius:999px;background:linear-gradient(135deg,var(--rosa),var(--rosa2));color:#fff;font-size:.9rem;font-weight:600;text-decoration:none;box-shadow:0 8px 24px rgba(200,115,106,.4);transition:all .25s;letter-spacing:.03em}
+    .hbtn1:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(200,115,106,.55)}
+    .hbtn2{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem 2rem;border-radius:999px;background:transparent;border:1.5px solid var(--bdr);color:var(--dim);font-size:.9rem;font-weight:500;text-decoration:none;transition:all .25s}
+    .hbtn2:hover{border-color:var(--rosa);color:var(--rosa);background:var(--rosaf2)}
+    .hero-right{position:relative;overflow:hidden;min-height:500px}
+    .hero-right img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(242,213,210,.5),transparent 60%)}
+    .hero-badge{position:absolute;bottom:2rem;right:2rem;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border:1px solid var(--bdr);border-radius:16px;padding:1rem 1.4rem;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+    .hb-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--rosa);line-height:1}
+    .hb-lbl{font-size:.7rem;color:var(--dim);font-weight:500;margin-top:.2rem;text-transform:uppercase;letter-spacing:.06em}
+
+    /* SECTION SHARED */
+    .sec{padding:5.5rem 2rem}
+    .si{max-width:1200px;margin:0 auto}
+    .sh{text-align:center;margin-bottom:3.5rem}
+    .stag{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .85rem;border-radius:999px;background:var(--rosaf2);font-size:.7rem;font-weight:600;color:var(--rosa);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;border:1px solid var(--rosaf)}
+    .sh h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--tx);margin-bottom:.6rem}
+    .sh p{font-size:.9rem;color:var(--dim);max-width:500px;margin:0 auto;line-height:1.68;font-weight:300}
+
+    /* TRATTAMENTI */
+    .tratt{background:var(--bianco)}
+    .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem}
+    .tcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .35s;position:relative}
+    .tcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--tc-grad,linear-gradient(90deg,var(--rosa),var(--oro)))}
+    .tcard:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(200,115,106,.12);border-color:#E0C0BB}
+    .ticon{height:140px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--tc-bg,var(--rosaf2))}
+    .tbody{padding:1.6rem}
+    .tcat{font-size:.68rem;font-weight:600;color:var(--oro);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.4rem}
+    .ttit{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--tx);margin-bottom:.55rem}
+    .tdesc{font-size:.84rem;color:var(--dim);line-height:1.6;margin-bottom:1rem;font-weight:300}
+    .tinfo{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+    .tprice{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--rosa)}
+    .ttime{font-size:.75rem;font-weight:500;color:var(--dim);background:var(--bg2);padding:.25rem .65rem;border-radius:999px}
+    .tbtn{display:block;text-align:center;padding:.75rem;border-radius:999px;background:linear-gradient(135deg,var(--rosa),var(--rosa2));color:#fff;font-size:.84rem;font-weight:600;text-decoration:none;transition:all .2s;letter-spacing:.03em}
+    .tbtn:hover{box-shadow:0 4px 16px rgba(200,115,106,.4);transform:translateY(-1px)}
+
+    /* PRENOTAZIONE */
+    .prenota{background:linear-gradient(135deg,#2C1A18 0%,#4A2828 50%,#6B3030 100%);padding:5.5rem 2rem;position:relative;overflow:hidden}
+    .prenota::before{content:'&#x1F338;';position:absolute;top:-1rem;right:5%;font-size:12rem;opacity:.06;pointer-events:none}
+    .prenota::after{content:'&#x2728;';position:absolute;bottom:-1rem;left:5%;font-size:8rem;opacity:.06;pointer-events:none}
+    .pren-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+    @media(max-width:900px){.pren-grid{grid-template-columns:1fr;gap:2.5rem}}
+    .pren-tx{color:#fff}
+    .pren-tx .stag{background:rgba(200,115,106,.2);color:#F2C5C0;border-color:rgba(200,115,106,.35)}
+    .pren-tx h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:.8rem}
+    .pren-tx h2 em{font-style:italic;color:#F2C5C0}
+    .pren-tx p{font-size:.9rem;color:rgba(255,255,255,.68);line-height:1.68;margin-bottom:2rem;font-weight:300}
+    .pren-feats{display:flex;flex-direction:column;gap:.9rem}
+    .pfeat{display:flex;align-items:center;gap:.9rem}
+    .pfic{width:34px;height:34px;border-radius:50%;background:rgba(200,115,106,.2);border:1px solid rgba(200,115,106,.3);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+    .pfeat span{font-size:.85rem;color:rgba(255,255,255,.75);font-weight:400}
+    .form-box{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:2rem}
+    .fb-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:1.5rem;text-align:center}
+    .fr{margin-bottom:1rem}
+    .fr label{display:block;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.05em}
+    .fr input,.fr select{width:100%;padding:.8rem 1.1rem;border-radius:var(--rsm);border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:.88rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+    .fr input::placeholder{color:rgba(255,255,255,.35)}
+    .fr select option{background:#3A1E1E;color:#fff}
+    .fr input:focus,.fr select:focus{border-color:rgba(200,115,106,.7)}
+    .fr-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    .sub-btn{width:100%;padding:1rem;border-radius:999px;background:linear-gradient(135deg,var(--rosa),var(--oro));color:#fff;font-size:.9rem;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 18px rgba(200,115,106,.4);transition:all .2s;letter-spacing:.03em;margin-top:.5rem}
+    .sub-btn:hover{box-shadow:0 6px 24px rgba(200,115,106,.6);transform:translateY(-2px)}
+
+    /* TEAM */
+    .team{background:var(--bg2)}
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+    .teamcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .3s;text-align:center}
+    .teamcard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(200,115,106,.12)}
+    .tphoto{height:220px;background:var(--tp-bg,linear-gradient(135deg,#FAE8E6,#F2D5D2));display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative}
+    .tspecialty{position:absolute;bottom:.75rem;left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);border:1px solid var(--bdr);border-radius:999px;padding:.25rem .75rem;font-size:.7rem;font-weight:600;color:var(--rosa)}
+    .teambody{padding:1.4rem}
+    .tname{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--tx);margin-bottom:.2rem}
+    .trole{font-size:.72rem;font-weight:600;color:var(--oro);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem}
+    .tdesc{font-size:.82rem;color:var(--dim);line-height:1.55;font-weight:300}
+
+    /* GALLERY */
+    .gallery{background:var(--bianco)}
+    .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:200px;gap:1rem;max-width:1200px;margin:0 auto}
+    @media(max-width:700px){.gal-grid{grid-template-columns:1fr 1fr}}
+    .gal-item{border-radius:14px;overflow:hidden;position:relative}
+    .gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+    .gal-item:hover img{transform:scale(1.08)}
+    .gal-item.tall{grid-row:span 2}
+    .gal-item.wide{grid-column:span 2}
+
+    /* PROMO BANNER */
+    .promo-banner{background:linear-gradient(135deg,var(--rosa),var(--oro));padding:3rem 2rem;text-align:center}
+    .promo-banner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:#fff;margin-bottom:.6rem}
+    .promo-banner p{font-size:.9rem;color:rgba(255,255,255,.85);margin-bottom:1.75rem;font-weight:300}
+    .promo-cta{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2.2rem;border-radius:999px;background:#fff;color:var(--rosa2);font-size:.9rem;font-weight:700;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.15);transition:all .2s}
+    .promo-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.2)}
+
+    footer{background:var(--tx);color:rgba(255,255,255,.6);padding:2.5rem 2rem;text-align:center;font-size:.8rem}
+    footer strong{color:#fff}
+    footer a{color:var(--rosaf);text-decoration:none}
+    .back-link{position:fixed;bottom:1.5rem;left:1.5rem;z-index:999;display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;border-radius:999px;background:rgba(44,26,24,.9);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s}
+    .back-link:hover{background:var(--rosa2)}
+  </style>
+</head>
+<body>
+<a href="../index.html" class="back-link">
+  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Showroom
+</a>
+
+<nav>
+  <div class="ni">
+    <a href="#" class="logo">
+      <div class="logo-ic">&#x1F338;</div>
+      <div class="logo-tx"><h1>Bloom Beauty Spa</h1><p>Centro Estetico Premium</p></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#trattamenti">Trattamenti</a></li>
+      <li><a href="#prenota">Prenota</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <a href="gestione.html" class="nbtn2">&#x1F4CA; Gestione</a>
+      <a href="#prenota" class="nbtn">&#x1F4C5; Prenota Ora</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="htx">
+      <div class="hpre">&#x2728; Centro Estetico Premium &middot; Roma</div>
+      <h2>Prenditi cura<br>di <em>te stessa.</em></h2>
+      <p>Trattamenti viso e corpo d'eccellenza, epilazione laser definitiva, nail art, massaggi relax e percorsi benessere personalizzati. Il tuo rituale di bellezza inizia qui.</p>
+      <div class="hbtns">
+        <a href="#prenota" class="hbtn1">&#x1F338; Prenota il tuo Trattamento</a>
+        <a href="#trattamenti" class="hbtn2">&#x1F50D; Scopri i Servizi</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?auto=format&fit=crop&w=800&q=80" alt="Bloom Beauty Spa" loading="eager">
+    <div class="hero-badge">
+      <div class="hb-num">500+</div>
+      <div class="hb-lbl">Clienti soddisfatte</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRATTAMENTI -->
+<section class="sec tratt" id="trattamenti">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#x1F48E; I Nostri Trattamenti</div>
+      <h2>L'eleganza del benessere</h2>
+      <p>Ogni trattamento &egrave; un rituale pensato per farti sentire straordinaria. Prodotti selezionati, mani esperte, risultati duraturi.</p>
+    </div>
+    <div class="tg">
+      <div class="tcard" style="--tc-bg:#FBEAE8;--tc-grad:linear-gradient(90deg,#C8736A,#E8A89E)">
+        <div class="ticon" style="background:#FBEAE8">&#x1FA77;</div>
+        <div class="tbody">
+          <div class="tcat">Trattamenti Viso</div>
+          <div class="ttit">Pulizia Viso Profonda</div>
+          <div class="tdesc">Pulizia professionale con vapore, estrazione impurit&agrave;, maschera idratante e siero vitamina C. Ideale per pelli grasse e miste.</div>
+          <div class="tinfo"><div class="tprice">da &euro; 55</div><div class="ttime">&#x23F1; 60 min</div></div>
+          <a href="#prenota" class="tbtn">Prenota</a>
+        </div>
+      </div>
+      <div class="tcard" style="--tc-bg:#FAF3E0;--tc-grad:linear-gradient(90deg,#C4975A,#E0B87A)">
+        <div class="ticon" style="background:#FAF3E0">&#x2728;</div>
+        <div class="tbody">
+          <div class="tcat">Trattamenti Corpo</div>
+          <div class="ttit">Massaggio Rilassante</div>
+          <div class="tdesc">Massaggio decontratturante con oli essenziali bio. Scioglie le tensioni muscolari, riduce lo stress e migliora la circolazione.</div>
+          <div class="tinfo"><div class="tprice">da &euro; 65</div><div class="ttime">&#x23F1; 50 min</div></div>
+          <a href="#prenota" class="tbtn">Prenota</a>
+        </div>
+      </div>
+      <div class="tcard" style="--tc-bg:#F5E8FF;--tc-grad:linear-gradient(90deg,#9B59B6,#C39BD3)">
+        <div class="ticon" style="background:#F5E8FF">&#x26A1;</div>
+        <div class="tbody">
+          <div class="tcat">Epilazione</div>
+          <div class="ttit">Epilazione Laser Diode</div>
+          <div class="tdesc">Tecnologia laser a diodi di ultima generazione. Permanente, indolore, efficace su tutti i fototipi. Prima seduta di prova gratuita.</div>
+          <div class="tinfo"><div class="tprice">da &euro; 40</div><div class="ttime">&#x23F1; 20-45 min</div></div>
+          <a href="#prenota" class="tbtn">Prenota</a>
+        </div>
+      </div>
+      <div class="tcard" style="--tc-bg:#FFF0F5;--tc-grad:linear-gradient(90deg,#FF69B4,#FFB6C1)">
+        <div class="ticon" style="background:#FFF0F5">&#x1F485;</div>
+        <div class="tbody">
+          <div class="tcat">Nail Art</div>
+          <div class="ttit">Manicure &amp; Semipermanente</div>
+          <div class="tdesc">Manicure completa, applicazione gel semipermanente, nail art personalizzata. Durata fino a 4 settimane garantita.</div>
+          <div class="tinfo"><div class="tprice">da &euro; 35</div><div class="ttime">&#x23F1; 60 min</div></div>
+          <a href="#prenota" class="tbtn">Prenota</a>
+        </div>
+      </div>
+      <div class="tcard" style="--tc-bg:#E8F8F5;--tc-grad:linear-gradient(90deg,#1ABC9C,#76D7C4)">
+        <div class="ticon" style="background:#E8F8F5">&#x1F34B;</div>
+        <div class="tbody">
+          <div class="tcat">Corpo &amp; Drenaggio</div>
+          <div class="ttit">Pressoterapia &amp; Linfodrenaggio</div>
+          <div class="tdesc">Trattamento professionale per contrastare cellulite, ritenzione idrica e gambe pesanti. Ciclo di 10 sedute consigliato.</div>
+          <div class="tinfo"><div class="tprice">da &euro; 45</div><div class="ttime">&#x23F1; 40 min</div></div>
+          <a href="#prenota" class="tbtn">Prenota</a>
+        </div>
+      </div>
+      <div class="tcard" style="--tc-bg:#FFF8E8;--tc-grad:linear-gradient(90deg,#C4975A,#F5CBA7)">
+        <div class="ticon" style="background:#FFF8E8">&#x1F31F;</div>
+        <div class="tbody">
+          <div class="tcat">Pacchetti Speciali</div>
+          <div class="ttit">Rituale Sposa</div>
+          <div class="tdesc">Pacchetto completo per il grande giorno: pulizia viso, maschera intensiva, manicure, pedicure e massaggio relax. Incluso prova trucco.</div>
+          <div class="tinfo"><div class="tprice">da &euro; 180</div><div class="ttime">&#x23F1; 4 ore</div></div>
+          <a href="#prenota" class="tbtn">Prenota</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRENOTA -->
+<section class="prenota" id="prenota">
+  <div class="pren-grid">
+    <div class="pren-tx">
+      <div class="stag">&#x1F4C5; Prenotazione Online</div>
+      <h2>Prenota il tuo<br><em>momento di cura.</em></h2>
+      <p>Scegli il trattamento, la tua estetista preferita e il giorno che preferisci. Conferma immediata via SMS o WhatsApp.</p>
+      <div class="pren-feats">
+        <div class="pfeat"><div class="pfic">&#x2705;</div><span>Conferma immediata</span></div>
+        <div class="pfeat"><div class="pfic">&#x1F4AC;</div><span>Promemoria WhatsApp 24h prima</span></div>
+        <div class="pfeat"><div class="pfic">&#x1F4B3;</div><span>Pagamento in loco, nessun anticipo</span></div>
+        <div class="pfeat"><div class="pfic">&#x274C;</div><span>Cancellazione gratuita fino a 2h prima</span></div>
+        <div class="pfeat"><div class="pfic">&#x1F381;</div><span>Prima seduta laser in omaggio</span></div>
+      </div>
+    </div>
+    <div class="form-box">
+      <div class="fb-title">&#x1F338; Nuova Prenotazione</div>
+      <div class="fr-2">
+        <div class="fr"><label>Nome</label><input type="text" placeholder="Sara"></div>
+        <div class="fr"><label>Cognome</label><input type="text" placeholder="Rossi"></div>
+      </div>
+      <div class="fr"><label>Telefono / WhatsApp</label><input type="tel" placeholder="+39 333 000 0000"></div>
+      <div class="fr"><label>Trattamento</label>
+        <select>
+          <option>Pulizia Viso Profonda &mdash; &euro; 55</option>
+          <option>Massaggio Rilassante &mdash; &euro; 65</option>
+          <option>Epilazione Laser &mdash; da &euro; 40</option>
+          <option>Manicure &amp; Semipermanente &mdash; &euro; 35</option>
+          <option>Pressoterapia &mdash; &euro; 45</option>
+          <option>Rituale Sposa &mdash; &euro; 180</option>
+        </select>
+      </div>
+      <div class="fr"><label>Estetista preferita</label>
+        <select>
+          <option>Nessuna preferenza</option>
+          <option>Giulia Martini</option>
+          <option>Sofia Romano</option>
+          <option>Valentina Conti</option>
+        </select>
+      </div>
+      <div class="fr-2">
+        <div class="fr"><label>Data</label><input type="date"></div>
+        <div class="fr"><label>Orario</label>
+          <select>
+            <option>09:00</option><option>09:30</option><option>10:00</option>
+            <option>10:30</option><option>11:00</option><option>11:30</option>
+            <option>14:00</option><option>14:30</option><option>15:00</option>
+            <option>15:30</option><option>16:00</option><option>16:30</option>
+            <option>17:00</option><option>17:30</option><option>18:00</option>
+          </select>
+        </div>
+      </div>
+      <button class="sub-btn" onclick="this.textContent='&#x1F338; Prenotazione inviata! Ti confermiamo su WhatsApp.'">&#x1F4E4; Conferma Prenotazione</button>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="sec team" id="team">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#x1F469; Il Nostro Team</div>
+      <h2>Esperte della bellezza</h2>
+      <p>Ogni estetista del nostro team &egrave; specializzata e aggiornata sulle ultime tecniche e prodotti del settore.</p>
+    </div>
+    <div class="team-grid">
+      <div class="teamcard">
+        <div class="tphoto" style="background:linear-gradient(135deg,#FAE8E6,#F2D5D2)">&#x1F469;&#x200D;&#x1F9B1;<div class="tspecialty">&#x1F91D; Titolare</div></div>
+        <div class="teambody">
+          <div class="tname">Giulia Martini</div>
+          <div class="trole">Estetista &amp; Titolare</div>
+          <div class="tdesc">15 anni di esperienza. Specializzata in trattamenti viso anti-aging, peeling chimici e radiofrequenza.</div>
+        </div>
+      </div>
+      <div class="teamcard">
+        <div class="tphoto" style="background:linear-gradient(135deg,#FAF0FF,#EDD5FF)">&#x1F469;&#x200D;&#x1F9B3;<div class="tspecialty">&#x26A1; Laser Expert</div></div>
+        <div class="teambody">
+          <div class="tname">Sofia Romano</div>
+          <div class="trole">Estetista Laser</div>
+          <div class="tdesc">Certificata in epilazione laser e luce pulsata. Specializzata in fotoringiovanimento e trattamenti pigmentazione.</div>
+        </div>
+      </div>
+      <div class="teamcard">
+        <div class="tphoto" style="background:linear-gradient(135deg,#FFF0E8,#FFD9C5)">&#x1F469;&#x200D;&#x1F9B0;<div class="tspecialty">&#x1F485; Nail Artist</div></div>
+        <div class="teambody">
+          <div class="tname">Valentina Conti</div>
+          <div class="trole">Nail Artist &amp; Body</div>
+          <div class="tdesc">Nail artist certificata con esperienza in gel, acrilico e nail art 3D. Specializzata in massaggi e drenaggio linfatico.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="sec gallery" id="gallery" style="padding-top:0">
+  <div class="si">
+    <div class="sh" style="padding-top:5.5rem">
+      <div class="stag">&#x1F4F8; Gallery</div>
+      <h2>Il nostro lavoro</h2>
+      <p>Ogni trattamento &egrave; un'opera d'arte. Scorri e lasciati ispirare dai nostri risultati.</p>
+    </div>
+  </div>
+  <div class="gal-grid">
+    <div class="gal-item tall"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" alt="Trattamento viso" loading="lazy"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="Nail art" loading="lazy"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80" alt="Massaggio" loading="lazy"></div>
+    <div class="gal-item wide"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1000&q=80" alt="Spa benessere" loading="lazy"></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?auto=format&fit=crop&w=600&q=80" alt="Beauty treatment" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<section class="promo-banner">
+  <h2>&#x1F338; Primo Trattamento Laser Gratuito</h2>
+  <p>Prenota una consulenza gratuita con la nostra specialista laser. Nessun impegno, solo cura per te.</p>
+  <a href="#prenota" class="promo-cta">&#x26A1; Prenota la Consulenza Gratis</a>
+</section>
+
+<!-- GESTIONE BANNER -->
+<section style="background:linear-gradient(135deg,#1A0A0A 0%,#2C1818 60%,#3A1E1E 100%);padding:3.5rem 2rem">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .8rem;border-radius:999px;background:rgba(200,115,106,.15);border:1px solid rgba(200,115,106,.3);font-size:.7rem;font-weight:600;color:#F2C5C0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem">&#x1F4CA; Pannello Admin</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:#fff;margin-bottom:.6rem">Gestisci le <em style="font-style:italic;color:#F2C5C0">prenotazioni</em> del centro</h2>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.65;font-weight:300;max-width:500px">Dashboard completa per visualizzare, confermare e modificare gli appuntamenti. Statistiche settimanali, anagrafica clienti e calendario disponibilita.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:1.4rem">
+        <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;color:rgba(255,255,255,.6)">&#x2705; Conferma/annulla in 1 clic</span>
+        <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;color:rgba(255,255,255,.6)">&#x1F465; Anagrafica clienti</span>
+        <span style="display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;color:rgba(255,255,255,.6)">&#x1F4C8; Incasso settimanale</span>
+      </div>
+    </div>
+    <a href="gestione.html" style="display:inline-flex;align-items:center;gap:.6rem;padding:1.1rem 2rem;border-radius:999px;background:linear-gradient(135deg,#C8736A,#C4975A);color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;box-shadow:0 6px 22px rgba(200,115,106,.4);white-space:nowrap;transition:all .2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">&#x1F4CA; Apri Gestione &#x2192;</a>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Bloom Beauty Spa</strong> &mdash; Via della Bellezza, 8 &middot; Roma (RM) &middot; Tel: <a href="tel:0698765432">06 98 76 54 32</a><br>
+  Lun-Sab: 09:00 &ndash; 20:00 &middot; Domenica: 10:00 &ndash; 16:00<br>
+  <small>&#x26A0;&#xFE0F; Sito dimostrativo &mdash; dati fittizi &middot; <a href="../index.html">Torna allo showroom</a></small></p>
+</footer>
+</body>
+</html>

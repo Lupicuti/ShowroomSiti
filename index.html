@@ -71,6 +71,9 @@
     .th-tir{--ca:#38BDF8;--cb:rgba(14,165,233,.45);--cg:rgba(14,165,233,.25);--cp:rgba(3,105,161,.75);--cba:#075985;--cbb:#0284C7}
     .th-pal{--ca:#A5B4FC;--cb:rgba(99,102,241,.45);--cg:rgba(99,102,241,.25);--cp:rgba(67,56,202,.75);--cba:#3730A3;--cbb:#6366F1}
     .th-par{--ca:#F9A8D4;--cb:rgba(236,72,153,.45);--cg:rgba(236,72,153,.25);--cp:rgba(190,24,93,.75);--cba:#9D174D;--cbb:#EC4899}
+    .th-far{--ca:#60C8B0;--cb:rgba(14,157,130,.45);--cg:rgba(14,157,130,.25);--cp:rgba(10,61,98,.75);--cba:#065F46;--cbb:#0E9D82}
+    .th-agr{--ca:#A3D96E;--cb:rgba(74,124,47,.45);--cg:rgba(74,124,47,.25);--cp:rgba(45,80,22,.75);--cba:#1A3A08;--cbb:#4A7C2F}
+    .th-est{--ca:#F5A6A0;--cb:rgba(200,115,106,.45);--cg:rgba(200,115,106,.25);--cp:rgba(168,90,82,.75);--cba:#7C2020;--cbb:#C8736A}
     .fs{background:var(--bg2);border-top:1px solid var(--bdr);padding:4rem 2rem}
     .fsi{max-width:1400px;margin:0 auto}
     .fs h2{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;text-align:center;margin-bottom:2.5rem}
@@ -96,16 +99,18 @@
   </div>
 </header>
 <div class="hero">
-  <div class="hbadge">&#x2728; 8 Demo Interattive</div>
+  <div class="hbadge">&#x2728; 11 Demo Interattive</div>
   <h2>Scegli una demo.<br><em>Si apre subito a schermo intero.</em></h2>
   <p class="hsub"> I siti proposti sono solo delle bozze per mostrare cosa si potrebbe fare. Consiglio di guardare varie demo anche se non e' il tuo settore, potresti trovare delle soluzioni che ti piacciono.</p>
   <div class="fbar">
-    <button class="fb active" onclick="fc('all',this)">Tutti <span class="cnt">8</span></button>
-    <button class="fb" onclick="fc('demo',this)">&#x2B50; Demo Settoriali <span class="cnt">6</span></button>
+    <button class="fb active" onclick="fc('all',this)">Tutti <span class="cnt">11</span></button>
+    <button class="fb" onclick="fc('demo',this)">&#x2B50; Demo Settoriali <span class="cnt">9</span></button>
     <button class="fb" onclick="fc('food',this)">&#x1F37D;&#xFE0F; Ristorazione <span class="cnt">3</span></button>
     <button class="fb" onclick="fc('sport',this)">&#x1F4AA; Sport &amp; Wellness <span class="cnt">1</span></button>
     <button class="fb" onclick="fc('auto',this)">&#x1F527; Automotive <span class="cnt">1</span></button>
-    <button class="fb" onclick="fc('bellezza',this)">&#x2728; Bellezza &amp; Cura <span class="cnt">1</span></button>
+    <button class="fb" onclick="fc('bellezza',this)">&#x2728; Bellezza &amp; Cura <span class="cnt">2</span></button>
+    <button class="fb" onclick="fc('salute',this)">&#x1F48A; Salute <span class="cnt">1</span></button>
+    <button class="fb" onclick="fc('agricola',this)">&#x1F33F; Agricoltura <span class="cnt">1</span></button>
     <button class="fb" onclick="fc('altro',this)">&#x1F3DB;&#xFE0F; Cultura &amp; Altro <span class="cnt">2</span></button>
   </div>
 </div>
@@ -220,6 +225,48 @@
         <div class="cact">
           <a href="DemoParrucchiere_Lumina/index.html" class="bm">Apri Demo <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
           <a href="DemoParrucchiere_Lumina/index.html" target="_blank" rel="noopener" class="be" title="Nuova scheda"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card th-far" data-cat="demo salute farmacia">
+      <div class="cm"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=900&q=80" alt="Farmacia Salus Verde" loading="lazy"><div class="cov"></div><div class="ctop"><span class="pill">&#x1F48A; Farmacia</span><span class="dhint">Responsive</span></div></div>
+      <div class="cbody">
+        <div class="cst">Salute &amp; Servizi Sanitari</div>
+        <h3 class="ctit">Farmacia Salus Verde</h3>
+        <p class="cdesc">Palette blu medicale e verde salute, offerte settimanali con foto reali e timer, modulo preordini farmaci e ricette, badge orari live, prenotazione CUP e servizi sanitari.</p>
+        <div class="ctags"><span class="tag">&#x1F3F7;&#xFE0F; Offerte &amp; Foto</span><span class="tag">&#x1F4E6; Preordini Farmaci</span><span class="tag">&#x1F550; Orari Live</span><span class="tag">Prenotazione CUP</span></div>
+        <div class="cact">
+          <a href="DemoFarmacia_SalusVerde/index.html" class="bm">Apri Demo <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
+          <a href="DemoFarmacia_SalusVerde/index.html" target="_blank" rel="noopener" class="be" title="Nuova scheda"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card th-agr" data-cat="demo agricola">
+      <div class="cm"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80" alt="Azienda Agricola Terra Viva" loading="lazy"><div class="cov"></div><div class="ctop"><span class="pill">&#x1F33F; Azienda Agricola</span><span class="dhint">Responsive</span></div></div>
+      <div class="cbody">
+        <div class="cst">Biologico &amp; Km Zero</div>
+        <h3 class="ctit">Terra Viva</h3>
+        <p class="cdesc">Hero fotografico naturalistico, catalogo prodotti bio con ordine, calendario stagionale 4 stagioni, sezione agriturismo con visite guidate e form contatti.</p>
+        <div class="ctags"><span class="tag">&#x1F6D2; Vendita Diretta</span><span class="tag">Certificato Bio</span><span class="tag">&#x1F3E1; Agriturismo</span><span class="tag">Km Zero</span></div>
+        <div class="cact">
+          <a href="DemoAgricola_TerraViva/index.html" class="bm">Apri Demo <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
+          <a href="DemoAgricola_TerraViva/index.html" target="_blank" rel="noopener" class="be" title="Nuova scheda"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card th-est" data-cat="demo bellezza estetista">
+      <div class="cm"><img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?auto=format&fit=crop&w=900&q=80" alt="Bloom Beauty Spa" loading="lazy"><div class="cov"></div><div class="ctop"><span class="pill">&#x1F338; Centro Estetico</span><span class="dhint">Responsive</span></div></div>
+      <div class="cbody">
+        <div class="cst">Beauty &amp; Benessere Premium</div>
+        <h3 class="ctit">Bloom Beauty Spa</h3>
+        <p class="cdesc">Palette rosa cipria e oro, hero split elegante, catalogo trattamenti con prezzi e durata, form prenotazione dark-premium con scelta estetista e orario, gallery portfolio.</p>
+        <div class="ctags"><span class="tag">&#x1F4C5; Prenotazione Online</span><span class="tag">&#x26A1; Laser Epilazione</span><span class="tag">Nail Art</span><span class="tag">Gallery Lavori</span></div>
+        <div class="cact">
+          <a href="DemoEstetista_BloomSpa/index.html" class="bm">Apri Demo <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
+          <a href="DemoEstetista_BloomSpa/index.html" target="_blank" rel="noopener" class="be" title="Nuova scheda"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>
         </div>
       </div>
     </article>
