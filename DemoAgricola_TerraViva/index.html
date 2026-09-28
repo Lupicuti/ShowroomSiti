@@ -1,608 +1,697 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Azienda Agricola Terra Viva — Prodotti della Terra, dal Campo alla Tavola</title>
-  <meta name="description" content="Azienda Agricola Terra Viva: prodotti biologici, vendita diretta, agriturismo e visite guidate. Demo sito web per azienda agricola.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --verde:#2D5016;--verde2:#4A7C2F;--verde3:#6BA94A;--oliva:#8B9E5A;
-      --terra:#8B5A2B;--terra2:#C4855A;--crema:#FAF6ED;--crema2:#F2EAD8;
-      --tx:#2C1810;--dim:#6B5744;--bdr:#D4C4A8;--card:#fff;
-      --rad:16px;--rsm:10px;
-    }
-    html{scroll-behavior:smooth}
-    body{font-family:'Lato',sans-serif;background:var(--crema);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    nav{position:sticky;top:0;z-index:50;background:rgba(250,246,237,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr);padding:.75rem 2rem}
-    .ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-    .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
-    .logo-ic{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--verde),var(--verde3));display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 14px rgba(45,80,22,.3)}
-    .logo-tx h1{font-size:.92rem;font-weight:900;color:var(--verde);line-height:1.1;font-family:'Merriweather',serif}
-    .logo-tx p{font-size:.66rem;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-    .nav-links{display:flex;gap:1.5rem;list-style:none}
-    .nav-links a{text-decoration:none;font-size:.85rem;font-weight:700;color:var(--dim);transition:color .2s}
-    .nav-links a:hover{color:var(--verde)}
-    .nbtn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.3rem;border-radius:999px;background:var(--verde);color:#fff;font-size:.82rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(45,80,22,.3);transition:all .2s}
-    .nbtn:hover{background:var(--verde2);transform:translateY(-2px)}
-    @media(max-width:768px){.nav-links{display:none}}
-    /* OFFERTE */
-    .off-sec{padding:5rem 2rem;background:var(--crema2)}
-    .off-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
-    .off-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .35s;position:relative}
-    .off-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(45,80,22,.12)}
-    .off-top{height:140px;display:flex;align-items:center;justify-content:center;font-size:3.8rem;position:relative;background:var(--ot-bg,linear-gradient(135deg,var(--verde),var(--verde3)))}
-    .off-pct{position:absolute;top:.8rem;right:.8rem;background:#D32F2F;color:#fff;font-size:.7rem;font-weight:900;padding:.28rem .6rem;border-radius:999px;letter-spacing:.03em}
-    .off-lim{position:absolute;bottom:.7rem;left:.8rem;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .55rem;border-radius:999px}
-    .off-body{padding:1.3rem}
-    .off-tit{font-family:'Merriweather',serif;font-size:1rem;font-weight:700;color:var(--verde);margin-bottom:.4rem}
-    .off-desc{font-size:.82rem;color:var(--dim);line-height:1.55;margin-bottom:.9rem}
-    .off-price{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.85rem}
-    .off-price .new{font-size:1.25rem;font-weight:900;color:var(--terra)}
-    .off-price .old{font-size:.85rem;color:var(--dim);text-decoration:line-through}
-    .off-price .save{font-size:.72rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;background:rgba(211,47,47,.1);color:#D32F2F}
-    .off-btn{display:block;text-align:center;padding:.7rem;border-radius:var(--rsm);background:var(--verde);color:#fff;font-size:.84rem;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer;width:100%;font-family:'Lato',sans-serif}
-    .off-btn:hover{background:var(--verde2)}
-    /* PREORDINI */
-    .pre-sec{padding:5.5rem 2rem;background:linear-gradient(135deg,#1a2e0a 0%,#2D5016 60%,#3A6020 100%);position:relative;overflow:hidden}
-    .pre-sec::before{content:'&#x1F33E;';position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-size:14rem;opacity:.06;pointer-events:none}
-    .pre-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-    @media(max-width:900px){.pre-grid{grid-template-columns:1fr;gap:2.5rem}}
-    .pre-tx{color:#fff}
-    .pre-tx .stag{background:rgba(107,169,74,.2);color:#C5E8A0;border-color:rgba(107,169,74,.4)}
-    .pre-tx h2{font-family:'Merriweather',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:.8rem}
-    .pre-tx h2 em{color:#A8D86E;font-style:normal}
-    .pre-tx p{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.68;margin-bottom:1.75rem;font-weight:300}
-    .pre-why{display:flex;flex-direction:column;gap:.85rem}
-    .pwhy{display:flex;align-items:center;gap:.85rem}
-    .pwhy-ic{width:34px;height:34px;border-radius:50%;background:rgba(107,169,74,.2);border:1px solid rgba(107,169,74,.3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-    .pwhy span{font-size:.85rem;color:rgba(255,255,255,.75)}
-    .pre-form{background:rgba(255,255,255,.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:2rem}
-    .pf-title{font-family:'Merriweather',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:1.4rem;text-align:center}
-    .pf-row{margin-bottom:1rem}
-    .pf-row label{display:block;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem}
-    .pf-row input,.pf-row select,.pf-row textarea{width:100%;padding:.78rem 1rem;border-radius:var(--rsm);border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:.86rem;font-family:'Lato',sans-serif;outline:none;transition:border-color .2s}
-    .pf-row input::placeholder{color:rgba(255,255,255,.35)}
-    .pf-row select option{background:#1A3A0A}
-    .pf-row input:focus,.pf-row select:focus,.pf-row textarea:focus{border-color:rgba(107,169,74,.7)}
-    .pf-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-    .pf-btn{width:100%;padding:.9rem;border-radius:999px;background:var(--verde3);color:#fff;font-size:.9rem;font-weight:900;border:none;cursor:pointer;font-family:'Lato',sans-serif;box-shadow:0 4px 18px rgba(107,169,74,.4);transition:all .2s;margin-top:.5rem}
-    .pf-btn:hover{background:var(--verde2)}
-    .prod-counter{display:flex;align-items:center;gap:.5rem}
-    .prod-counter button{width:30px;height:30px;border-radius:6px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:1rem;cursor:pointer;transition:all .2s;font-family:'Lato',sans-serif;flex-shrink:0}
-    .prod-counter button:hover{background:rgba(107,169,74,.3);border-color:rgba(107,169,74,.5)}
-    .prod-counter input{flex:1;text-align:center}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AgriShop Verde &amp; Campo - Negozio Specializzato per l'Agricoltura</title>
+<meta name="description" content="AgriShop: il tuo punto di riferimento per sementi, fitosanitari, concimi, attrezzature agricole, mangimi, irrigazione e molto altro. Servizio per privati e aziende agricole.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800;900&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gr:#1E4D00;--g2:#2E7400;--g3:#4A9E1E;--g4:#72C23A;--g5:#B5E27A;
+  --or:#E67E00;--or2:#F5A623;
+  --dk:#0A1A00;--bg:#F5F8F0;--bg2:#EBF2E0;--cd:#FFFFFF;
+  --tx:#1A2A0A;--dim:#5A7040;--bdr:#C8D8A8;
+  --rad:14px;--rsm:8px;
+  --s1:0 2px 10px rgba(30,77,0,.08);
+  --s2:0 6px 24px rgba(30,77,0,.12);
+  --s3:0 16px 50px rgba(30,77,0,.18)
+}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:72px}
 
-    /* HERO */
-    .hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;background:#1a2e0a}
-    .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;opacity:.55}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(20,40,10,.85) 0%,rgba(45,80,22,.6) 50%,rgba(107,169,74,.3) 100%)}
-    .hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:3rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-    @media(max-width:900px){.hero-content{grid-template-columns:1fr;text-align:center;gap:2.5rem}}
-    .htx .hbadge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .9rem;border-radius:999px;background:rgba(107,169,74,.25);border:1px solid rgba(107,169,74,.5);font-size:.72rem;font-weight:700;color:#C5E8A0;text-transform:uppercase;letter-spacing:.07em;margin-bottom:1.5rem}
-    .htx h2{font-family:'Merriweather',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;line-height:1.18;margin-bottom:1.2rem}
-    .htx h2 em{font-style:normal;color:#A8D86E}
-    .htx p{font-size:1rem;color:rgba(255,255,255,.78);line-height:1.68;margin-bottom:2.2rem}
-    .hbtns{display:flex;gap:.75rem;flex-wrap:wrap}
-    @media(max-width:900px){.hbtns{justify-content:center}}
-    .hbtn1{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.9rem;border-radius:999px;background:var(--verde3);color:#fff;font-size:.9rem;font-weight:900;text-decoration:none;box-shadow:0 8px 24px rgba(107,169,74,.45);transition:all .2s}
-    .hbtn1:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(107,169,74,.55)}
-    .hbtn2{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.9rem;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.9rem;font-weight:700;text-decoration:none;backdrop-filter:blur(8px);transition:all .2s}
-    .hbtn2:hover{background:rgba(255,255,255,.2);transform:translateY(-3px)}
-    .hcard{background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    .hstat{background:rgba(0,0,0,.2);border-radius:14px;padding:1.3rem;text-align:center;border:1px solid rgba(255,255,255,.1)}
-    .hstat .num{font-size:2rem;font-weight:900;color:#A8D86E;line-height:1;margin-bottom:.3rem;font-family:'Merriweather',serif}
-    .hstat .lbl{font-size:.7rem;color:rgba(255,255,255,.65);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,248,240,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr)}
+.ni{max-width:1300px;margin:0 auto;padding:.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.logo-ic{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--gr),var(--g4));display:flex;align-items:center;justify-content:center;font-size:1.35rem;box-shadow:0 4px 14px rgba(30,77,0,.35);flex-shrink:0}
+.logo-tx h1{font-size:.9rem;font-weight:800;color:var(--gr);line-height:1;font-family:'Merriweather',serif}
+.logo-tx p{font-size:.58rem;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.nl{display:flex;gap:1.1rem;list-style:none}
+.nl a{text-decoration:none;font-size:.8rem;font-weight:600;color:var(--dim);transition:color .2s;white-space:nowrap}
+.nl a:hover{color:var(--g2)}
+.nbtn{display:inline-flex;align-items:center;gap:.4rem;padding:.52rem 1.25rem;border-radius:999px;background:var(--g2);color:#fff;font-size:.8rem;font-weight:700;text-decoration:none;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.nbtn:hover{background:var(--g3);transform:translateY(-1px)}
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+.hbg span{display:block;width:22px;height:2px;background:var(--g2);border-radius:2px}
+.mnav{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55)}
+.mnav.open{display:block}
+.mnav-in{position:absolute;top:0;right:0;height:100%;width:min(300px,85vw);background:var(--bg);padding:1.5rem;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,.22)}
+.mnav-close{background:none;border:1px solid var(--bdr);border-radius:8px;padding:.4rem .8rem;font-size:.8rem;color:var(--dim);cursor:pointer;display:block;margin-bottom:1.5rem;font-family:'Sora',sans-serif}
+.mnav-links{list-style:none;display:flex;flex-direction:column;gap:.2rem}
+.mnav-links a{display:block;padding:.8rem 1rem;border-radius:var(--rsm);text-decoration:none;font-size:.92rem;font-weight:600;color:var(--tx);transition:background .2s}
+.mnav-links a:hover{background:var(--bg2)}
+@media(max-width:920px){.nl{display:none}.hbg{display:flex}}
 
-    /* SECTION SHARED */
-    .sec{padding:5rem 2rem}
-    .si{max-width:1200px;margin:0 auto}
-    .sh{text-align:center;margin-bottom:3.5rem}
-    .stag{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border-radius:999px;background:rgba(107,169,74,.15);border:1px solid rgba(107,169,74,.3);font-size:.72rem;font-weight:700;color:var(--verde2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.9rem}
-    .sh h2{font-family:'Merriweather',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;color:var(--verde);margin-bottom:.6rem}
-    .sh p{font-size:.9rem;color:var(--dim);max-width:540px;margin:0 auto;line-height:1.65}
+/* HERO */
+.hero{position:relative;min-height:82vh;display:flex;align-items:center;background:var(--dk);overflow:hidden}
+.hbg2{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;opacity:.38}
+.hov{position:absolute;inset:0;background:linear-gradient(130deg,rgba(10,26,0,.95) 0%,rgba(30,77,0,.8) 55%,rgba(114,194,58,.15) 100%)}
+.hcon{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:4rem 1.5rem;display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:center}
+@media(max-width:920px){.hcon{grid-template-columns:1fr;gap:2.5rem;text-align:center;padding:3rem 1.5rem}}
+.hbadge{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .9rem;border-radius:999px;background:rgba(181,226,122,.15);border:1px solid rgba(181,226,122,.35);font-size:.66rem;font-weight:700;color:#C8E89A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.2rem}
+.hero h2{font-family:'Merriweather',serif;font-size:clamp(1.9rem,4vw,3.2rem);font-weight:900;color:#fff;line-height:1.16;margin-bottom:1rem}
+.hero h2 em{font-style:normal;color:#A8DC5E;display:block}
+.hero p{font-size:.9rem;color:rgba(255,255,255,.72);line-height:1.74;margin-bottom:2rem;font-weight:300;max-width:480px}
+@media(max-width:920px){.hero p{margin:0 auto 2rem}}
+.hbtns{display:flex;gap:.7rem;flex-wrap:wrap}
+@media(max-width:920px){.hbtns{justify-content:center}}
+.hb1{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.9rem;border-radius:999px;background:var(--g4);color:#fff;font-size:.88rem;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(72,162,58,.55);transition:all .25s}
+.hb1:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(72,162,58,.65)}
+.hb2{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.9rem;border-radius:999px;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.28);color:#fff;font-size:.88rem;font-weight:700;text-decoration:none;backdrop-filter:blur(8px);transition:all .25s}
+.hb2:hover{background:rgba(255,255,255,.17);transform:translateY(-3px)}
+.hstats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.hstat{background:rgba(255,255,255,.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.3rem;text-align:center}
+.hstat .n{font-family:'Merriweather',serif;font-size:1.75rem;font-weight:900;color:#A8DC5E;line-height:1;margin-bottom:.3rem}
+.hstat .l{font-size:.64rem;color:rgba(255,255,255,.58);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 
-    /* PRODOTTI */
-    .prodotti{background:var(--crema)}
-    .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.75rem}
-    .pcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .35s;position:relative}
-    .pcard:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(45,80,22,.14)}
-    .pimg{height:200px;overflow:hidden;position:relative}
-    .pimg img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-    .pcard:hover .pimg img{transform:scale(1.08)}
-    .pbadge{position:absolute;top:.75rem;left:.75rem;font-size:.68rem;font-weight:700;padding:.25rem .65rem;border-radius:999px;color:#fff}
-    .pbadge.bio{background:var(--verde2)}
-    .pbadge.km0{background:var(--terra)}
-    .pbody{padding:1.4rem}
-    .pcat{font-size:.7rem;font-weight:700;color:var(--oliva);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
-    .ptit{font-family:'Merriweather',serif;font-size:1.05rem;font-weight:700;color:var(--verde);margin-bottom:.5rem}
-    .pdesc{font-size:.82rem;color:var(--dim);line-height:1.55;margin-bottom:1rem}
-    .pprice{font-size:1.2rem;font-weight:900;color:var(--terra);margin-bottom:.75rem}
-    .pprice span{font-size:.78rem;color:var(--dim);font-weight:400}
-    .pact{display:flex;gap:.5rem}
-    .padd{flex:1;padding:.65rem;border-radius:var(--rsm);background:var(--verde);color:#fff;font-size:.82rem;font-weight:700;border:none;cursor:pointer;transition:all .2s;font-family:'Lato',sans-serif}
-    .padd:hover{background:var(--verde2)}
-    .pwish{width:38px;border-radius:var(--rsm);background:var(--crema);border:1px solid var(--bdr);color:var(--dim);cursor:pointer;transition:all .2s;font-size:1rem}
-    .pwish:hover{background:var(--terra2);color:#fff;border-color:var(--terra2)}
+/* CATEGORIE HERO */
+.catbar{background:var(--cd);border-bottom:2px solid var(--bg2);padding:0}
+.catbar-in{max-width:1300px;margin:0 auto;padding:0 1.5rem;display:flex;overflow-x:auto;scrollbar-width:none;gap:0}
+.catbar-in::-webkit-scrollbar{display:none}
+.clink{display:flex;align-items:center;gap:.45rem;padding:1rem 1.25rem;text-decoration:none;font-size:.78rem;font-weight:700;color:var(--dim);border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.clink:hover{color:var(--g2);border-bottom-color:var(--g3)}
+.clink.active{color:var(--g2);border-bottom-color:var(--g2)}
 
-    /* STAGIONI */
-    .stagioni{background:linear-gradient(135deg,var(--verde) 0%,#1a4010 100%);padding:5rem 2rem}
-    .stage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;max-width:1200px;margin:3rem auto 0}
-    @media(max-width:900px){.stage-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:500px){.stage-grid{grid-template-columns:1fr}}
-    .stag-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:var(--rad);padding:1.75rem 1.4rem;text-align:center;transition:all .3s}
-    .stag-card:hover{background:rgba(255,255,255,.14);transform:translateY(-4px)}
-    .stag-card .icon{font-size:2.5rem;margin-bottom:1rem}
-    .stag-card h3{font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.75rem}
-    .stag-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
-    .stag-list li{font-size:.82rem;color:rgba(255,255,255,.72);font-weight:400;padding:.2rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
-    .stag-list li:last-child{border-bottom:none}
-    .stag-act{display:inline-block;margin-top:1rem;padding:.5rem 1rem;border-radius:999px;background:var(--verde3);color:#fff;font-size:.78rem;font-weight:700;text-decoration:none}
-    .sh-alt h2{color:#fff}
-    .sh-alt p{color:rgba(255,255,255,.72)}
-    .stag-alt{color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07)}
-    .stag-alt .stag{color:#C5E8A0;background:rgba(107,169,74,.2);border-color:rgba(107,169,74,.4)}
+/* SEZIONI GENERALI */
+.sec{padding:4.5rem 1.5rem}
+.si{max-width:1300px;margin:0 auto}
+.sh{text-align:center;margin-bottom:2.8rem}
+.stag{display:inline-flex;align-items:center;gap:.38rem;padding:.28rem .8rem;border-radius:999px;background:rgba(72,162,58,.1);border:1px solid rgba(72,162,58,.25);font-size:.65rem;font-weight:700;color:var(--g3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.8rem}
+.sh h2{font-family:'Merriweather',serif;font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:900;color:var(--gr);margin-bottom:.5rem}
+.sh p{font-size:.88rem;color:var(--dim);max-width:500px;margin:0 auto;line-height:1.66}
 
-    /* AGRITURISMO */
-    .agri{background:var(--crema2);padding:5rem 2rem}
-    .agri-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1200px;margin:0 auto}
-    @media(max-width:900px){.agri-grid{grid-template-columns:1fr;gap:2.5rem}}
-    .agri-img{border-radius:24px;overflow:hidden;height:420px;background:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80') center/cover;box-shadow:0 24px 60px rgba(45,80,22,.2)}
-    .agri-tx h2{font-family:'Merriweather',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--verde);margin-bottom:1rem}
-    .agri-tx p{font-size:.9rem;color:var(--dim);line-height:1.68;margin-bottom:1.75rem}
-    .agri-feat{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem}
-    .afeat{display:flex;align-items:flex-start;gap:.9rem}
-    .afeat-ic{width:38px;height:38px;border-radius:10px;background:rgba(107,169,74,.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-    .afeat-tx h4{font-size:.9rem;font-weight:700;color:var(--verde);margin-bottom:.2rem}
-    .afeat-tx p{font-size:.82rem;color:var(--dim);line-height:1.5}
-    .agri-cta{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:999px;background:var(--terra);color:#fff;font-size:.9rem;font-weight:900;text-decoration:none;box-shadow:0 6px 20px rgba(139,90,43,.35);transition:all .2s}
-    .agri-cta:hover{background:var(--terra2);transform:translateY(-2px)}
+/* CATALOGO A TABS */
+.catsec{background:var(--bg);padding:4.5rem 1.5rem}
+.cattabs{display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.45rem;margin-bottom:2.2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cattabs::-webkit-scrollbar{display:none}
+.tbtn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:999px;border:1.5px solid var(--bdr);background:var(--cd);font-size:.78rem;font-weight:700;color:var(--dim);cursor:pointer;transition:all .22s;white-space:nowrap;font-family:'Sora',sans-serif}
+.tbtn:hover{border-color:var(--g4);color:var(--g2)}
+.tbtn.active{background:var(--g2);border-color:var(--g2);color:#fff;box-shadow:0 4px 14px rgba(30,77,0,.28)}
+.cpanel{display:none}.cpanel.active{display:block}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.4rem}
+@media(max-width:480px){.pg{grid-template-columns:1fr 1fr}}
+@media(max-width:360px){.pg{grid-template-columns:1fr}}
+.pcard{background:var(--cd);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .28s;cursor:pointer}
+.pcard:hover{transform:translateY(-5px);box-shadow:var(--s3)}
+.pim{height:170px;overflow:hidden;position:relative;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.pim img{width:100%;height:100%;object-fit:cover;transition:transform .55s}
+.pcard:hover .pim img{transform:scale(1.09)}
+.pim-em{font-size:3.5rem;line-height:1}
+.pbdgs{position:absolute;top:.55rem;left:.55rem;display:flex;gap:.3rem;flex-wrap:wrap}
+.pbdg{font-size:.58rem;font-weight:700;padding:.2rem .5rem;border-radius:999px;color:#fff;letter-spacing:.03em}
+.pbdg.priv{background:var(--g3)}.pbdg.pro{background:var(--or)}.pbdg.new{background:#9333EA}.pbdg.promo{background:#DC2626}
+.pbdy{padding:1.1rem}
+.pclbl{font-size:.6rem;font-weight:700;color:var(--g3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem}
+.ptit{font-size:.9rem;font-weight:700;color:var(--gr);margin-bottom:.35rem;line-height:1.32;font-family:'Merriweather',serif}
+.pdes{font-size:.74rem;color:var(--dim);line-height:1.56;margin-bottom:.8rem}
+.pft{display:flex;align-items:center;justify-content:space-between;gap:.4rem;flex-wrap:wrap}
+.pdis{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
+.pdis .pfr{font-size:.68rem;color:var(--dim);text-decoration:line-through}
+.padd{padding:.5rem 1rem;border-radius:var(--rsm);background:var(--g2);color:#fff;font-size:.75rem;font-weight:700;border:none;cursor:pointer;transition:all .2s;font-family:'Sora',sans-serif}
+.padd:hover{background:var(--g3)}
+.prgt{display:flex;gap:.35rem;align-items:center}
+.ppr{font-size:1.05rem;font-weight:800;color:var(--or)}
+.pwish{width:34px;height:34px;border-radius:var(--rsm);background:var(--bg);border:1px solid var(--bdr);color:var(--dim);cursor:pointer;transition:all .2s;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pwish:hover,.pwish.active{background:var(--or);color:#fff;border-color:var(--or)}
 
-    /* CONTATTI */
-    .contatti{background:var(--crema);padding:5rem 2rem}
-    .cg{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;align-items:start}
-    @media(max-width:800px){.cg{grid-template-columns:1fr;gap:2rem}}
-    .cblock{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.2rem;padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rsm)}
-    .cic{width:40px;height:40px;border-radius:10px;background:rgba(107,169,74,.12);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-    .cbl h4{font-size:.88rem;font-weight:700;color:var(--verde);margin-bottom:.2rem}
-    .cbl p{font-size:.82rem;color:var(--dim);line-height:1.5}
-    .cbl a{color:var(--verde2);text-decoration:none}
-    .fmap{border-radius:var(--rad);height:350px;background:linear-gradient(135deg,#C5DFA0,#A8D86E);display:flex;align-items:center;justify-content:center;font-size:5rem;flex-direction:column;gap:1rem;border:1px solid var(--bdr)}
-    .fmap p{font-size:.88rem;color:var(--verde);font-weight:700}
-    .form-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:2rem}
-    .form-card h3{font-family:'Merriweather',serif;font-size:1.2rem;font-weight:700;color:var(--verde);margin-bottom:1.25rem}
-    .form-row{margin-bottom:1rem}
-    .form-row label{display:block;font-size:.8rem;font-weight:700;color:var(--dim);margin-bottom:.35rem}
-    .form-row input,.form-row select,.form-row textarea{width:100%;padding:.75rem 1rem;border-radius:var(--rsm);border:1.5px solid var(--bdr);font-size:.88rem;font-family:'Lato',sans-serif;color:var(--tx);background:var(--crema);outline:none;transition:border-color .2s}
-    .form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--verde3)}
-    .form-row textarea{min-height:100px;resize:vertical}
-    .form-btn{width:100%;padding:.85rem;border-radius:999px;background:var(--verde);color:#fff;font-size:.9rem;font-weight:900;border:none;cursor:pointer;font-family:'Lato',sans-serif;transition:all .2s}
-    .form-btn:hover{background:var(--verde2)}
-    footer{background:var(--verde);color:rgba(255,255,255,.7);padding:2rem;text-align:center;font-size:.8rem}
-    footer strong{color:#fff}
-    footer a{color:#A8D86E;text-decoration:none}
-    .back-link{position:fixed;bottom:1.5rem;left:1.5rem;z-index:999;display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;border-radius:999px;background:rgba(45,80,22,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .2s}
-    .back-link:hover{background:var(--verde2)}
-  </style>
+/* OFFERTE */
+.offsec{background:var(--bg2);padding:4.5rem 1.5rem}
+.offhdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem}
+.cdb{background:var(--cd);border:1px solid var(--bdr);border-radius:12px;padding:.8rem 1.3rem;text-align:center;box-shadow:var(--s1)}
+.cdb .cdl{font-size:.58rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.cdb .cdt{font-size:1.3rem;font-weight:900;color:var(--or);line-height:1.1;font-family:'Merriweather',serif}
+.cdb .cds{font-size:.62rem;color:var(--dim);margin-top:.12rem}
+.ofl{display:flex;gap:.45rem;overflow-x:auto;scrollbar-width:none;padding-bottom:.2rem}
+.ofl::-webkit-scrollbar{display:none}
+.ofb{padding:.42rem .9rem;border-radius:999px;border:1.5px solid var(--bdr);background:var(--cd);font-size:.74rem;font-weight:700;color:var(--dim);cursor:pointer;white-space:nowrap;font-family:'Sora',sans-serif;transition:all .2s}
+.ofb.active{background:var(--or);border-color:var(--or);color:#fff}
+.offgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.3rem}
+@media(max-width:480px){.offgrd{grid-template-columns:1fr}}
+.ofc{background:var(--cd);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden;transition:all .28s;position:relative}
+.ofc:hover{transform:translateY(-4px);box-shadow:var(--s3)}
+.ofc.hidden{display:none}
+.oftp{height:120px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative}
+.ofpct{position:absolute;top:.65rem;right:.65rem;background:#DC2626;color:#fff;font-size:.63rem;font-weight:900;padding:.22rem .5rem;border-radius:999px}
+.oflim{position:absolute;bottom:.6rem;left:.65rem;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);color:#fff;font-size:.58rem;font-weight:700;padding:.15rem .45rem;border-radius:999px}
+.ofcbdg{position:absolute;top:.65rem;left:.65rem;font-size:.58rem;font-weight:700;padding:.2rem .5rem;border-radius:999px;color:#fff}
+.ofbd{padding:1.1rem}
+.ofti{font-size:.9rem;font-weight:700;color:var(--gr);margin-bottom:.3rem;line-height:1.3;font-family:'Merriweather',serif}
+.ofde{font-size:.74rem;color:var(--dim);line-height:1.52;margin-bottom:.7rem}
+.ofpr{display:flex;align-items:baseline;gap:.4rem;margin-bottom:.7rem;flex-wrap:wrap}
+.pnw{font-size:1.15rem;font-weight:900;color:var(--or)}
+.pold{font-size:.8rem;color:var(--dim);text-decoration:line-through}
+.psav{font-size:.64rem;font-weight:700;padding:.1rem .42rem;border-radius:999px;background:rgba(220,38,38,.1);color:#DC2626}
+.ofbtn{display:block;text-align:center;width:100%;padding:.65rem;border-radius:var(--rsm);background:var(--gr);color:#fff;font-size:.8rem;font-weight:700;border:none;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s}
+.ofbtn:hover{background:var(--g2)}
+.crtst{margin-top:1.4rem;display:none;background:var(--gr);color:#fff;border-radius:12px;padding:.9rem 1.3rem;text-align:center;font-size:.84rem;font-weight:600}
+.crtst a{color:var(--g5);text-decoration:none;font-weight:700}
+
+/* SERVIZI */
+.servsec{background:var(--cd);padding:4.5rem 1.5rem}
+.servgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.srvc{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.8rem 1.5rem;transition:all .28s}
+.srvc:hover{transform:translateY(-4px);box-shadow:var(--s2);border-color:var(--g4)}
+.srvc-ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.1rem}
+.srvc h3{font-size:.95rem;font-weight:700;color:var(--gr);margin-bottom:.5rem;font-family:'Merriweather',serif}
+.srvc p{font-size:.78rem;color:var(--dim);line-height:1.6}
+.srvc-lnk{display:inline-flex;align-items:center;gap:.3rem;margin-top:.9rem;font-size:.75rem;font-weight:700;color:var(--g2);text-decoration:none}
+.srvc-lnk:hover{color:var(--g3)}
+
+/* CLIENTI */
+.cltsec{background:linear-gradient(135deg,var(--dk) 0%,var(--gr) 50%,#1A3C00 100%);padding:4.5rem 1.5rem}
+.cltgrd{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1300px;margin:0 auto;align-items:center}
+@media(max-width:880px){.cltgrd{grid-template-columns:1fr;gap:2rem}}
+.cltx .stag{background:rgba(181,226,122,.15);color:#B5E27A;border-color:rgba(181,226,122,.3)}
+.cltx h2{font-family:'Merriweather',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:#fff;margin-bottom:.8rem}
+.cltx p{font-size:.86rem;color:rgba(255,255,255,.68);line-height:1.72;margin-bottom:1.5rem;font-weight:300}
+.cltbl{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:420px){.cltbl{grid-template-columns:1fr}}
+.cltb{background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.2rem;text-align:center}
+.cltb .ico{font-size:1.6rem;margin-bottom:.5rem}
+.cltb h4{font-size:.82rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+.cltb p{font-size:.72rem;color:rgba(255,255,255,.6);line-height:1.5}
+.cltform{background:rgba(255,255,255,.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:2rem}
+.cltfti{font-family:'Merriweather',serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:1.4rem;text-align:center}
+.pfr{margin-bottom:.85rem}
+.pfr label{display:block;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.28rem}
+.pfr input,.pfr select,.pfr textarea{width:100%;padding:.74rem 1rem;border-radius:var(--rsm);border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:16px;font-family:'Sora',sans-serif;outline:none;transition:border-color .2s}
+.pfr input::placeholder{color:rgba(255,255,255,.3)}
+.pfr select option{background:#1E4D00;color:#fff}
+.pfr input:focus,.pfr select:focus,.pfr textarea:focus{border-color:rgba(114,194,58,.7)}
+.pfbtn{width:100%;padding:.88rem;border-radius:999px;background:var(--g4);color:#fff;font-size:.9rem;font-weight:800;border:none;cursor:pointer;font-family:'Sora',sans-serif;box-shadow:0 4px 18px rgba(72,162,58,.42);transition:all .2s;margin-top:.35rem}
+.pfbtn:hover{background:var(--g3)}
+
+/* CONTATTI */
+.cont{background:var(--bg);padding:4.5rem 1.5rem}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;max-width:1300px;margin:0 auto;align-items:start}
+@media(max-width:800px){.cg{grid-template-columns:1fr;gap:2rem}}
+.cbl{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.9rem;padding:.9rem 1.1rem;background:var(--cd);border:1px solid var(--bdr);border-radius:var(--rsm);box-shadow:var(--s1)}
+.cic{width:36px;height:36px;border-radius:10px;background:rgba(72,162,58,.1);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.cbt h4{font-size:.82rem;font-weight:700;color:var(--gr);margin-bottom:.15rem}
+.cbt p{font-size:.78rem;color:var(--dim);line-height:1.45}
+.cbt a{color:var(--g2);text-decoration:none}
+.fmap{border-radius:var(--rad);height:240px;background:linear-gradient(135deg,#D1E8A8,#B5D87A);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.7rem;border:1px solid var(--bdr);cursor:pointer;margin-top:1rem;transition:opacity .2s}
+.fmap:hover{opacity:.88}
+.fmap p{font-size:.82rem;color:var(--gr);font-weight:700}
+.fcrd{background:var(--cd);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.8rem;box-shadow:var(--s1)}
+.fcrd h3{font-family:'Merriweather',serif;font-size:1.1rem;font-weight:700;color:var(--gr);margin-bottom:1.2rem}
+.fr{margin-bottom:.85rem}
+.fr label{display:block;font-size:.72rem;font-weight:700;color:var(--dim);margin-bottom:.28rem}
+.fr input,.fr select,.fr textarea{width:100%;padding:.7rem 1rem;border-radius:var(--rsm);border:1.5px solid var(--bdr);font-size:16px;font-family:'Sora',sans-serif;color:var(--tx);background:var(--bg);outline:none;transition:border-color .2s}
+.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:var(--g4)}
+.fr textarea{min-height:85px;resize:vertical}
+.fbtn{width:100%;padding:.8rem;border-radius:999px;background:var(--g2);color:#fff;font-size:.88rem;font-weight:800;border:none;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s}
+.fbtn:hover{background:var(--g3)}
+
+footer{background:var(--dk);color:rgba(255,255,255,.6);padding:2.5rem 1.5rem;font-size:.76rem;line-height:1.8}
+footer strong{color:#fff}
+footer a{color:var(--g5);text-decoration:none}
+.fgrd{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2rem;text-align:left;margin-bottom:2rem}
+.fcol h4{font-size:.78rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.7rem}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:.38rem}
+.fcol ul a{color:rgba(255,255,255,.58);text-decoration:none;font-size:.76rem;transition:color .2s}
+.fcol ul a:hover{color:var(--g5)}
+.fbot{border-top:1px solid rgba(255,255,255,.1);padding-top:1.4rem;max-width:1300px;margin:0 auto;text-align:center}
+
+.mobbar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--bg);border-top:1px solid var(--bdr);padding:.6rem 1rem;gap:.55rem;padding-bottom:max(.6rem,env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+@media(max-width:768px){.mobbar{display:flex}}
+.mobbar a{flex:1;min-height:46px;display:flex;align-items:center;justify-content:center;gap:.38rem;border-radius:12px;font-size:.79rem;font-weight:700;text-decoration:none;transition:all .2s}
+.mobcall{background:var(--bg2);color:var(--gr);border:1.5px solid var(--bdr)}
+.mobwa{background:#25D366;color:#fff}
+.mobord{background:var(--g2);color:#fff}
+
+.bkln{position:fixed;bottom:5.2rem;left:1rem;z-index:150;display:inline-flex;align-items:center;gap:.38rem;padding:.52rem .95rem;border-radius:999px;background:rgba(10,26,0,.9);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:.72rem;font-weight:700;text-decoration:none;transition:all .2s}
+@media(min-width:769px){.bkln{bottom:1.5rem}}
+.bkln:hover{background:var(--gr)}
+
+.cpill{display:none;position:fixed;top:4.8rem;right:1rem;z-index:150;align-items:center;gap:.45rem;padding:.52rem .95rem;border-radius:999px;background:var(--or);color:#fff;font-size:.78rem;font-weight:700;box-shadow:0 4px 16px rgba(230,126,0,.4);cursor:pointer;border:none;font-family:'Sora',sans-serif}
+.cpill.vis{display:flex}
+
+.notif{position:fixed;top:1rem;right:1rem;z-index:500;background:var(--gr);color:#fff;padding:.8rem 1.2rem;border-radius:12px;font-size:.8rem;font-weight:600;max-width:280px;box-shadow:var(--s3);display:none}
+</style>
 </head>
 <body>
-<a href="../index.html" class="back-link">
-  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Showroom
-</a>
+<div class="notif" id="notif"></div>
+<a href="../index.html" class="bkln">&#8592; Showroom</a>
+<button class="cpill" id="cpill" onclick="scrollRich()">&#128722; <span id="ccnt">0</span> nel carrello</button>
+<div class="mnav" id="mnav" onclick="closeMN(event)">
+  <div class="mnav-in">
+    <button class="mnav-close" onclick="togMN()">&#10005; Chiudi</button>
+    <ul class="mnav-links">
+      <li><a href="#catalogo" onclick="togMN()">&#128218; Catalogo</a></li>
+      <li><a href="#offerte" onclick="togMN()">&#127991; Offerte</a></li>
+      <li><a href="#servizi" onclick="togMN()">&#9881;&#65039; Servizi</a></li>
+      <li><a href="#aziende" onclick="togMN()">&#127970; Per le Aziende</a></li>
+      <li><a href="#contatti" onclick="togMN()">&#128205; Contatti</a></li>
+    </ul>
+    <div style="margin-top:2rem;display:flex;flex-direction:column;gap:.6rem">
+      <a href="tel:069512345" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.82rem;border-radius:12px;background:var(--bg2);color:var(--gr);text-decoration:none;font-weight:700;font-size:.86rem">&#128222; Chiama il Negozio</a>
+      <a href="https://wa.me/39333000000" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.82rem;border-radius:12px;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:.86rem">&#128172; WhatsApp</a>
+    </div>
+  </div>
+</div>
+
 <nav>
   <div class="ni">
     <a href="#" class="logo">
-      <div class="logo-ic">&#x1F33F;</div>
-      <div class="logo-tx"><h1>Terra Viva</h1><p>Azienda Agricola Biologica</p></div>
+      <div class="logo-ic">&#127807;</div>
+      <div class="logo-tx"><h1>AgriShop</h1><p>Forniture per l'Agricoltura</p></div>
     </a>
-    <ul class="nav-links">
-      <li><a href="#prodotti">Prodotti</a></li>
+    <ul class="nl">
+      <li><a href="#catalogo">Catalogo</a></li>
       <li><a href="#offerte">Offerte</a></li>
-      <li><a href="#preordini">Preordini</a></li>
-      <li><a href="#stagioni">Stagioni</a></li>
-      <li><a href="#agriturismo">Agriturismo</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#aziende">Per Aziende</a></li>
       <li><a href="#contatti">Contatti</a></li>
     </ul>
-    <a href="#contatti" class="nbtn">&#x1F4E6; Ordina Ora</a>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <a href="#contatti" class="nbtn">&#128222; Contattaci</a>
+      <button class="hbg" onclick="togMN()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="htx">
-      <div class="hbadge">&#x1F343; Certificazione Bio EU &middot; Km0</div>
-      <h2>Dal campo<br>alla <em>tua tavola.</em></h2>
-      <p>Coltivazioni biologiche certificate, frutta e verdura di stagione, olio extravergine d'oliva, vino artigianale e molto altro. Direttamente dai nostri campi nel Lazio.</p>
-      <div class="hbtns">
-        <a href="#prodotti" class="hbtn1">&#x1F6D2; Scopri i Prodotti</a>
-        <a href="#agriturismo" class="hbtn2">&#x1F3E1; Agriturismo</a>
-      </div>
-    </div>
-    <div class="hcard">
-      <div class="hstat"><div class="num">45</div><div class="lbl">Ettari coltivati</div></div>
-      <div class="hstat"><div class="num">100%</div><div class="lbl">Certificato Bio</div></div>
-      <div class="hstat"><div class="num">3a</div><div class="lbl">Generazione</div></div>
-      <div class="hstat"><div class="num">Km0</div><div class="lbl">Filiera Corta</div></div>
-    </div>
-  </div>
-</section>
 
-<section class="sec prodotti" id="prodotti">
-  <div class="si">
-    <div class="sh">
-      <div class="stag">&#x1F331; I Nostri Prodotti</div>
-      <h2>Direttamente dal campo</h2>
-      <p>Tutto coltivato con metodi biologici, senza pesticidi chimici, nel rispetto della terra e delle tradizioni contadine laziali.</p>
-    </div>
-    <div class="pg">
-      <div class="pcard">
-        <div class="pimg"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80" alt="Olio EVO" loading="lazy"><div class="pbadge bio">BIO</div></div>
-        <div class="pbody">
-          <div class="pcat">Olio &amp; Condimenti</div>
-          <div class="ptit">Olio EVO Moraiolo DOP</div>
-          <div class="pdesc">Estratto a freddo dalle nostre olive centenarie. Fruttato medio, basso in acidita, profumo intenso.</div>
-          <div class="pprice">&euro; 18,00 <span>/ 750ml</span></div>
-          <div class="pact"><button class="padd">&#x1F6D2; Ordina</button><button class="pwish">&#x2665;</button></div>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pimg"><img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80" alt="Pomodori" loading="lazy"><div class="pbadge bio">BIO</div></div>
-        <div class="pbody">
-          <div class="pcat">Ortaggi di Stagione</div>
-          <div class="ptit">Pomodori San Marzano</div>
-          <div class="pdesc">Coltivati in pieno campo, con terreni ricchi di potassio. Dolci, carnosi, perfetti per il sugo.</div>
-          <div class="pprice">&euro; 3,50 <span>/ kg</span></div>
-          <div class="pact"><button class="padd">&#x1F6D2; Ordina</button><button class="pwish">&#x2665;</button></div>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pimg"><img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?auto=format&fit=crop&w=600&q=80" alt="Vino" loading="lazy"><div class="pbadge km0">Km0</div></div>
-        <div class="pbody">
-          <div class="pcat">Vino Artigianale</div>
-          <div class="ptit">Cesanese del Piglio DOC</div>
-          <div class="pdesc">Vino rosso robusto dei Castelli Romani, vinificato in cantina propria. 12,5% vol.</div>
-          <div class="pprice">&euro; 9,50 <span>/ bottiglia</span></div>
-          <div class="pact"><button class="padd">&#x1F6D2; Ordina</button><button class="pwish">&#x2665;</button></div>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pimg"><img src="https://images.unsplash.com/photo-1571194786134-f1e9c79897e5?auto=format&fit=crop&w=600&q=80" alt="Formaggi" loading="lazy"><div class="pbadge bio">BIO</div></div>
-        <div class="pbody">
-          <div class="pcat">Formaggi &amp; Latticini</div>
-          <div class="ptit">Pecorino Romano Stagionato</div>
-          <div class="pdesc">Prodotto con latte delle nostre pecore al pascolo. Stagionatura minima 8 mesi in cantina naturale.</div>
-          <div class="pprice">&euro; 22,00 <span>/ kg</span></div>
-          <div class="pact"><button class="padd">&#x1F6D2; Ordina</button><button class="pwish">&#x2665;</button></div>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pimg"><img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=600&q=80" alt="Miele" loading="lazy"><div class="pbadge bio">BIO</div></div>
-        <div class="pbody">
-          <div class="pcat">Apicoltura</div>
-          <div class="ptit">Miele Millefiori dei Monti</div>
-          <div class="pdesc">Raccolto dalle nostre 60 arnie posizionate a 600m slm. Grezzo, non pastorizzato, aromatico.</div>
-          <div class="pprice">&euro; 12,00 <span>/ 500g</span></div>
-          <div class="pact"><button class="padd">&#x1F6D2; Ordina</button><button class="pwish">&#x2665;</button></div>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pimg"><img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80" alt="Patate" loading="lazy"><div class="pbadge km0">Km0</div></div>
-        <div class="pbody">
-          <div class="pcat">Cesti &amp; Box</div>
-          <div class="ptit">Box Stagionale Bio</div>
-          <div class="pdesc">8-10 prodotti di stagione scelti ogni settimana. Consegna a domicilio nel raggio di 30 km.</div>
-          <div class="pprice">&euro; 28,00 <span>/ box</span></div>
-          <div class="pact"><button class="padd">&#x1F6D2; Abbonati</button><button class="pwish">&#x2665;</button></div>
-        </div>
-      </div>
-    </div>
+<div class="catbar">
+  <div class="catbar-in">
+    <a href="#sec-sementi" class="clink active">&#127807; Sementi</a>
+    <a href="#sec-fitosanitari" class="clink">&#129514; Fitosanitari</a>
+    <a href="#sec-concimi" class="clink">&#127988; Concimi</a>
+    <a href="#sec-mangimi" class="clink">&#128004; Mangimi</a>
+    <a href="#sec-attrezzature" class="clink">&#128296; Attrezzature</a>
+    <a href="#sec-irrigazione" class="clink">&#128167; Irrigazione</a>
+    <a href="#sec-piante" class="clink">&#127795; Piante &amp; Vivai</a>
+    <a href="#sec-zootecnia" class="clink">&#128010; Zootecnia</a>
+    <a href="#sec-substrati" class="clink">&#129529; Substrati</a>
+    <a href="#sec-giardinaggio" class="clink">&#127968; Giardinaggio</a>
   </div>
-</section>
+</div>
 
-<section class="stagioni" id="stagioni">
-  <div class="si">
-    <div class="sh sh-alt">
-      <div class="stag stag-alt">&#x1F4C5; Cosa raccogliamo</div>
-      <h2>Prodotti di Stagione</h2>
-      <p>I prodotti migliori sono quelli raccolti al momento giusto. Ecco cosa trovi nei nostri campi mese per mese.</p>
-    </div>
-    <div class="stage-grid">
-      <div class="stag-card">
-        <div class="icon">&#x1F33C;</div>
-        <h3>Primavera</h3>
-        <ul class="stag-list">
-          <li>Asparagi selvatici</li>
-          <li>Fave fresche</li>
-          <li>Piselli</li>
-          <li>Carciofi romaneschi</li>
-          <li>Lattuga &amp; Insalate</li>
-        </ul>
-        <a href="#contatti" class="stag-act">Ordina ora</a>
-      </div>
-      <div class="stag-card">
-        <div class="icon">&#x2600;&#xFE0F;</div>
-        <h3>Estate</h3>
-        <ul class="stag-list">
-          <li>Pomodori San Marzano</li>
-          <li>Zucchine &amp; Fiori</li>
-          <li>Melanzane</li>
-          <li>Peperoni</li>
-          <li>Pesche &amp; Albicocche</li>
-        </ul>
-        <a href="#contatti" class="stag-act">Ordina ora</a>
-      </div>
-      <div class="stag-card">
-        <div class="icon">&#x1F342;</div>
-        <h3>Autunno</h3>
-        <ul class="stag-list">
-          <li>Olive &amp; Olio EVO</li>
-          <li>Uva &amp; Vendemmia</li>
-          <li>Castagne</li>
-          <li>Funghi Porcini</li>
-          <li>Zucca &amp; Radicchio</li>
-        </ul>
-        <a href="#contatti" class="stag-act">Ordina ora</a>
-      </div>
-      <div class="stag-card">
-        <div class="icon">&#x2744;&#xFE0F;</div>
-        <h3>Inverno</h3>
-        <ul class="stag-list">
-          <li>Broccoli romaneschi</li>
-          <li>Cavolfiori</li>
-          <li>Arance &amp; Clementine</li>
-          <li>Pecorino stagionato</li>
-          <li>Miele &amp; Confetture</li>
-        </ul>
-        <a href="#contatti" class="stag-act">Ordina ora</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="agri" id="agriturismo">
-  <div class="agri-grid">
-    <div class="agri-img"></div>
-    <div class="agri-tx">
-      <div class="stag" style="margin-bottom:1rem">&#x1F3E1; Agriturismo</div>
-      <h2>Vivi l'esperienza<br>della campagna</h2>
-      <p>Vieni a trovarci in azienda. Offriamo pasti agrituristici con i nostri prodotti, visite guidate ai campi, raccolta partecipata e degustazioni di olio e vino.</p>
-      <div class="agri-feat">
-        <div class="afeat">
-          <div class="afeat-ic">&#x1F374;</div>
-          <div class="afeat-tx"><h4>Pranzo &amp; Cena Agrituristica</h4><p>Menu fisso con antipasti misti, pasta fatta in casa, secondi di carne nostrana e dolci della nonna. Da &euro; 28 p.p.</p></div>
-        </div>
-        <div class="afeat">
-          <div class="afeat-ic">&#x1F33E;</div>
-          <div class="afeat-tx"><h4>Visite Guidate</h4><p>Tour dei campi e della cantina con il nostro agronomo. Include degustazione di 3 vini e olio EVO.</p></div>
-        </div>
-        <div class="afeat">
-          <div class="afeat-ic">&#x1F477;</div>
-          <div class="afeat-tx"><h4>Raccolta Partecipata</h4><p>Vieni a raccogliere olive, uva o verdure direttamente in campo con la tua famiglia. Esperienze su prenotazione.</p></div>
-        </div>
-        <div class="afeat">
-          <div class="afeat-ic">&#x1F3D5;&#xFE0F;</div>
-          <div class="afeat-tx"><h4>Area Picnic &amp; Sosta</h4><p>Area verde attrezzata per picnic, disponibile nei weekend per gruppi fino a 30 persone. Ingresso libero.</p></div>
-        </div>
-      </div>
-      <a href="#contatti" class="agri-cta">&#x1F4C5; Prenota una Visita</a>
-    </div>
-  </div>
-</section>
-
-<!-- OFFERTE SPECIALI -->
-<section class="off-sec" id="offerte">
-  <div class="si">
-    <div class="sh">
-      <div class="stag">&#x1F3F7;&#xFE0F; Offerte Speciali</div>
-      <h2>Promozioni di Stagione</h2>
-      <p>Ogni settimana selezioniamo i prodotti migliori a prezzi speciali. Offerte limitate, ordina prima che finiscano!</p>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:2.5rem">
-      <div style="background:rgba(139,90,43,.12);border:1px solid rgba(139,90,43,.25);border-radius:12px;padding:.75rem 1.5rem;text-align:center">
-        <div style="font-size:.68rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em">Offerte valide fino a</div>
-        <div id="offerta-countdown" style="font-family:'Merriweather',serif;font-size:1.3rem;font-weight:700;color:var(--terra)">--:--:--</div>
-        <div style="font-size:.7rem;color:var(--dim)">domenica alle 23:59</div>
-      </div>
-    </div>
-    <div class="off-grid">
-      <div class="off-card">
-        <div class="off-top" style="--ot-bg:linear-gradient(135deg,#2D5016,#6BA94A)">&#x1FAD2;<div class="off-pct">-35%</div><div class="off-lim">&#x23F3; Ultimi 8 kg</div></div>
-        <div class="off-body">
-          <div class="off-tit">Olio EVO Moraiolo DOP &mdash; Formato Famiglia</div>
-          <div class="off-desc">Olio estratto a freddo, annata 2025. Confezione da 3 litri per uso quotidiano in cucina.</div>
-          <div class="off-price"><span class="new">&euro; 38,00</span><span class="old">&euro; 58,50</span><span class="save">Risparmi &euro; 20,50</span></div>
-          <button class="off-btn" onclick="addToCart(this,'Olio EVO 3L')" >&#x1F6D2; Aggiungi al Carrello</button>
-        </div>
-      </div>
-      <div class="off-card">
-        <div class="off-top" style="--ot-bg:linear-gradient(135deg,#8B5A2B,#C4855A)">&#x1F9C0;<div class="off-pct">-20%</div><div class="off-lim">&#x23F3; Disponibile</div></div>
-        <div class="off-body">
-          <div class="off-tit">Pecorino Stagionato 12 Mesi</div>
-          <div class="off-desc">Stagionatura extra-lunga, pasta dura e compatta, gusto intenso e piccante. Perfetto da tavola.</div>
-          <div class="off-price"><span class="new">&euro; 17,60</span><span class="old">&euro; 22,00</span><span class="save">Risparmi &euro; 4,40</span></div>
-          <button class="off-btn" onclick="addToCart(this,'Pecorino 12M')" >&#x1F6D2; Aggiungi al Carrello</button>
-        </div>
-      </div>
-      <div class="off-card">
-        <div class="off-top" style="--ot-bg:linear-gradient(135deg,#6BA94A,#A3D96E)">&#x1F95D;<div class="off-pct">-30%</div><div class="off-lim">&#x23F3; Ultimi 20 kg</div></div>
-        <div class="off-body">
-          <div class="off-tit">Box Frutta Mista Kg 5</div>
-          <div class="off-desc">Selezione mista di frutta di stagione: uva, fichi, prugne e mele. Raccolta della settimana.</div>
-          <div class="off-price"><span class="new">&euro; 8,40</span><span class="old">&euro; 12,00</span><span class="save">Risparmi &euro; 3,60</span></div>
-          <button class="off-btn" onclick="addToCart(this,'Box Frutta 5kg')" >&#x1F6D2; Aggiungi al Carrello</button>
-        </div>
-      </div>
-      <div class="off-card">
-        <div class="off-top" style="--ot-bg:linear-gradient(135deg,#4A7C2F,#8B9E5A)">&#x1F372;<div class="off-pct">Box</div><div class="off-lim">Consegna inclusa</div></div>
-        <div class="off-body">
-          <div class="off-tit">Box Settimanale Autunnale</div>
-          <div class="off-desc">Box completo: olio, miele, 2 tipi di formaggio, verdure di stagione e 1 bottiglia di vino. Consegna gratuita.</div>
-          <div class="off-price"><span class="new">&euro; 52,00</span><span class="old">&euro; 68,00</span><span class="save">Risparmi &euro; 16,00</span></div>
-          <button class="off-btn" onclick="addToCart(this,'Box Autunnale')" >&#x1F6D2; Aggiungi al Carrello</button>
-        </div>
-      </div>
-    </div>
-    <div id="cart-toast" style="margin-top:1.5rem;display:none;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:1rem 1.5rem;text-align:center;font-size:.88rem;font-weight:700;color:var(--verde)"></div>
-  </div>
-</section>
-
-<!-- PREORDINI -->
-<section class="pre-sec" id="preordini">
-  <div class="pre-grid">
-    <div class="pre-tx">
-      <div class="stag">&#x1F4E6; Preordini</div>
-      <h2>Prenota il raccolto<br><em>prima che arrivi.</em></h2>
-      <p>Vuoi garantirti i nostri prodotti prima della stagione di raccolta? Con il preordine blocchi la quantita che vuoi a prezzo bloccato. Paghi al ritiro, non c'e alcun anticipo.</p>
-      <div class="pre-why">
-        <div class="pwhy"><div class="pwhy-ic">&#x1F512;</div><span>Prezzo bloccato al momento del preordine</span></div>
-        <div class="pwhy"><div class="pwhy-ic">&#x1F4B3;</div><span>Nessun anticipo &mdash; paghi al ritiro o alla consegna</span></div>
-        <div class="pwhy"><div class="pwhy-ic">&#x1F4AC;</div><span>Ti avvisiamo su WhatsApp quando il prodotto e pronto</span></div>
-        <div class="pwhy"><div class="pwhy-ic">&#x1F69A;</div><span>Consegna a domicilio disponibile (entro 30 km)</span></div>
-        <div class="pwhy"><div class="pwhy-ic">&#x274C;</div><span>Cancellazione gratuita fino a 48h dalla raccolta</span></div>
-      </div>
-    </div>
-    <div class="pre-form">
-      <div class="pf-title">&#x1F4CB; Nuovo Preordine</div>
-      <div class="pf-row"><label>Prodotto da preordinare</label>
-        <select id="pf-prod">
-          <option value="olio">Olio EVO Moraiolo DOP &mdash; &euro; 18/750ml</option>
-          <option value="vino">Cesanese del Piglio DOC &mdash; &euro; 9,50/btg</option>
-          <option value="pecorino">Pecorino Romano Stagionato &mdash; &euro; 22/kg</option>
-          <option value="miele">Miele Millefiori dei Monti &mdash; &euro; 12/500g</option>
-          <option value="pomodori">Pomodori San Marzano (Conserva) &mdash; &euro; 4/kg</option>
-          <option value="box">Box Settimanale Personalizzato &mdash; &euro; 28+</option>
-        </select>
-      </div>
-      <div class="pf-2">
-        <div class="pf-row"><label>Quantita</label>
-          <div class="prod-counter">
-            <button onclick="changeQty(-1)">&#x2212;</button>
-            <input type="number" id="pf-qty" value="2" min="1" max="50">
-            <button onclick="changeQty(1)">&#x2B;</button>
-          </div>
-        </div>
-        <div class="pf-row"><label>Settimana di ritiro</label>
-          <select id="pf-week">
-            <option>Sett. 22-28 Set 2026</option>
-            <option>Sett. 29 Set &ndash; 5 Ott</option>
-            <option>Sett. 6-12 Ott 2026</option>
-            <option>Sett. 13-19 Ott 2026</option>
-            <option>Sett. 20-26 Ott 2026</option>
-            <option>Sett. 3-9 Nov 2026 (Raccolta Olive)</option>
-          </select>
-        </div>
-      </div>
-      <div class="pf-row"><label>Modalita</label>
-        <select id="pf-mode">
-          <option>&#x1F3E0; Ritiro in azienda (gratuito)</option>
-          <option>&#x1F69A; Consegna a domicilio (entro 30 km &mdash; &euro; 5)</option>
-          <option>&#x1F6D2; Spedizione courier (&euro; 12)</option>
-        </select>
-      </div>
-      <div class="pf-2">
-        <div class="pf-row"><label>Nome e Cognome</label><input type="text" id="pf-nome" placeholder="Mario Rossi"></div>
-        <div class="pf-row"><label>WhatsApp / Tel</label><input type="tel" id="pf-tel" placeholder="+39 333 000 0000"></div>
-      </div>
-      <div class="pf-row"><label>Note (es. allergie, preferenze di stagionatura...)</label><textarea id="pf-note" rows="2" placeholder="Es: pecorino non troppo piccante, olio da 3 bottiglie..."></textarea></div>
-      <button class="pf-btn" id="pf-submit" onclick="submitPreordine()">&#x1F4E4; Conferma Preordine &mdash; Nessun Anticipo</button>
-      <p style="font-size:.7rem;color:rgba(255,255,255,.45);text-align:center;margin-top:.75rem">Riceverai conferma su WhatsApp entro 24h. Pagamento al ritiro o alla consegna.</p>
-    </div>
-  </div>
-</section>
-
-<section class="contatti" id="contatti">
-  <div class="si">
-    <div class="sh">
-      <div class="stag">&#x1F4CD; Dove Siamo</div>
-      <h2>Vienici a Trovare</h2>
-      <p>Siamo in aperta campagna nel cuore del Lazio. Aperto al pubblico il sabato e la domenica, o su appuntamento.</p>
-    </div>
-  </div>
-  <div class="cg">
+<section class="hero" id="hero">
+  <div class="hbg2"></div>
+  <div class="hov"></div>
+  <div class="hcon">
     <div>
-      <div class="cblock"><div class="cic">&#x1F4CD;</div><div class="cbl"><h4>Indirizzo</h4><p>Strada Vicinale del Casale, 5 &mdash; Palestrina (RM) 00036</p></div></div>
-      <div class="cblock"><div class="cic">&#x1F4DE;</div><div class="cbl"><h4>Telefono</h4><p><a href="tel:0695123456">06 95 12 34 56</a></p></div></div>
-      <div class="cblock"><div class="cic">&#x1F4AC;</div><div class="cbl"><h4>WhatsApp</h4><p><a href="#">Ordina su WhatsApp</a></p></div></div>
-      <div class="cblock"><div class="cic">&#x23F0;</div><div class="cbl"><h4>Apertura al Pubblico</h4><p>Sabato e Domenica: 09:00 &ndash; 18:00<br>Infrasettimanale su appuntamento</p></div></div>
-      <div class="fmap">&#x1F30D;<p>Palestrina (RM)</p></div>
+      <div class="hbadge">&#9989; Fornitore Professionale &middot; Privati e Aziende &middot; dal 1998</div>
+      <h2>Il tuo Agristore<em>di fiducia.</em></h2>
+      <p>Sementi, fitosanitari, concimi, mangimi, attrezzature e tutto il necessario per agricoltura, allevamento e giardinaggio. Personale esperto per ogni esigenza.</p>
+      <div class="hbtns">
+        <a href="#catalogo" class="hb1">&#128218; Sfoglia il Catalogo</a>
+        <a href="#aziende" class="hb2">&#127970; Sei un'Azienda?</a>
+      </div>
     </div>
-    <div class="form-card">
-      <h3>&#x1F4E9; Richiedi Informazioni</h3>
-      <div class="form-row"><label>Nome e Cognome</label><input type="text" placeholder="Mario Rossi"></div>
-      <div class="form-row"><label>Email</label><input type="email" placeholder="mario@email.it"></div>
-      <div class="form-row"><label>Telefono</label><input type="tel" placeholder="+39 333 000 0000"></div>
-      <div class="form-row"><label>Cosa ti interessa?</label>
+    <div class="hstats">
+      <div class="hstat"><div class="n">700+</div><div class="l">Clienti aziende</div></div>
+      <div class="hstat"><div class="n">5.000+</div><div class="l">Referenze a catalogo</div></div>
+      <div class="hstat"><div class="n">25+</div><div class="l">Anni di esperienza</div></div>
+      <div class="hstat"><div class="n">Lazio</div><div class="l">Consegne in tutta la regione</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="catsec" id="catalogo">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#128218; Catalogo Prodotti</div>
+      <h2>Tutto per l'Agricoltura e il Giardinaggio</h2>
+      <p>Dai sementi professionali agli attrezzi, dai fitosanitari ai mangimi. Prodotti per privati e professionisti del settore.</p>
+    </div>
+    <div class="cattabs" role="tablist">
+      <button class="tbtn active" onclick="swTab('tutti')" id="tb-tutti">&#10003; Tutti</button>
+      <button class="tbtn" onclick="swTab('sementi')" id="tb-sementi">&#127807; Sementi</button>
+      <button class="tbtn" onclick="swTab('fito')" id="tb-fito">&#129514; Fitosanitari</button>
+      <button class="tbtn" onclick="swTab('concimi')" id="tb-concimi">&#127988; Concimi</button>
+      <button class="tbtn" onclick="swTab('mangimi')" id="tb-mangimi">&#128004; Mangimi</button>
+      <button class="tbtn" onclick="swTab('attrez')" id="tb-attrez">&#128296; Attrezzature</button>
+      <button class="tbtn" onclick="swTab('irrig')" id="tb-irrig">&#128167; Irrigazione</button>
+      <button class="tbtn" onclick="swTab('piante')" id="tb-piante">&#127795; Piante</button>
+      <button class="tbtn" onclick="swTab('substrati')" id="tb-substrati">&#129529; Substrati</button>
+      <button class="tbtn" onclick="swTab('giard')" id="tb-giard">&#128119; Giardinaggio</button>
+    </div>
+    <div class="cpanel active" id="cp-tutti"><div class="pg" id="gd-tutti"></div></div>
+    <div class="cpanel" id="cp-sementi"><div class="pg" id="gd-sementi"></div></div>
+    <div class="cpanel" id="cp-fito"><div class="pg" id="gd-fito"></div></div>
+    <div class="cpanel" id="cp-concimi"><div class="pg" id="gd-concimi"></div></div>
+    <div class="cpanel" id="cp-mangimi"><div class="pg" id="gd-mangimi"></div></div>
+    <div class="cpanel" id="cp-attrez"><div class="pg" id="gd-attrez"></div></div>
+    <div class="cpanel" id="cp-irrig"><div class="pg" id="gd-irrig"></div></div>
+    <div class="cpanel" id="cp-piante"><div class="pg" id="gd-piante"></div></div>
+    <div class="cpanel" id="cp-substrati"><div class="pg" id="gd-substrati"></div></div>
+    <div class="cpanel" id="cp-giard"><div class="pg" id="gd-giard"></div></div>
+  </div>
+</section>
+
+<section class="offsec" id="offerte">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#127991; Promo Settimana</div>
+      <h2>Offerte in Corso</h2>
+      <p>Selezione di prodotti a prezzi scontati ogni settimana. Valide fino a domenica.</p>
+    </div>
+    <div class="offhdr">
+      <div class="ofl">
+        <button class="ofb active" onclick="filtOff('tutti',this)">Tutti</button>
+        <button class="ofb" onclick="filtOff('sementi',this)">Sementi</button>
+        <button class="ofb" onclick="filtOff('fito',this)">Fitosanitari</button>
+        <button class="ofb" onclick="filtOff('concimi',this)">Concimi</button>
+        <button class="ofb" onclick="filtOff('mangimi',this)">Mangimi</button>
+        <button class="ofb" onclick="filtOff('attrez',this)">Attrezzature</button>
+        <button class="ofb" onclick="filtOff('giard',this)">Giardinaggio</button>
+      </div>
+      <div class="cdb">
+        <div class="cdl">Scade domenica alle</div>
+        <div class="cdt" id="countdown">--:--:--</div>
+        <div class="cds">ore 23:59 &middot; salvo esaurimento</div>
+      </div>
+    </div>
+    <div class="offgrd" id="offgrd"></div>
+    <div class="crtst" id="crtst"></div>
+  </div>
+</section>
+
+<section class="servsec" id="servizi">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#9881;&#65039; I Nostri Servizi</div>
+      <h2>Molto Più di un Negozio</h2>
+      <p>Offriamo consulenza tecnica, consegne, noleggio attrezzature e assistenza professionale.</p>
+    </div>
+    <div class="servgrd">
+      <div class="srvc"><div class="srvc-ico" style="background:rgba(72,162,58,.12)">&#128209;</div><h3>Consulenza Tecnica Gratuita</h3><p>Agronomi e tecnici specializzati a disposizione per scegliere il prodotto giusto per il tuo terreno e la tua coltura.</p><a href="#contatti" class="srvc-lnk">Prenota consulenza &#8594;</a></div>
+      <div class="srvc"><div class="srvc-ico" style="background:rgba(230,126,0,.12)">&#128666;</div><h3>Consegna a Domicilio</h3><p>Consegniamo su tutto il Lazio. Ordini minimi ridotti per privati, condizioni dedicate per aziende agricole.</p><a href="#aziende" class="srvc-lnk">Info consegne &#8594;</a></div>
+      <div class="srvc"><div class="srvc-ico" style="background:rgba(147,51,234,.1)">&#128295;</div><h3>Noleggio Attrezzature</h3><p>Motozappe, irroratrici, tosaerba professionali, motoseghe. Noleggio giornaliero e settimanale.</p><a href="#contatti" class="srvc-lnk">Verifica disponibilit&agrave; &#8594;</a></div>
+      <div class="srvc"><div class="srvc-ico" style="background:rgba(30,77,0,.1)">&#128204;</div><h3>Analisi del Terreno</h3><p>Servizio di analisi fisico-chimica del suolo con relazione tecnica e piano di concimazione personalizzato.</p><a href="#contatti" class="srvc-lnk">Richiedi analisi &#8594;</a></div>
+      <div class="srvc"><div class="srvc-ico" style="background:rgba(72,162,58,.12)">&#128218;</div><h3>Catalogo su Misura</h3><p>Per le aziende agricole creiamo offerte dedicate con prezzi riservati e condizioni di pagamento su accordo.</p><a href="#aziende" class="srvc-lnk">Scopri le convenzioni &#8594;</a></div>
+      <div class="srvc"><div class="srvc-ico" style="background:rgba(230,126,0,.12)">&#128267;</div><h3>Servizio Fitosanitario</h3><p>Dottori agronomi abilitati per la consulenza e la vendita di prodotti fitosanitari a uso professionale.</p><a href="#contatti" class="srvc-lnk">Contatta lo specialista &#8594;</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="cltsec" id="aziende">
+  <div class="cltgrd">
+    <div class="cltx">
+      <div class="stag">&#127970; Servizio Aziende</div>
+      <h2>Sei un'azienda agricola o un professionista?</h2>
+      <p>Offriamo condizioni speciali, listini personalizzati, consegne programmate e supporto tecnico dedicato alle aziende agricole, agromeccaniche, vivai e cooperative.</p>
+      <div class="cltbl">
+        <div class="cltb"><div class="ico">&#128181;</div><h4>Prezzi Riservati</h4><p>Listini dedicati per grandi quantitativi e clienti fidelizzati</p></div>
+        <div class="cltb"><div class="ico">&#128666;</div><h4>Consegne Programmate</h4><p>Pianifica le forniture settimanali o mensili</p></div>
+        <div class="cltb"><div class="ico">&#128203;</div><h4>Conto Aperto</h4><p>Pagamenti dilazionati e fatturazione mensile</p></div>
+        <div class="cltb"><div class="ico">&#128222;</div><h4>Referente Dedicato</h4><p>Un tecnico commerciale sempre a disposizione</p></div>
+      </div>
+    </div>
+    <div class="cltform">
+      <div class="cltfti">&#128203; Richiedi Preventivo Azienda</div>
+      <div class="pfr"><label>Ragione Sociale / Nome</label><input type="text" placeholder="Az. Agr. Rossi srl"></div>
+      <div class="pfr"><label>Settore</label>
         <select>
-          <option>Acquisto prodotti</option>
-          <option>Abbonamento Box Settimanale</option>
-          <option>Visita agrituristica</option>
-          <option>Raccolta partecipata</option>
-          <option>Fornitura ristoranti / negozi</option>
+          <option>Azienda agricola / vitivinicola</option>
+          <option>Agrimeccanica / contoterzismo</option>
+          <option>Vivaio / florovivaismo</option>
+          <option>Allevamento / zootecnia</option>
+          <option>Cooperativa agricola</option>
+          <option>Comune / ente pubblico</option>
+          <option>Privato professionista</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <div class="pfr"><label>Telefono / WhatsApp</label><input type="tel" placeholder="+39 333 000 0000"></div>
+        <div class="pfr"><label>Email</label><input type="email" placeholder="info@azienda.it"></div>
+      </div>
+      <div class="pfr"><label>Prodotti / Categorie di Interesse</label>
+        <select>
+          <option>Sementi professionali</option>
+          <option>Fitosanitari uso professionale</option>
+          <option>Concimi e ammendanti</option>
+          <option>Mangimi e integratori zootecnici</option>
+          <option>Attrezzature e macchine</option>
+          <option>Irrigazione e impianti</option>
+          <option>Pi&ugrave; categorie (specificare nelle note)</option>
+        </select>
+      </div>
+      <div class="pfr"><label>Note o Quantitativi Indicativi</label><textarea rows="2" placeholder="Es: 500 kg sementi mais, consegna mensile..."></textarea></div>
+      <button class="pfbtn" onclick="subAz(this)">&#128228; Invia Richiesta &mdash; Risposta entro 24h</button>
+    </div>
+  </div>
+</section>
+
+<section class="cont" id="contatti">
+  <div class="si">
+    <div class="sh">
+      <div class="stag">&#128205; Trovaci</div>
+      <h2>Siamo a Palestrina (RM)</h2>
+      <p>Aperto dal luned&igrave; al sabato. Personale esperto a tua disposizione.</p>
+    </div>
+  </div>
+  <div class="cg" style="max-width:1300px;margin:0 auto;padding:0 1.5rem">
+    <div>
+      <div class="cbl"><div class="cic">&#128205;</div><div class="cbt"><h4>Indirizzo</h4><p>Via Labicana, 128 &mdash; Palestrina (RM) 00036</p></div></div>
+      <div class="cbl"><div class="cic">&#128222;</div><div class="cbt"><h4>Telefono</h4><p><a href="tel:0695123456">06 95 12 34 56</a></p></div></div>
+      <div class="cbl"><div class="cic">&#128172;</div><div class="cbt"><h4>WhatsApp</h4><p><a href="#">Scrivi su WhatsApp</a></p></div></div>
+      <div class="cbl"><div class="cic">&#9200;</div><div class="cbt"><h4>Orari</h4><p>Lun&ndash;Ven: 08:30&ndash;13:00 / 15:00&ndash;18:30<br>Sab: 08:30&ndash;13:00 &middot; Dom: chiuso</p></div></div>
+      <div class="fmap" onclick="window.open('https://maps.google.com?q=Palestrina+RM','_blank')"><span style="font-size:2.5rem">&#128506;</span><p>Palestrina (RM) &mdash; Apri in Maps</p></div>
+    </div>
+    <div class="fcrd">
+      <h3>&#128233; Richiedi Informazioni</h3>
+      <div class="fr"><label>Nome / Ragione Sociale</label><input type="text" placeholder="Mario Rossi"></div>
+      <div class="fr"><label>Telefono</label><input type="tel" placeholder="+39 333 000 0000"></div>
+      <div class="fr"><label>Email</label><input type="email" placeholder="mario@email.it"></div>
+      <div class="fr"><label>Argomento</label>
+        <select>
+          <option>Informazioni prodotto</option>
+          <option>Preventivo azienda</option>
+          <option>Consulenza tecnica</option>
+          <option>Noleggio attrezzature</option>
+          <option>Analisi del terreno</option>
+          <option>Ordine e consegna</option>
           <option>Altro</option>
         </select>
       </div>
-      <div class="form-row"><label>Messaggio</label><textarea placeholder="Scrivi qui la tua richiesta..."></textarea></div>
-      <button class="form-btn" onclick="this.textContent='&#x2705; Inviato! Ti contattiamo presto.'">&#x1F4E4; Invia Richiesta</button>
+      <div class="fr"><label>Messaggio</label><textarea placeholder="Descrivi la tua richiesta..."></textarea></div>
+      <button class="fbtn" onclick="this.textContent='&#10003; Inviato! Ti risponderemo presto.'">&#128228; Invia Richiesta</button>
     </div>
   </div>
 </section>
+
 <footer>
-  <p><strong>Azienda Agricola Terra Viva</strong> &mdash; Palestrina (RM) &middot; P.IVA 00000000000 &middot; Cert. Bio IT-BIO-XXX<br>
-  <small>&#x26A0;&#xFE0F; Sito dimostrativo &mdash; dati fittizi &middot; <a href="../index.html">Torna allo showroom</a></small></p>
+  <div class="fgrd">
+    <div class="fcol"><h4>AgriShop</h4><ul><li><a href="#catalogo">Catalogo</a></li><li><a href="#offerte">Offerte</a></li><li><a href="#servizi">Servizi</a></li><li><a href="#aziende">Area Aziende</a></li></ul></div>
+    <div class="fcol"><h4>Prodotti</h4><ul><li><a href="#catalogo">Sementi &amp; Fitosanitari</a></li><li><a href="#catalogo">Concimi &amp; Substrati</a></li><li><a href="#catalogo">Mangimi &amp; Zootecnia</a></li><li><a href="#catalogo">Attrezzature</a></li></ul></div>
+    <div class="fcol"><h4>Servizi</h4><ul><li><a href="#servizi">Consulenza Tecnica</a></li><li><a href="#servizi">Consegna Domicilio</a></li><li><a href="#servizi">Noleggio Attrezzature</a></li><li><a href="#servizi">Analisi del Terreno</a></li></ul></div>
+    <div class="fcol"><h4>Contatti</h4><ul><li><a href="tel:0695123456">&#128222; 06 95 12 34 56</a></li><li><a href="#">&#128172; WhatsApp</a></li><li><a href="#">&#128231; info@agrishop.it</a></li><li><a href="#">&#128205; Palestrina (RM)</a></li></ul></div>
+  </div>
+  <div class="fbot"><p><strong>AgriShop &mdash; Forniture per l'Agricoltura</strong> &middot; Palestrina (RM) &middot; P.IVA 00000000000</p><p style="margin-top:.4rem"><small>&#9888;&#65039; Sito dimostrativo &mdash; dati fittizi &middot; <a href="../index.html">Torna allo showroom</a></small></p></div>
 </footer>
+
+<div class="mobbar">
+  <a href="tel:0695123456" class="mobcall">&#128222; Chiama</a>
+  <a href="#" class="mobwa">&#128172; WhatsApp</a>
+  <a href="#catalogo" class="mobord">&#128218; Catalogo</a>
+</div>
 <script>
-// Countdown offerte (fino a domenica prossima 23:59)
-function updateCountdown(){
-  var now=new Date();
-  var sun=new Date(now);
-  var d=now.getDay();
-  var dToSun=d===0?7:7-d;
-  sun.setDate(now.getDate()+dToSun);
-  sun.setHours(23,59,59,0);
-  var diff=sun-now;
-  if(diff<0){sun.setDate(sun.getDate()+7);diff=sun-now;}
-  var h=Math.floor(diff/3600000);
-  var m=Math.floor((diff%3600000)/60000);
-  var s=Math.floor((diff%60000)/1000);
-  var el=document.getElementById('offerta-countdown');
+var CAT={
+  sementi:{label:'Sementi',items:[
+    {n:'Sementi Pomodoro San Marzano',d:'Sementi selezionate per uso professionale. Germinazione >95%. Conf. 10g, 100g, 1kg.',p:'Da &euro; 4,50',b:['priv','pro'],em:'&#127807;'},
+    {n:'Mais Ibrido Precoce (FAO 300)',d:'Ibrido ad alta resa, resistente alla siccita. Per insilato e granella. Kg 50.',p:'Da &euro; 38,00 / 50kg',b:['pro'],em:'&#127807;'},
+    {n:'Frumento Tenero da Seme',d:'Variet&agrave; certificate per semina autunnale. Sacchi da 25 e 50 kg.',p:'Da &euro; 22,00 / 25kg',b:['pro'],em:'&#127807;'},
+    {n:'Mix Prato Ornamentale',d:'Miscuglio di graminacee e leguminose per tappeti erbosi. Kg 1, 5, 25.',p:'Da &euro; 6,50 / kg',b:['priv','pro'],em:'&#127807;'},
+    {n:'Sementi Ortaggi Misti (25 var.)',d:'Kit sementi per orto hobbistico: pomodori, peperoni, zucchine, basilico e altro.',p:'&euro; 9,90',b:['priv','new'],em:'&#127807;'},
+    {n:'Erba Medica (Alfa-alfa)',d:'Per foraggiere. Alta resa proteica. Sacchi da 20 kg. Inoculante incluso.',p:'&euro; 45,00 / 20kg',b:['pro'],em:'&#127807;'}
+  ]},
+  fito:{label:'Fitosanitari',items:[
+    {n:'Insetticida a Base di Piretro',d:'Insetticida naturale, a basso impatto, ammesso in agricoltura biologica. 1L.',p:'&euro; 18,50 / L',b:['priv','pro'],em:'&#129514;'},
+    {n:'Fungicida Rameico (Poltiglia Bordel.)',d:'Trattamento preventivo e curativo contro peronospora e ticchiolatura. 1Kg.',p:'&euro; 12,00 / Kg',b:['priv','pro'],em:'&#129514;'},
+    {n:'Erbicida Selettivo per Graminacee',d:'Uso professionale. Eliminazione malerbe infestanti in cereali. 5L.',p:'&euro; 42,00 / 5L',b:['pro'],em:'&#129514;'},
+    {n:'Zolfo Bagnabile 80% (1 Kg)',d:'Acaricida e antioidico per vite, orticole e piante ornamentali.',p:'&euro; 5,80 / Kg',b:['priv','pro'],em:'&#129514;'},
+    {n:'Nematocida Biologico (Nemaverde)',d:'Nematodi Steinernema carpocapsae per lotta biologica al punteruolo.',p:'&euro; 24,00',b:['priv','new'],em:'&#129514;'},
+    {n:'Kit Protezione Vite (Stagione)',d:'Pacchetto completo: 3 fungicidi + 2 insetticidi per una stagione di trattamenti.',p:'&euro; 95,00',b:['pro','promo'],em:'&#129514;'}
+  ]},
+  concimi:{label:'Concimi',items:[
+    {n:'Concime Granulare NPK 15-15-15',d:'Uso universale. Adatto per orticole, cereali e prati. Sacchi da 25 kg.',p:'&euro; 28,00 / 25Kg',b:['priv','pro'],em:'&#127988;'},
+    {n:'Urea Agricola 46% Azoto',d:'Concime azotato ad alta concentrazione. Sacchi da 25 e 50 kg.',p:'Da &euro; 24,00 / 25Kg',b:['pro'],em:'&#127988;'},
+    {n:'Letame Bovino Pellettato Bio',d:'Ammendante organico biologico. Rilascio lento. Sacchi da 20 e 50 L.',p:'Da &euro; 8,00',b:['priv','pro'],em:'&#127988;'},
+    {n:'Concime Fogliare Potenziato',d:'Mix di macro e microelementi chelati. Ideale per fasi critiche di crescita.',p:'&euro; 19,50 / L',b:['priv','pro'],em:'&#127988;'},
+    {n:'Solfato di Potassio',d:'Concime potassico solubile. Adatto a colture sensibili al cloro. 25 kg.',p:'&euro; 34,00 / 25Kg',b:['pro'],em:'&#127988;'},
+    {n:'Biostimolante a base di Alghe',d:'Estratto di Ascophyllum nodosum. Aumenta resistenza a stress e resa.',p:'&euro; 22,00 / L',b:['priv','pro','new'],em:'&#127988;'}
+  ]},
+  mangimi:{label:'Mangimi',items:[
+    {n:'Mangime Completo Bovini (sacco 30kg)',d:'Formula bilanciata per vacche da latte e bovini all\'ingrasso. Sacchi da 30 kg.',p:'&euro; 22,00 / sacco',b:['pro'],em:'&#128004;'},
+    {n:'Mangime Polli e Galline (sfuso/kg)',d:'Miscela completa per galline ovaiole. Mais, soia, minerali. Anche confezionato.',p:'Da &euro; 0,90 / kg',b:['priv','pro'],em:'&#128004;'},
+    {n:'Mangime Conigli Allevamento',d:'Granulato completo per conigli da carne e riproduttori. Sacco 25 kg.',p:'&euro; 18,50 / 25kg',b:['priv','pro'],em:'&#128004;'},
+    {n:'Fieno di Erba Medica (balle)',d:'Fieno di prima qualit&agrave; per erbivori. Balle da 15-20 kg.',p:'&euro; 9,00 / balla',b:['priv','pro'],em:'&#128004;'},
+    {n:'Integratore Minerale Vitaminico',d:'Premix per suini, bovini e ovicaprini. Migliora accrescimento e fertilit&agrave;.',p:'Da &euro; 35,00 / sacco',b:['pro'],em:'&#128004;'},
+    {n:'Mangime Equini Prestazione',d:'Miscela per cavalli sportivi con avena, orzo e integratori articolari.',p:'&euro; 28,00 / 20kg',b:['priv'],em:'&#128004;'}
+  ]},
+  attrez:{label:'Attrezzature',items:[
+    {n:'Motozappa a Benzina 5,5 CV',d:'Fresia robusta per piccoli e medi appezzamenti. Larghezza lavoro 60 cm.',p:'&euro; 420,00',b:['priv','pro'],em:'&#128296;'},
+    {n:'Irroratrice a Spalla 16L',d:'Pompa a pressione manuale per trattamenti fitosanitari. Getto regolabile.',p:'&euro; 38,00',b:['priv'],em:'&#128296;'},
+    {n:'Irroratrice Carrellata 100L (motore)',d:'Per uso professionale su vigneti e frutteti. Pompa a diaframma 3 vie.',p:'&euro; 890,00',b:['pro'],em:'&#128296;'},
+    {n:'Motosega Professionale 50cc',d:'Per potatura e abbattimento piante fino a 40 cm di diametro. Asta 40cm.',p:'&euro; 350,00',b:['priv','pro'],em:'&#128296;'},
+    {n:'Tosaerba Semovente 53cm',d:'Motore 4T da 3.5 CV, passo regolabile, raccolta laterale e posteriore.',p:'&euro; 480,00',b:['priv'],em:'&#128296;'},
+    {n:'Attrezzatura Manuale (Set)',d:'Set completo: vanga, rastrello, zappa, forca, badile &mdash; manici in frassino.',p:'&euro; 78,00',b:['priv','new'],em:'&#128296;'}
+  ]},
+  irrig:{label:'Irrigazione',items:[
+    {n:'Kit Gocciolatura Orto 100m',d:'Tubo ali gocciolanti, raccordi e timer programmabile inclusi. Fai-da-te.',p:'&euro; 45,00',b:['priv','new'],em:'&#128167;'},
+    {n:'Impianto Microirrigazione Professionale',d:'Progettazione e installazione su misura per serre, vigneti e orti. Su preventivo.',p:'Su preventivo',b:['pro'],em:'&#128167;'},
+    {n:'Pompa Sommergibile 1 HP',d:'Portata 6.000 L/h. Per cisterne, pozzi e laghetti agricoli. Corpo inox.',p:'&euro; 185,00',b:['priv','pro'],em:'&#128167;'},
+    {n:'Tubo Manichetta 1" (50m)',d:'Tubo rinforzato in PVC alimentare. Resistente ai raggi UV. Raccordi inclusi.',p:'&euro; 28,00',b:['priv'],em:'&#128167;'},
+    {n:'Timer Irrigazione Digitale',d:'Programmatore per rubinetto da 1/2" a 1". 1-4 irrigazioni al giorno.',p:'&euro; 22,00',b:['priv','new'],em:'&#128167;'},
+    {n:'Cisterna PE 1000L (IBC)',d:'Contenitore in polietilene su pallet metallico. Adatto per acqua e fertilizzanti.',p:'&euro; 140,00',b:['priv','pro'],em:'&#128167;'}
+  ]},
+  piante:{label:'Piante',items:[
+    {n:'Piantine Ortaggi (vaschette)',d:'Pomodori, peperoni, melanzane, zucchine. Vaschette da 6 o 12 piante.',p:'Da &euro; 3,50 / vaschetta',b:['priv'],em:'&#127795;'},
+    {n:'Olivo da Impianto (2-3 anni)',d:'Variet&agrave; Leccino, Moraiolo e Frantoio. Radice in vaso, pronto per impianto.',p:'Da &euro; 18,00 / pianta',b:['priv','pro'],em:'&#127795;'},
+    {n:'Vite da Frutto (barbatella)',d:'Variet&agrave; da tavola e da vino: Sangiovese, Montepulciano, Trebbiano.',p:'Da &euro; 4,00 / barbatella',b:['pro'],em:'&#127795;'},
+    {n:'Piante Aromatiche (vaso 14)',d:'Rosmarino, basilico, salvia, menta, origano, timo. Vasi da 14 cm.',p:'&euro; 2,80 / pianta',b:['priv'],em:'&#127795;'},
+    {n:'Cipresso Sempreverde (vaso 24)',d:'Pianta da siepe o vialetto. H 80-100 cm. Radice in vaso.',p:'&euro; 14,00 / pianta',b:['priv'],em:'&#127795;'},
+    {n:'Bulbi Tulipani (conf. 10)',d:'Bulbi olandesi, calibro 12+. Variet&agrave; miste. Autunno-inverno.',p:'&euro; 6,50 / conf.',b:['priv','new'],em:'&#127795;'}
+  ]},
+  substrati:{label:'Substrati',items:[
+    {n:'Torba Bionda Sfagnata (70L)',d:'Substrato professionale a base di torba di sfagno. Bassa concimazione.',p:'&euro; 16,00',b:['priv','pro'],em:'&#129529;'},
+    {n:'Substrato Universale Bio (50L)',d:'Mix torba + compost biologico + perlite. Adatto a tutti gli ortaggi.',p:'&euro; 12,00',b:['priv'],em:'&#129529;'},
+    {n:'Perlite Grossa (10L)',d:'Migliora drenaggio e aerazione del substrato. Uso professionale e hobbistico.',p:'&euro; 7,50',b:['priv','pro'],em:'&#129529;'},
+    {n:'Argilla Espansa (45L)',d:'Per drenaggio, idroponica e copertura vasi. Neutra e riutilizzabile.',p:'&euro; 14,00',b:['priv'],em:'&#129529;'},
+    {n:'Fibra di Cocco Compresso (5Kg)',d:'Substrato alternativo alla torba. Si espande a 70L con acqua. 100% naturale.',p:'&euro; 18,00',b:['priv','new'],em:'&#129529;'},
+    {n:'Sabbia di Fiume Lavata (25Kg)',d:'Per alluvionamento, drenaggio e preparazione substrati speciali.',p:'&euro; 8,00',b:['priv','pro'],em:'&#129529;'}
+  ]},
+  giard:{label:'Giardinaggio',items:[
+    {n:'Cesoie da Potatura (Bypass)',d:'Lama in acciaio inox, molla di ritorno, impugnatura ergonomica. Prof.',p:'&euro; 24,00',b:['priv','pro'],em:'&#128119;'},
+    {n:'Sega da Potatura Giapponese',d:'Lama piegata per tagli precisi su rami fino a 15 cm. Fodera inclusa.',p:'&euro; 32,00',b:['priv'],em:'&#128119;'},
+    {n:'Pacciamatura TNT Nera (m2)',d:'Tessuto non tessuto 50g/m2 per controllo malerbe. Rotoli da 1.5x10m.',p:'&euro; 12,00 / rotolo',b:['priv','pro'],em:'&#128119;'},
+    {n:'Guanti da Giardinaggio (paio)',d:'In pelle bovina con rinforzo sul palmo. Taglia S, M, L, XL.',p:'&euro; 9,50',b:['priv'],em:'&#128119;'},
+    {n:'Trappola per Talpe (conf. 2)',d:'Trappola meccanica a molla senza veleni. Facile da posizionare.',p:'&euro; 14,00',b:['priv'],em:'&#128119;'},
+    {n:'Rastrello Foglie 24 denti',d:'Manico telescopico in alluminio 90-150cm. Denti in plastica rinforzata.',p:'&euro; 19,00',b:['priv'],em:'&#128119;'}
+  ]}
+};
+
+var OFFERS=[
+  {cat:'fito',em:'&#129514;',bg:'linear-gradient(135deg,#1A4A00,#3A8A00)',n:'Kit Antiparassitari Orto (5 prod.)',d:'Selezione completa per orto amatoriale: insetticida, fungicida, lumachicida, rame e zolfo.',op:'&euro; 48,00',np:'&euro; 35,00',sv:'&euro; 13,00',pct:'-27%',lim:'50 kit disponibili',cb:'Fitosanitari',cc:'#2A6A00'},
+  {cat:'concimi',em:'&#127988;',bg:'linear-gradient(135deg,#3A2B00,#8B6A00)',n:'NPK 15-15-15 da 50 kg',d:'Concime granulare universale. Prezzo speciale per sacco da 50 kg.',op:'&euro; 52,00',np:'&euro; 40,00',sv:'&euro; 12,00',pct:'-23%',lim:'Solo questa settimana',cb:'Concimi',cc:'#6B5000'},
+  {cat:'attrez',em:'&#128296;',bg:'linear-gradient(135deg,#1A1A3A,#3A3A8A)',n:'Motozappa 5.5cv + Accessori',d:'Motozappa + fresia supplementare + coltivatore inclusi. Prezzo promozionale.',op:'&euro; 520,00',np:'&euro; 398,00',sv:'&euro; 122,00',pct:'-23%',lim:'Ultimi 3 pezzi',cb:'Attrezzature',cc:'#3A3A7A'},
+  {cat:'sementi',em:'&#127807;',bg:'linear-gradient(135deg,#003A1A,#008A3A)',n:'Box Sementi Orto 30 Variet&agrave;',d:'Selezione di 30 variet&agrave; orticole per tutto l\'anno. Con guida alla semina.',op:'&euro; 28,00',np:'&euro; 19,90',sv:'&euro; 8,10',pct:'-29%',lim:'Edizione limitata',cb:'Sementi',cc:'#005A20'},
+  {cat:'irrig',em:'&#128167;',bg:'linear-gradient(135deg,#003A4A,#006A8A)',n:'Kit Gocciolatura 200m + Timer',d:'Sistema completo per orto medio. Timer digitale + tubo + raccordi + picchetti.',op:'&euro; 95,00',np:'&euro; 68,00',sv:'&euro; 27,00',pct:'-28%',lim:'Ultimi 10 kit',cb:'Irrigazione',cc:'#005070'},
+  {cat:'mangimi',em:'&#128004;',bg:'linear-gradient(135deg,#3A1A00,#8A4A00)',n:'Mangime Galline 25kg + Coccidiost.',d:'Sacco da 25kg con coccidiostatico incluso. Adatto a galline ovaiole.',op:'&euro; 26,00',np:'&euro; 19,50',sv:'&euro; 6,50',pct:'-25%',lim:'Offerta settimanale',cb:'Mangimi',cc:'#6A3000'},
+  {cat:'giard',em:'&#128119;',bg:'linear-gradient(135deg,#1A3A00,#4A8A00)',n:'Set Utensili Manuali 7 pz',d:'Vanga, rastrello, zappa, forca, badile, forcone e cesoie. Con borsa.',op:'&euro; 125,00',np:'&euro; 88,00',sv:'&euro; 37,00',pct:'-30%',lim:'Scorte limitate',cb:'Giardinaggio',cc:'#2A6000'}
+];
+
+var cart=[];
+var BDGM={priv:'Privati',pro:'Professionali','new':'Novit&agrave;',promo:'Promo'};
+var BDGcl={priv:'var(--g3)',pro:'var(--or)','new':'#9333EA',promo:'#DC2626'};
+
+function mkBdgs(b){return b.map(function(x){return'<span class="pbdg '+x+'">'+BDGM[x]+'</span>';}).join('');}
+
+function mkCard(item,label){
+  var img=item.img?'<img src="'+item.img+'" alt="'+item.n+'" loading="lazy">':'<div class="pim-em">'+item.em+'</div>';
+  return'<div class="pcard"><div class="pim">'+img+'<div class="pbdgs">'+mkBdgs(item.b)+'</div></div><div class="pbdy"><div class="pclbl">'+label+'</div><div class="ptit">'+item.n+'</div><div class="pdes">'+item.d+'</div><div class="pft"><div class="prgt"><div class="ppr">'+item.p+'</div></div><div style="display:flex;gap:.35rem"><button class="padd" onclick="addCat(this,\''+item.n+'\')">+ Richiedi</button><button class="pwish" onclick="togWish(this)">&#9825;</button></div></div></div></div>';
+}
+
+function buildCat(){
+  var all='';
+  Object.keys(CAT).forEach(function(k){
+    var c=CAT[k];
+    var html=c.items.map(function(it){return mkCard(it,c.label);}).join('');
+    document.getElementById('gd-'+k).innerHTML=html;
+    all+=html;
+  });
+  document.getElementById('gd-tutti').innerHTML=all;
+}
+
+function swTab(k){
+  document.querySelectorAll('.tbtn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('tb-'+k).classList.add('active');
+  document.querySelectorAll('.cpanel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('cp-'+k).classList.add('active');
+}
+
+function buildOffers(){
+  document.getElementById('offgrd').innerHTML=OFFERS.map(function(o,i){
+    return'<div class="ofc" data-cat="'+o.cat+'" id="of-'+i+'"><div class="oftp" style="background:'+o.bg+'">'+o.em+'<div class="ofpct">'+o.pct+'</div><div class="oflim">'+o.lim+'</div><div class="ofcbdg" style="background:'+o.cc+'">'+o.cb+'</div></div><div class="ofbd"><div class="ofti">'+o.n+'</div><div class="ofde">'+o.d+'</div><div class="ofpr"><span class="pnw">'+o.np+'</span><span class="pold">'+o.op+'</span><span class="psav">Risparmi '+o.sv+'</span></div><button class="ofbtn" onclick="addOff(this,\''+o.n+'\')">+ Richiedi Preventivo</button></div></div>';
+  }).join('');
+}
+
+function filtOff(cat,btn){
+  document.querySelectorAll('.ofb').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.ofc').forEach(function(c){
+    if(cat==='tutti'||c.dataset.cat===cat)c.classList.remove('hidden');
+    else c.classList.add('hidden');
+  });
+}
+
+function addOff(btn,name){
+  cart.push(name);updPill();
+  btn.textContent='&#10003; Aggiunto!';btn.style.background='#16a34a';
+  setTimeout(function(){btn.textContent='+ Richiedi Preventivo';btn.style.background='';},2000);
+  var t=document.getElementById('crtst');
+  t.style.display='block';
+  t.innerHTML='&#128722; <strong>'+cart.length+' prodott'+(cart.length>1?'i':'o')+'</strong> nella lista &nbsp;<a href="#contatti">&#8594; Richiedi preventivo</a>';
+  notif('&#10003; '+name+' aggiunto!');
+}
+
+function addCat(btn,name){
+  cart.push(name);updPill();
+  btn.textContent='&#10003;';btn.style.background='#16a34a';
+  setTimeout(function(){btn.textContent='+ Richiedi';btn.style.background='';},2000);
+  notif('&#10003; '+name+' aggiunto alla lista!');
+}
+
+function updPill(){
+  var p=document.getElementById('cpill');
+  document.getElementById('ccnt').textContent=cart.length;
+  if(cart.length>0)p.classList.add('vis');
+}
+
+function scrollRich(){document.getElementById('contatti').scrollIntoView({behavior:'smooth'});}
+
+function notif(msg){
+  var n=document.getElementById('notif');n.innerHTML=msg;n.style.display='block';
+  setTimeout(function(){n.style.display='none';},3000);
+}
+
+function togWish(btn){
+  btn.classList.toggle('active');
+  btn.innerHTML=btn.classList.contains('active')?'&#10084;':'&#9825;';
+}
+
+function updCD(){
+  var now=new Date(),sun=new Date(now),d=now.getDay();
+  sun.setDate(now.getDate()+(d===0?7:7-d));sun.setHours(23,59,59,0);
+  var diff=sun-now;if(diff<0){sun.setDate(sun.getDate()+7);diff=sun-now;}
+  var h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  var el=document.getElementById('countdown');
   if(el)el.textContent=(h<10?'0':'')+h+'h '+(m<10?'0':'')+m+'m '+(s<10?'0':'')+s+'s';
 }
-updateCountdown(); setInterval(updateCountdown,1000);
+updCD();setInterval(updCD,1000);
 
-// Carrello
-var cart=[];
-function addToCart(btn,name){
-  cart.push(name);
-  btn.textContent='&#x2705; Aggiunto!';
-  btn.style.background='#2ECC71';
-  setTimeout(function(){btn.textContent='&#x1F6D2; Aggiungi al Carrello';btn.style.background='';},2500);
-  var toast=document.getElementById('cart-toast');
-  toast.style.display='block';
-  toast.innerHTML='&#x1F6D2; <strong>'+cart.length+' prodott'+(cart.length===1?'o':'i')+'</strong> nel carrello: '+cart.slice(-3).join(', ')+(cart.length>3?' e altri...':'')+'  &nbsp;<a href="#preordini" style="color:var(--verde2);font-weight:700">&#x2192; Vai al Preordine</a>';
+function togMN(){
+  document.getElementById('mnav').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('mnav').classList.contains('open')?'hidden':'';
+}
+function closeMN(e){if(e.target===document.getElementById('mnav'))togMN();}
+
+function subAz(btn){
+  btn.innerHTML='&#10003; Richiesta inviata! Ti contattiamo entro 24h.';
+  btn.style.background='#16a34a';btn.onclick=null;
 }
 
-// Contatore quantita
-function changeQty(delta){
-  var el=document.getElementById('pf-qty');
-  var v=parseInt(el.value||1)+delta;
-  el.value=Math.max(1,Math.min(50,v));
-}
+// Catbar links smooth scroll
+document.querySelectorAll('.clink').forEach(function(l){
+  l.addEventListener('click',function(e){
+    e.preventDefault();
+    document.querySelectorAll('.clink').forEach(function(x){x.classList.remove('active');});
+    l.classList.add('active');
+    var k=l.getAttribute('href').replace('#sec-','');
+    var map={sementi:'sementi',fitosanitari:'fito',concimi:'concimi',mangimi:'mangimi',attrezzature:'attrez',irrigazione:'irrig',piante:'piante',zootecnia:'mangimi',substrati:'substrati',giardinaggio:'giard'};
+    var tid=map[k]||k;
+    document.getElementById('catalogo').scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){swTab(tid);},400);
+  });
+});
 
-// Submit preordine
-function submitPreordine(){
-  var nome=document.getElementById('pf-nome').value.trim();
-  if(!nome){alert('Inserisci il tuo nome per procedere.');return;}
-  var btn=document.getElementById('pf-submit');
-  btn.textContent='&#x2705; Preordine inviato! Ti contattiamo su WhatsApp entro 24h.';
-  btn.style.background='#2ECC71';
-  btn.style.cursor='default';
-  btn.onclick=null;
-}
+buildCat();buildOffers();
 </script>
 </body>
 </html>
